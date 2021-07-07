@@ -264,4 +264,32 @@ You may have many attributes to consider.
 \end{itemize}
 
 
+\section*{Unsupervised learning - introduction}
+\begin{itemize}
+\item Second major type.
+\item We use labeled datasets (as opposed to unlabeled).
+\end{itemize}
+
+\subsection*{Clustering algorithm}
+\begin{itemize}
+\item Google news. Groups news stories into cohesive groups.
+\item Genomics.
+\item Microarray data. Have a group of individuals. On each measure expression of a gene. Run algorithm to cluster individuals into types of people.
+\item Organize computer clusters. Identify potential weak spots or distribute workload effectively.
+\item Social network analysis. Customer data.
+\item Astronomical data analysis. Algorithms give amazing results.
+\end{itemize}
+
+\includegraphics[width=\textwidth]{resources/genes}
+
+\subsection*{Cocktail party problem}
+
+\begin{itemize}
+\item Depending on where your microphone is, record slightly different versions of the conversation.
+\item Give the recordings to the algorithm.
+\item It is discovered that there are two audio sources.
+\end{itemize}
+
+$$[W,s,v] = svd((repmat(sum(x.*x,1), size(x,1),1).*x)*x');$$
+
 \end{document}
