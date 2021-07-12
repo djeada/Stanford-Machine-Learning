@@ -44,6 +44,7 @@ anchor=north east}}
 Previously, our hypothesis had the following form:
 $$h_{\theta}(x) = \theta_0 + \theta_1x$$
 
+~\\
 Now we have multiple features:
 $$h_{\theta}(x) = \theta_0 + \theta_1x_1 + \theta_2x_2 + \theta_3x_3 + + \theta_4x_4$$
 
@@ -61,7 +62,7 @@ $$\quad J(\theta_0, \theta_1, ..., \theta_n) = \frac{1}{2m} \sum_{m}^{i=1}(h_{\t
 \begin{algorithmic}[1]
 \Large
 \While {not converged}
-\State $\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta_0, ..., \theta_n)$.
+\State $\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta_0, ..., \theta_n)$
 \State $(for\ j = 0, ..., n)$
 \EndWhile
 \end{algorithmic}
@@ -112,19 +113,22 @@ Automatic convergence tests
 \begin{itemize}
 \item Check if $J(\theta)$ changes by a small threshold or less.
 \item Choosing this threshold is hard.
-\item So often easier to check for a straight line.
+\item It's easier to check for a straight line.
 \item Why? - Because we're seeing the straightness in the context of the whole algorithm.
 \end{itemize}
 
 ~\\
 If you plot $J(\theta)$ vs iterations and see the value is increasing - means you probably need a smaller $\alpha$.
 
-\includegraphics[width=0.5\textwidth]{resources/alpha_big}
+\includegraphics[width=0.4\textwidth]{resources/alpha_big}
 
 ~\\
-However, you overshoot, therefore lower your learning rate so that you can reach the minimum (green line).\\
+However, you might overshoot, therefore lower your learning rate so that you can reach the minimum (green line).\\
 
-\includegraphics[width=0.5\textwidth]{resources/alpha_small}
+\includegraphics[width=0.4\textwidth]{resources/alpha_small}
+
+~\\
+BUT, if $\alpha$ is too small then rate is too slow.
 
 \section*{Features and polynomial regression}
 
@@ -140,7 +144,7 @@ However, you overshoot, therefore lower your learning rate so that you can reach
 
 \begin{itemize}
 \item The normal equation is a superior approach for some linear regression problems.
-\item We've been using a gradient descent - iterative method that takes steps to convere.
+\item We've been using a gradient descent - iterative method that takes steps to converge.
 \item Normal equation gives us $\theta$ analytically.
 \end{itemize}
 
