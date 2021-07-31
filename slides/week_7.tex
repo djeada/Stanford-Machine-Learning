@@ -101,7 +101,7 @@ Later in the course, we'll look at various automated methods for selecting $\lam
 Logistic regression cost function is as follows:
 
 
-$$J(\theta) = -\frac{1}{m} [\sum_{i=1}^{m} y^{(i)} log h_{\theta}(x^{(i)}) + (1- y^{(i)})log(1 - h_{\theta}(x^{(i)}))] +  \frac{\lambda}{2m} \sum_{j=1}^{m} \theta_j^2$$
+$$J(\theta) = -\frac{1}{m} \sum_{i=1}^{m}[ y^{(i)} log h_{\theta}(x^{(i)}) + (1- y^{(i)})log(1 - h_{\theta}(x^{(i)}))] +  \frac{\lambda}{2m} \sum_{j=1}^{m} \theta_j^2$$
 
 \begin{algorithm}
   \caption{Regularized logistic regression}\label{euclid}
