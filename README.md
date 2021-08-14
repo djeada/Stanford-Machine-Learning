@@ -1,5 +1,5 @@
 # Stanford-Machine-Learning
-The following notes give an overview of Professor Andrew Ng's machine learning course, which is available on the coursera platform.
+The following notes give an overview of Professor Andrew Ng's machine learning course. The course is available on the coursera platform.
 
 <h1>Notes</h1>
 
