@@ -25,41 +25,41 @@ anchor=north east}}
 \makeatother
 \title{Week 3}
 \begin{document}
-  \pagenumbering{gobble}
-  \maketitle
-  \newpage
-  \pagenumbering{arabic}
+\pagenumbering{gobble}
+\maketitle
+\newpage
+\pagenumbering{arabic}
 
 \section*{Matrices - overview}
 \begin{itemize}
-\item Rectangular array of numbers written between square brackets.
-\item 2D array.
-\item Named as capital letters (A,B,X,Y).
-\item It allows you to organize, index, and access a large amount of data.
-\item Dimension of a matrix are [Rows x Columns].
-\item $A_{(i,j)} =$ entry in $i^{th}$ row and $j^{th}$ column.
+  \item Rectangular array of numbers written between square brackets.
+  \item 2D array.
+  \item Named as capital letters (A,B,X,Y).
+  \item It allows you to organize, index, and access a large amount of data.
+  \item Dimension of a matrix are [Rows x Columns].
+  \item $A_{(i,j)} =$ entry in $i^{th}$ row and $j^{th}$ column.
 \end{itemize}
 
 \includegraphics[width=0.8\textwidth]{resources/matrix_element}
 
 \section*{Vectors - overview}
 \begin{itemize}
-\item n by 1 matrix.
-\item Usually referred to as a lower case letter
-\item $v_i $ is an $i^{th}$ element.
-\item It allows you to organize, index, and access a large amount of data.
-\item Dimension of a matrix are [Rows x Columns].
-\item $A_{(i,j)} =$ entry in $i^{th}$ row and $j^{th}$ column.
+  \item n by 1 matrix.
+  \item Usually referred to as a lower case letter
+  \item $v_i $ is an $i^{th}$ element.
+  \item It allows you to organize, index, and access a large amount of data.
+  \item Dimension of a matrix are [Rows x Columns].
+  \item $A_{(i,j)} =$ entry in $i^{th}$ row and $j^{th}$ column.
 \end{itemize}
 
-  \begin{align*}
-    y &= \begin{bmatrix}
-           x_{1} \\
-           x_{2} \\
-           \vdots \\
-           x_{m}
-         \end{bmatrix}
-  \end{align*}
+\begin{align*}
+  y & = \begin{bmatrix}
+    x_{1}  \\
+    x_{2}  \\
+    \vdots \\
+    x_{m}
+  \end{bmatrix}
+\end{align*}
 
 \section*{Matrix manipulation}
 
@@ -80,8 +80,8 @@ anchor=north east}}
 \includegraphics[width=0.5\textwidth]{resources/matrix_mult_matrix}
 
 \begin{itemize}
-\item Take matrix A and multiply by the first column vector from B.
-\item Take the matrix A and multiply by the second column vector from B.
+  \item Take matrix A and multiply by the first column vector from B.
+  \item Take the matrix A and multiply by the second column vector from B.
 \end{itemize}
 
 \includegraphics[width=0.8\textwidth]{resources/matrix_mult_column}
@@ -89,9 +89,9 @@ anchor=north east}}
 \subsection*{Implementation/use}
 
 \begin{itemize}
-\item House prices. However, we now have three hypotheses and the same data set.
-\item We can use matrix-matrix multiplication to efficiently apply all three hypotheses to all data.
-\item For example, suppose we have four houses and we wish to guess their prices. There are three opposing hypotheses. Because our hypothesis is only one variable, we convert our data (home sizes) vector into a 4x2 matrix by adding an extra column of 1s.
+  \item House prices. However, we now have three hypotheses and the same data set.
+  \item We can use matrix-matrix multiplication to efficiently apply all three hypotheses to all data.
+  \item For example, suppose we have four houses and we wish to guess their prices. There are three opposing hypotheses. Because our hypothesis is only one variable, we convert our data (home sizes) vector into a 4x2 matrix by adding an extra column of 1s.
 \end{itemize}
 
 \includegraphics[width=\textwidth]{resources/matrix_mult_use}
@@ -131,12 +131,12 @@ $$z \cdot 1 = z$$
 In matrices we have an identity matrix called I:
 
 \begin{equation*}
-I = 
-\begin{pmatrix}
-1 & 0 & 0 \\
-0 & 1 & 0 \\
-0 & 0 & 1
-\end{pmatrix}
+  I =
+  \begin{pmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+  \end{pmatrix}
 \end{equation*}
 
 ~\\
