@@ -37,6 +37,12 @@ The following notes give an overview of Professor Andrew Ng's machine learning c
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_4.pdf">PDF</a></td>
         </tr>
         <tr>
+            <td>Week 5</td>
+            <td>Octave</td>
+            <td><a>-</a></td>
+            <td><a>-</a></td>
+        </tr>
+        <tr>
             <td>Week 6</td>
             <td>Logistic Regression.</td>
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_6.tex">Tex</a></td>
@@ -89,6 +95,30 @@ The following notes give an overview of Professor Andrew Ng's machine learning c
             <td>Dimensionality Reduction.</td>
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_14.tex">Tex</a></td>
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_14.pdf">PDF</a></td>
+        </tr>
+        <tr>
+            <td>Week 15</td>
+            <td>Anomaly Detection.</td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_15.tex">Tex</a></td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_15.pdf">PDF</a></td>
+        </tr>
+        <tr>
+            <td>Week 16</td>
+            <td>Recommender Systems.</td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_16.tex">Tex</a></td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_16.pdf">PDF</a></td>
+        </tr>
+        <tr>
+            <td>Week 17</td>
+            <td>Large Scale Machine Learning.</td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_17.tex">Tex</a></td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_17.pdf">PDF</a></td>
+        </tr>
+        <tr>
+            <td>Week 18</td>
+            <td>Application Example - Photo OCR.</td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_18.tex">Tex</a></td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_18.pdf">PDF</a></td>
         </tr>
     </tbody>
 </table>
