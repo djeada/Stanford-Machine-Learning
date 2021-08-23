@@ -10,7 +10,7 @@ DATA_PATH_2 = "data/data2.txt"
 
 def read_data(path, usecols=(0, 1)):
     """
-    x is a matrix with 2 columns and m rows
+    x is a matrix with m rows and n columns
     y is a matrix with m rows and 1 column
     """
 
