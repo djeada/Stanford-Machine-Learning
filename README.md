@@ -140,37 +140,37 @@ The following notes give an overview of Professor Andrew Ng's machine learning c
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_1/ex1.py">Python</a></td>
         </tr>
         <tr>
-            <td>Week 2</td>
+            <td>2</td>
             <td>Logistic Regression.</td>
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_2/ex2.py">Python</a></td>
         </tr>
         <tr>
-            <td>Week 3</td>
+            <td>3</td>
             <td>Multi-class Classification and Neural Networks.</td>
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_3/ex3.py">Python</a></td>
         </tr>
         <tr>
-            <td>Week 4</td>
+            <td>4</td>
             <td>Neural Network Learning.</td>
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_4/ex4.py">Python</a></td>
         </tr>
         <tr>
-            <td>Week 5</td>
+            <td>5</td>
             <td>Regularized Linear Regression and Bias vs Variance.</td>
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_5/ex5.py">Python</a></td>
         </tr>
         <tr>
-            <td>Week 6</td>
+            <td>6</td>
             <td>Support Vector Machines.</td>
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_6/ex6.py">Python</a></td>
         </tr>
         <tr>
-            <td>Week 7</td>
+            <td>7</td>
             <td>K-means Clustering and Principal Component Analysis.</td>
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_7/ex7.py">Python</a></td>
         </tr>
-        <tr
-            <td>Week 8</td>
+        <tr>
+            <td>8</td>
             <td>Anomaly Detection and Recommender Systems.</td>
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_8/ex8.py">Python</a></td>
         </tr>
