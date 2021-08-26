@@ -1,5 +1,5 @@
 # Stanford-Machine-Learning
-The following notes give an overview of Professor Andrew Ng's machine learning course. The course is available on the coursera platform.
+The following notes give an overview of Professor Andrew Ng's machine learning course. The course is available on the <a href="https://www.coursera.org/learn/machine-learning">coursera platform</a>.
 
 <h1>Notes</h1>
 
@@ -119,6 +119,60 @@ The following notes give an overview of Professor Andrew Ng's machine learning c
             <td>Application Example - Photo OCR.</td>
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_18.tex">Tex</a></td>
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_18.pdf">PDF</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<h1>Programming exercises</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Solution</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Linear Regression.</td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_1/ex1.py">Python</a></td>
+        </tr>
+        <tr>
+            <td>Week 2</td>
+            <td>Logistic Regression.</td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_2/ex2.py">Python</a></td>
+        </tr>
+        <tr>
+            <td>Week 3</td>
+            <td>Multi-class Classification and Neural Networks.</td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_3/ex3.py">Python</a></td>
+        </tr>
+        <tr>
+            <td>Week 4</td>
+            <td>Neural Network Learning.</td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_4/ex4.py">Python</a></td>
+        </tr>
+        <tr>
+            <td>Week 5</td>
+            <td>Regularized Linear Regression and Bias vs Variance.</td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_5/ex5.py">Python</a></td>
+        </tr>
+        <tr>
+            <td>Week 6</td>
+            <td>Support Vector Machines.</td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_6/ex6.py">Python</a></td>
+        </tr>
+        <tr>
+            <td>Week 7</td>
+            <td>K-means Clustering and Principal Component Analysis.</td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_7/ex7.py">Python</a></td>
+        </tr>
+        <tr
+            <td>Week 8</td>
+            <td>Anomaly Detection and Recommender Systems.</td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_8/ex8.py">Python</a></td>
         </tr>
     </tbody>
 </table>
