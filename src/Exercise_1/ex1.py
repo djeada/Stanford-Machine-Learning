@@ -174,13 +174,18 @@ def plot_histogram(x, output_file):
 def part_1():
     x, y = read_data(DATA_PATH_1)
     plot_data((x, y))
-    # cost = compute_cost(x, y)
+    cost = compute_cost(x, y)
     theta_history, costs = gradient_descent(x, y)
     plot_convergence(costs, (4, 7), "convergence_of_gradient_descent_part1")
     plot_linear_regression_fit((theta_history[-1], x, y))
     plot_cost_function_3d((theta_history, costs, x, y))
 
-
+    with open("result.txt", "w") as output_file:
+        output_file.write("Part 1:\n")
+        output_file.write("Computed cost:\n")
+        output_file.write(f"{cost: .2f}\n")
+    
+    
 def part_2():
     x, y = read_data(DATA_PATH_2, (0, 1, 2))
     plot_histogram(x, "count_freq_per_coulmn_before_norm")
@@ -195,10 +200,12 @@ def part_2():
 
     plot_convergence(costs, (0, max(costs)), "convergence_of_gradient_descent_part2")
 
+    result = predict_from_means_and_stds(
+        means, stds, theta_history[-1], house_size, num_bedrooms
+    )
+    
     with open("result.txt", "a") as output_file:
-        result = predict_from_means_and_stds(
-            means, stds, theta_history[-1], house_size, num_bedrooms
-        )
+        output_file.write("\nPart 2:\n")
         output_file.write("Prediction using means and stds for price of house with 1650 square feet and 3 bedrooms:\n")
         output_file.write(f"{result: .2f}$\n")
 
