@@ -280,7 +280,7 @@ def main():
     plt.style.use("seaborn")
     part_1()
     part_2()
-    plt.show()
+    # plt.show()
 
 
 if __name__ == "__main__":
