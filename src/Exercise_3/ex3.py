@@ -110,7 +110,7 @@ def propagate_forward(row, theta):
 
     hidden_layer = sigmoid(np.dot(row, theta_1.T))
     hidden_layer = np.concatenate([np.ones([1]), hidden_layer])
-    
+
     return sigmoid(np.dot(hidden_layer, theta_2.T))
 
 

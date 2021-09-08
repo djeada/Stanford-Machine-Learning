@@ -140,7 +140,9 @@ def plot_boundary(data):
     ]
     range_z = np.array(range_z).T
 
-    contour = plt.contour(range_x, range_y, range_z, [0], cmap=plt.cm.coolwarm, extend="both")
+    contour = plt.contour(
+        range_x, range_y, range_z, [0], cmap=plt.cm.coolwarm, extend="both"
+    )
     plt.clabel(contour, inline=1, fmt={0: f"Lambda = {_lambda}"})
     plt.title("Decision Boundary")
 

@@ -184,8 +184,8 @@ def part_1():
         output_file.write("Part 1:\n")
         output_file.write("Computed cost:\n")
         output_file.write(f"{cost: .2f}\n")
-    
-    
+
+
 def part_2():
     x, y = read_data(DATA_PATH_2, (0, 1, 2))
     plot_histogram(x, "count_freq_per_coulmn_before_norm")
@@ -203,14 +203,18 @@ def part_2():
     result = predict_from_means_and_stds(
         means, stds, theta_history[-1], house_size, num_bedrooms
     )
-    
+
     with open("result.txt", "a") as output_file:
         output_file.write("\nPart 2:\n")
-        output_file.write("Prediction using means and stds for price of house with 1650 square feet and 3 bedrooms:\n")
+        output_file.write(
+            "Prediction using means and stds for price of house with 1650 square feet and 3 bedrooms:\n"
+        )
         output_file.write(f"{result: .2f}$\n")
 
         result = predict_from_normal_equation(x, y, house_size, num_bedrooms)[0]
-        output_file.write("\nNormal equation prediction for price of house with 1650 square feet and 3 bedrooms:\n")
+        output_file.write(
+            "\nNormal equation prediction for price of house with 1650 square feet and 3 bedrooms:\n"
+        )
         output_file.write(f"{result: .2f}$\n")
 
 
