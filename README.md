@@ -171,7 +171,7 @@ The following notes give an overview of Professor Andrew Ng's machine learning c
         </tr>
         <tr>
             <td>8</td>
-            <td>Anomaly Detection and Recommender Systems.</td>
+            <td>Anomaly Detection and Recommendation Systems.</td>
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_8/ex8.py">Python</a></td>
         </tr>
     </tbody>
