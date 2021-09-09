@@ -3,21 +3,38 @@ import matplotlib.pyplot as plt
 import scipy.io
 import scipy.optimize
 from sklearn import svm
+from nltk.stem import PorterStemmer
+import re
+import pandas as pd
 
 DATA_PATH_1 = "data/data1.mat"
 DATA_PATH_2 = "data/data2.mat"
 DATA_PATH_3 = "data/data3.mat"
+DATA_PATH_4 = "data/emailSample1.txt"
+DATA_PATH_5 = "data/vocab.txt"
+DATA_PATH_6 = "data/spamTrain.mat"
+DATA_PATH_7 = "data/spamTest.mat"
 
 
-def read_data(path, usecols=(0, 1)):
+def read_data(path):
     """
     x is a matrix with m rows and n columns
     y is a matrix with m rows and 1 column
-    three input sets: training, validation and test 
     """
 
     raw_data = scipy.io.loadmat(path)
     x, y = raw_data["X"], raw_data["y"]
+    return x, y
+
+
+def read_test_data(path):
+    """
+    x is a matrix with m rows and n columns
+    y is a matrix with m rows and 1 column
+    """
+
+    raw_data = scipy.io.loadmat(path)
+    x, y = raw_data["Xtest"], raw_data["ytest"]
     return x, y
 
 
@@ -77,6 +94,78 @@ def plot_boundary_gaussian(data, n=200):
     plt.contour(x_range, y_range, prediction_grid, cmap=plt.cm.coolwarm, extend="both")
 
 
+def read_tokens(path, vocabulary):
+    with open(path, "r") as email:
+        return process_email(email.read(), vocabulary)
+
+    return list()
+
+
+def read_vocabulary(path):
+    with open(path, "r") as vocab:
+        return [line[:-1].split("\t")[-1] for line in vocab.readlines()]
+
+    return list()
+
+
+def process_email(content, vocabulary):
+    return tokenize_email(pre_processing(content), vocabulary)
+
+
+def pre_processing(content):
+    content = content.lower()
+
+    def replace(old, new):
+        return re.sub(old, new, content)
+
+    # strip html tags
+    content = replace("<[^<>]+>", " ")
+
+    # replace digits with a word 'number'
+    content = replace("[0-9]+", "number")
+
+    # replace dollar signs with a word 'dollar'
+    content = replace("[$]+", "dollar")
+
+    # strings starting with http are replaced with _http
+    content = replace("(http|https)://[^\s]*", "httpaddr")
+
+    # strings containg @ sign are replaced with _addr
+    content = replace("[^\s]+@[^\s]+", "contentaddr")
+
+    return content
+
+
+def tokenize_email(content, vocabulary):
+    tokens = []
+    words = re.split(
+        r"\s|\@|\$|\/|\#|\.|\-|\:|\&|\*|\+|\=|\[|\]|\?|\!|\(|\)|\{|\}|\,|\'|\'|\"|\>|\_|\<|\;|\%",
+        content,
+    )
+
+    stemmer = PorterStemmer()
+
+    for word in words:
+        # Remove nonalphanumeric characters
+        alphanumeric = re.compile(r"[^a-zA-Z0-9]")
+        word = alphanumeric.sub("", word)
+
+        # Stem the word
+        word = stemmer.stem(word)
+
+        # Get index if it exists
+        if word in vocabulary:
+            tokens.append(vocabulary.index(word))
+
+    return tokens
+
+
+def extract_features(tokens, num_words):
+    features = np.zeros(num_words)
+    features[tokens] = 1
+    return features
+
+
 def part_1():
     x, y = read_data(DATA_PATH_1)
     pos = np.array([x[i] for i in range(x.shape[0]) if y[i] == 1])
@@ -131,11 +220,46 @@ def part_3():
     )
 
 
+def part_4():
+    vocabulary = read_vocabulary(DATA_PATH_5)
+    tokens = read_tokens(DATA_PATH_4, vocabulary)
+    feature_vector_len = len(vocabulary)
+    features = extract_features(tokens, feature_vector_len)
+    non_zero_count = np.count_nonzero(features)
+
+    print(f"Length of feature vector is {feature_vector_len}")
+    print(f"Number of non-zero entries is {non_zero_count}")
+
+    x, y = read_data(DATA_PATH_6)
+    svm_function = train_svm(
+        x,
+        y,
+        C=0.1,
+        coef0=0.0,
+        decision_function_shape="ovr",
+        degree=3,
+        gamma="auto",
+        kernel="linear",
+    )
+
+    predictions = svm_function.predict(x)
+    print(f"Training accuracy: {np.mean(predictions == y.flatten()) * 100}")
+
+    x_test, y_test = read_test_data(DATA_PATH_7)
+    predictions = svm_function.predict(x_test)
+    print(f"Test accuracy: {np.mean(predictions == y_test.flatten()) * 100}")
+
+    weights = svm_function.coef_[0]
+    data_frame = pd.DataFrame({"vocabulary": vocabulary, "weights": weights})
+    print(data_frame.sort_values(by="weights", ascending=False).head())
+
+
 def main():
     plt.style.use("seaborn")
     part_1()
     part_2()
     part_3()
+    part_4()
     plt.show()
 
 
