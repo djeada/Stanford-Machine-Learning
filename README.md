@@ -1,4 +1,12 @@
 # Stanford-Machine-Learning
+
+<div align="center">
+<a href="https://github.com/djeada/Stanford-Machine-Learning/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/djeada/Stanford-Machine-Learning"></a>
+<a href="https://github.com/djeada/Stanford-Machine-Learning/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/djeada/Stanford-Machine-Learning"></a>
+<a href="https://github.com/djeada/Stanford-Machine-Learning/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/djeada/Stanford-Machine-Learning"></a>
+<a href=""><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a>
+</div>
+
 The following notes give an overview of Professor Andrew Ng's machine learning course. The course is available on the <a href="https://www.coursera.org/learn/machine-learning">coursera platform</a>.
 
 <h1>Notes</h1>
