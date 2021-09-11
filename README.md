@@ -10,6 +10,8 @@ The following notes give an overview of Professor Andrew Ng's machine learning c
 
 <h1>Notes</h1>
 
+I recommend that you visit this <a href="http://www.holehouse.org/mlclass/">website</a> for more detailed notes.
+
 <table>
     <thead>
         <tr>
