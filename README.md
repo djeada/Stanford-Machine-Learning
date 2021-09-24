@@ -146,42 +146,42 @@ I recommend that you visit this <a href="http://www.holehouse.org/mlclass/">webs
         <tr>
             <td>1</td>
             <td>Linear Regression.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_1/ex1.py">Python</a></td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_1/src/ex1.py">Python</a></td>
         </tr>
         <tr>
             <td>2</td>
             <td>Logistic Regression.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_2/ex2.py">Python</a></td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_2/src/ex2.py">Python</a></td>
         </tr>
         <tr>
             <td>3</td>
             <td>Multi-class Classification and Neural Networks.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_3/ex3.py">Python</a></td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_3/src/ex3.py">Python</a></td>
         </tr>
         <tr>
             <td>4</td>
             <td>Neural Network Learning.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_4/ex4.py">Python</a></td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_4/src/ex4.py">Python</a></td>
         </tr>
         <tr>
             <td>5</td>
             <td>Regularized Linear Regression and Bias vs Variance.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_5/ex5.py">Python</a></td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_5/src/ex5.py">Python</a></td>
         </tr>
         <tr>
             <td>6</td>
             <td>Support Vector Machines.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_6/ex6.py">Python</a></td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_6/src/ex6.py">Python</a></td>
         </tr>
         <tr>
             <td>7</td>
             <td>K-means Clustering and Principal Component Analysis.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_7/ex7.py">Python</a></td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_7/src/ex7.py">Python</a></td>
         </tr>
         <tr>
             <td>8</td>
             <td>Anomaly Detection and Recommendation Systems.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_8/ex8.py">Python</a></td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/Exercise_8/src/ex8.py">Python</a></td>
         </tr>
     </tbody>
 </table>
