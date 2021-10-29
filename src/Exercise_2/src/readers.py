@@ -7,10 +7,21 @@ in the Machine Learning course on coursera.com.
 import numpy as np
 from pathlib import Path
 
+
 def read_data(path: Path, use_cols: tuple = (0, 1, 2)) -> tuple:
     """
-    x is a matrix with m rows and n columns
-    y is a matrix with m rows and 1 column
+    Reads the data from the given path and returns the X and y arrays. 
+    The X array is a 2D array with the first column as the index and the second column as the value. 
+    The y array is a 1D array with the labels.
+
+    Args:
+        path: The path to the data file.
+        use_cols: The columns to use from the data file.
+
+    Returns:
+        A tuple consisting of:
+        - x: The X array.
+        - y: The y array.
     """
 
     raw_data = np.loadtxt(path, delimiter=",", usecols=use_cols, unpack=True)
