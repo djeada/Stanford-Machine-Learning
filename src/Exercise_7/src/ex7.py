@@ -1,6 +1,6 @@
 """"
 The goal of this module is to give a comprehensive solution to Task 7
-from the coding homeworks in the Machine Learning course on coursera.com.
+from the coding homeworks from the Machine Learning course on coursera.com.
 The task is broken down into smaller parts.
 """
 
@@ -19,6 +19,11 @@ DATA_PATH_4 = Path("../data/faces.mat")
 
 
 def part_1():
+    """
+
+    Returns:
+      None
+    """
     x = readers.read_data(DATA_PATH_1)
     plots.plot_data((x[:, 0], x[:, 1]))
 
@@ -32,6 +37,11 @@ def part_1():
 
 
 def part_2():
+    """
+
+    Returns:
+      None
+    """
     x, original_shape = readers.read_image(DATA_PATH_2)
     k = 16
     centroid_history, _ = algorithms.find_k_means(x, k)
@@ -44,6 +54,11 @@ def part_2():
 
 
 def part_3():
+    """
+
+    Returns:
+      None
+    """
     x = readers.read_data(DATA_PATH_3)
     plots.plot_data((x[:, 0], x[:, 1]), title="scatter plot of training data 2")
     x_norm, _, _ = algorithms.normalize_features(x)
@@ -60,6 +75,11 @@ def part_3():
 
 
 def part_4():
+    """
+
+    Returns:
+      None
+    """
     x = readers.read_data(DATA_PATH_4)
     plots.plot_data((x[:, 0], x[:, 1]))
     plots.display_image_grid(x)
@@ -74,6 +94,13 @@ def part_4():
 
 
 def main() -> None:
+    """
+    The main functions. Calls the functions that implement different parts of the solution
+    to the Task 7 from the coding homeworks from the Machine Learning course on coursera.com.
+
+    Returns:
+      None
+    """
     plt.style.use("seaborn")
     part_1()
     part_2()

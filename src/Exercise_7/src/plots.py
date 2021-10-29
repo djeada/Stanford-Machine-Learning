@@ -5,13 +5,26 @@ for the Task 7 from the coding homeworks in the Machine Learning
 course on coursera.com.
 """
 
+from typing import Tuple
 import numpy as np
 import matplotlib.pyplot as plt
 
 from PIL import Image
 
 
-def plot_data(data: tuple, title="scatter plot of training data") -> None:
+def plot_data(data: Tuple[np.ndarray, np.ndarray], title: str = "Scatter Plot Of Training Data") -> None:
+    """
+    Plots the data in a scatter plot.
+    Args:
+      data:
+        A tuple of x and y values for the points to be plotted.
+
+      title:
+        A string that is used as the plot's title and the filename of the saved figure.
+
+    Returns:
+      None
+    """
     x, y = data
     plt.figure(figsize=(10, 6))
     plt.scatter(x, y, marker="o", c="g", s=100)
@@ -20,6 +33,19 @@ def plot_data(data: tuple, title="scatter plot of training data") -> None:
 
 
 def visualize_k_means(data: tuple, title="K means algorithm visualisation") -> None:
+    """
+    Visualizes the k-means algorithm. The algorithm is visualized by plotting the data points 
+    in a scatter plot and the centroids in a different color.
+
+    Args:
+      data:
+        A tuple of x and y values for the points to be plotted.
+      title:
+        A string that serves as both the plot's title and the saved figure's filename.
+    
+    Returns:
+      None
+    """
     x, k, idx, centroid_history = data
     plt.figure(figsize=(10, 6))
     for centroid in range(k):
@@ -34,10 +60,23 @@ def visualize_k_means(data: tuple, title="K means algorithm visualisation") -> N
         history = centroid_history[:, centroid, :]
         plt.plot(history[:, 0], history[:, 1], ".-", color="black", markersize=20)
 
+        #ADD SAVEFIG
+
     plt.title(title)
 
 
-def visualize_pca(data: tuple) -> None:
+def visualize_pca(data: Tuple[np.ndarray, np.ndarray]) -> None:
+    """
+    Visualizes the PCA algorithm. The algorithm is visualized by plotting the 
+    data points and the pcas results.
+
+    Args:
+      data:
+        A tuple of normalized data points and the pca results.
+      
+    Returns:
+      None
+    """
     x_norm, x_rec = data
     plt.figure(figsize=(10, 6))
     plt.scatter(
@@ -57,7 +96,17 @@ def visualize_pca(data: tuple) -> None:
     plt.title("Original Data Points and Reduced Dimension Points")
 
 
-def display_image_grid(x) -> None:
+def display_image_grid(x: np.ndarray) -> None:
+    """
+    Displays a grid of images. The images are scaled to the range [0, 1].
+
+    Args:
+      x:
+        A numpy array of shape (n_images, height, width, channels) containing the images.
+
+    Returns:
+      None
+    """
     rows, cols = 4, 4
     width, height = 32, 32
     size = int(np.sqrt(x.shape[-1]))
