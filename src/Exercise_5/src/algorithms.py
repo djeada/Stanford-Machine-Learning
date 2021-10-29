@@ -25,7 +25,9 @@ def hypothesis_function(x: np.ndarray, theta: np.ndarray) -> np.ndarray:
     return np.dot(x, theta)
 
 
-def compute_cost(x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda: int = 0) -> np.float64:
+def compute_cost(
+    x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda: int = 0
+) -> np.float64:
     """
     Computes the cost of using theta as the parameter for linear regression to fit the data points in x and y. 
     
@@ -44,19 +46,21 @@ def compute_cost(x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda
     m = y.size
 
     j = (
-            1
-            / (2 * m)
-            * np.dot(
-        (hypothesis_function(x, theta).reshape((m, 1)) - y).T,
-        (hypothesis_function(x, theta).reshape((m, 1)) - y),
-    )
+        1
+        / (2 * m)
+        * np.dot(
+            (hypothesis_function(x, theta).reshape((m, 1)) - y).T,
+            (hypothesis_function(x, theta).reshape((m, 1)) - y),
+        )
     )
     reg = _lambda / (2 * m) * np.dot(theta[1:].T, theta[1:])
 
     return (j + reg)[0][0]
 
 
-def compute_gradient(x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda: int = 0) -> np.ndarray:
+def compute_gradient(
+    x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda: int = 0
+) -> np.ndarray:
     """
     Computes the gradient of the cost function.
 
@@ -84,7 +88,9 @@ def compute_gradient(x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _la
     return gradient + reg.reshape((gradient.shape[0], 1))
 
 
-def optimize_theta(x: np.ndarray, y: np.ndarray, theta: np.ndarray, _lambda: int = 0) -> np.ndarray:
+def optimize_theta(
+    x: np.ndarray, y: np.ndarray, theta: np.ndarray, _lambda: int = 0
+) -> np.ndarray:
     """
     Optimizes theta using the scipy.optimize.minimize function.
 

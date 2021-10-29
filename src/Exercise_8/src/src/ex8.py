@@ -108,7 +108,7 @@ def part_4() -> None:
 
     result = algorithms.optimize_theta(y, r, _lambda=10)
     x = result[: num_movies * num_features].reshape((num_movies, num_features))
-    theta = result[num_movies * num_features:].reshape((num_users, num_features))
+    theta = result[num_movies * num_features :].reshape((num_users, num_features))
     y_norm, y_mean = algorithms.normalize_ratings(y, r)
 
     prediction_matrix = x.dot(theta.T)

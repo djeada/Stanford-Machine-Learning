@@ -65,7 +65,9 @@ def compute_means(x: np.ndarray, idx: list, k: int) -> list:
     return centroids
 
 
-def reconstruct_image(centroids: np.ndarray, idx: list, original_shape: tuple[int]) -> Image:
+def reconstruct_image(
+    centroids: np.ndarray, idx: list, original_shape: tuple[int]
+) -> Image:
     """
     Reconstruct an image from its compressed representation. The compressed representation is given by the indices of the centroids.
 
@@ -84,7 +86,9 @@ def reconstruct_image(centroids: np.ndarray, idx: list, original_shape: tuple[in
     return Image.fromarray(x_reconstructed)
 
 
-def find_k_means(x: np.ndarray, k: int, max_iter: int = 10) -> Tuple[np.ndarray, Optional[list]]:
+def find_k_means(
+    x: np.ndarray, k: int, max_iter: int = 10
+) -> Tuple[np.ndarray, Optional[list]]:
     """
     Implementation of K-means algorithm. This function returns the centroids and the list of centroid assignments for each data point.
 
@@ -108,7 +112,7 @@ def find_k_means(x: np.ndarray, k: int, max_iter: int = 10) -> Tuple[np.ndarray,
     return np.array(centroid_history), idx
 
 
-def normalize_features(x: np.ndarray) -> Tuple[np.ndarray,np.ndarray, np.ndarray]:
+def normalize_features(x: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Normalize the features in x. This function returns the normalized features and the mean used for normalization.
 

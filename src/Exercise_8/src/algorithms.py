@@ -40,7 +40,9 @@ def compute_gauss(grid: np.ndarray, mu: np.ndarray, sigma_2: np.ndarray) -> np.n
     return stats.multivariate_normal.pdf(x=grid, mean=mu, cov=sigma_2)
 
 
-def select_threshold(y_cv: np.ndarray, cv_set: np.ndarray, n_steps: int = 1000) -> tuple:
+def select_threshold(
+    y_cv: np.ndarray, cv_set: np.ndarray, n_steps: int = 1000
+) -> tuple:
     """
     Function to select the best epsilon value from the CV set
     by looping over possible epsilon values and computing the F1
@@ -60,7 +62,9 @@ def select_threshold(y_cv: np.ndarray, cv_set: np.ndarray, n_steps: int = 1000) 
     return best_f1, best_eps
 
 
-def collaborative_filtering_cost(x: np.ndarray, theta: np.ndarray, y: np.ndarray, r: np.ndarray, _lambda: float = 1.0):
+def collaborative_filtering_cost(
+    x: np.ndarray, theta: np.ndarray, y: np.ndarray, r: np.ndarray, _lambda: float = 1.0
+):
     """
     Collaborative filtering cost function
     """
@@ -75,8 +79,9 @@ def collaborative_filtering_cost(x: np.ndarray, theta: np.ndarray, y: np.ndarray
     return j
 
 
-def collaborative_filtering_gradient(x: np.ndarray, theta: np.ndarray, y: np.ndarray, r: np.ndarray,
-                                     _lambda: float = 1.0) -> np.ndarray:
+def collaborative_filtering_gradient(
+    x: np.ndarray, theta: np.ndarray, y: np.ndarray, r: np.ndarray, _lambda: float = 1.0
+) -> np.ndarray:
     """
     Collaborative filtering gradient
     """
@@ -130,7 +135,9 @@ def update_matrices_with_new_ratings(y: np.ndarray, r: np.ndarray) -> tuple:
     return new_ratings, y, r
 
 
-def optimize_theta(y: np.ndarray, r: np.ndarray, params=None, _lambda: int = 0) -> np.ndarray:
+def optimize_theta(
+    y: np.ndarray, r: np.ndarray, params=None, _lambda: int = 0
+) -> np.ndarray:
     if params is None:
         x = np.random.rand(5, 3)
         theta = np.random.rand(4, 3)
@@ -138,12 +145,12 @@ def optimize_theta(y: np.ndarray, r: np.ndarray, params=None, _lambda: int = 0) 
 
     def collaborative_filtering_cost_wrapper(_params):
         _x = _params[: 5 * 3].reshape((5, 3))
-        _theta = _params[5 * 3:].reshape((4, 3))
+        _theta = _params[5 * 3 :].reshape((4, 3))
         return collaborative_filtering_cost(_x, _theta, y, r, _lambda)
 
     def collaborative_filtering_gradient_wrapper(_params):
         _x = _params[: 5 * 3].reshape((5, 3))
-        _theta = _params[5 * 3:].reshape((4, 3))
+        _theta = _params[5 * 3 :].reshape((4, 3))
         return collaborative_filtering_gradient(_x, _theta, y, r, _lambda)
 
     return optimize.fmin_cg(

@@ -9,8 +9,9 @@ import numpy as np
 from scipy import optimize
 
 
-def propagate_forward(row: np.ndarray, thetas: Tuple[np.ndarray, np.ndarray]) ->\
-        Tuple[Tuple[np.ndarray, np.ndarray, np.ndarray], Tuple[np.ndarray, np.ndarray]]:
+def propagate_forward(
+    row: np.ndarray, thetas: Tuple[np.ndarray, np.ndarray]
+) -> Tuple[Tuple[np.ndarray, np.ndarray, np.ndarray], Tuple[np.ndarray, np.ndarray]]:
     """
     Implementation of the forward propagation algorithm. The function is
     a simple neural network including input layer, single hidden layer
@@ -25,6 +26,7 @@ def propagate_forward(row: np.ndarray, thetas: Tuple[np.ndarray, np.ndarray]) ->
     Returns:
       A tuple of arrays made up of an input layer, a hidden layer, and an output layer.
     """
+
     def sigmoid(z: np.ndarray) -> np.ndarray:
         """
         Sigmoid function implementation. It will apply the sigmoid function
@@ -58,8 +60,12 @@ def propagate_forward(row: np.ndarray, thetas: Tuple[np.ndarray, np.ndarray]) ->
     return (a_1, a_2, a_3), (z_2, z_3)
 
 
-def compute_cost(x: np.ndarray, y: np.ndarray, thetas: Tuple[np.ndarray, np.ndarray] = None,
-                 _lambda: int = 0) -> np.float64:
+def compute_cost(
+    x: np.ndarray,
+    y: np.ndarray,
+    thetas: Tuple[np.ndarray, np.ndarray] = None,
+    _lambda: int = 0,
+) -> np.float64:
     """
     Calculate the cost of a simple neural network. Calculates the cost of using theta as
     the neural network parameter for the fit of the given data points.
@@ -88,16 +94,21 @@ def compute_cost(x: np.ndarray, y: np.ndarray, thetas: Tuple[np.ndarray, np.ndar
 
     j = -1 / m * (np.sum(y_matrix * np.log(x) + (1 - y_matrix) * np.log(1 - x)))
     reg = (
-            _lambda
-            / (2 * m)
-            * (np.sum(np.square(theta_1[:, 1:])) + np.sum(np.square(theta_2[:, 1:])))
+        _lambda
+        / (2 * m)
+        * (np.sum(np.square(theta_1[:, 1:])) + np.sum(np.square(theta_2[:, 1:])))
     )
 
     return j + reg
 
 
-def backpropagation(a: Tuple[np.ndarray, np.ndarray, np.ndarray], z: Tuple[np.ndarray, np.ndarray], y: np.ndarray,
-                    thetas: Tuple[np.ndarray, np.ndarray], _lambda: int = 0) -> Tuple[np.ndarray, np.ndarray]:
+def backpropagation(
+    a: Tuple[np.ndarray, np.ndarray, np.ndarray],
+    z: Tuple[np.ndarray, np.ndarray],
+    y: np.ndarray,
+    thetas: Tuple[np.ndarray, np.ndarray],
+    _lambda: int = 0,
+) -> Tuple[np.ndarray, np.ndarray]:
     """
     Implementation of backpropagation algorithm for a simple neural network. Computes the optimal weights
     for given values of neural network layers.
@@ -153,7 +164,9 @@ def backpropagation(a: Tuple[np.ndarray, np.ndarray, np.ndarray], z: Tuple[np.nd
     return theta_1_grad.ravel(), theta_2_grad.ravel()
 
 
-def random_weights(input_layer_size: int, hidden_layer_size: int, epsilon: float = 0.12) -> np.ndarray:
+def random_weights(
+    input_layer_size: int, hidden_layer_size: int, epsilon: float = 0.12
+) -> np.ndarray:
     """
     Randomly initialize the weights of a layer in a neural network.
     
@@ -169,13 +182,13 @@ def random_weights(input_layer_size: int, hidden_layer_size: int, epsilon: float
       An array of random weights.
     """
     return (
-            np.random.rand(hidden_layer_size, 1 + input_layer_size) * 2 * epsilon
-            - epsilon
+        np.random.rand(hidden_layer_size, 1 + input_layer_size) * 2 * epsilon - epsilon
     )
 
 
-def split_theta(theta: np.ndarray, input_layer_size: int, hidden_layer_size: int, num_labels: int) -> \
-        tuple[np.ndarray, np.ndarray]:
+def split_theta(
+    theta: np.ndarray, input_layer_size: int, hidden_layer_size: int, num_labels: int
+) -> tuple[np.ndarray, np.ndarray]:
     """
     Split theta values into two sets of weights used in the neural network.
     
@@ -199,7 +212,7 @@ def split_theta(theta: np.ndarray, input_layer_size: int, hidden_layer_size: int
     )
 
     theta_2 = np.reshape(
-        theta[(hidden_layer_size * (input_layer_size + 1)):],
+        theta[(hidden_layer_size * (input_layer_size + 1)) :],
         (num_labels, (hidden_layer_size + 1)),
     )
 
@@ -207,13 +220,13 @@ def split_theta(theta: np.ndarray, input_layer_size: int, hidden_layer_size: int
 
 
 def optimize_theta(
-        x: np.ndarray,
-        y: np.ndarray,
-        theta: np.ndarray,
-        input_layer_size: int,
-        hidden_layer_size: int,
-        num_labels: int,
-        options: dict = {"maxiter": 100},
+    x: np.ndarray,
+    y: np.ndarray,
+    theta: np.ndarray,
+    input_layer_size: int,
+    hidden_layer_size: int,
+    num_labels: int,
+    options: dict = {"maxiter": 100},
 ) -> np.ndarray:
     """
     Calculate the optimal value of theta. The derivative terms need to be specified explicitly when using the "minimize"
@@ -238,6 +251,7 @@ def optimize_theta(
     Returns:
      The optimized value of theta.
     """
+
     def f_wrapper(_theta: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
         """
         Args:
@@ -260,7 +274,9 @@ def optimize_theta(
     ).x
 
 
-def calculate_accuracy(x: np.ndarray, y: np.ndarray, thetas: Tuple[np.ndarray, np.ndarray]) -> float:
+def calculate_accuracy(
+    x: np.ndarray, y: np.ndarray, thetas: Tuple[np.ndarray, np.ndarray]
+) -> float:
     """
     Calculate the proportion of properly classified samples.
 
@@ -300,6 +316,7 @@ def predict(row: np.ndarray, thetas: Tuple[np.ndarray, np.ndarray]) -> np.ndarra
     Returns:
       A prediction vector represents the predicted label for a given row.
     """
+
     def sigmoid(z: np.ndarray) -> np.ndarray:
         """
         Sigmoid function implementation. It will apply the sigmoid function

@@ -31,7 +31,9 @@ def part_1() -> None:
     # Divide the data into two groups: positive and negative points.
     pos = np.array([x[i] for i in range(len(x)) if y[i] == 1])
     neg = np.array([x[i] for i in range(len(x)) if y[i] == 0])
-    plots.plot_data((pos, neg), ("Admitted", "Not admitted", "Exam 1 score", "Exam 2 score"))
+    plots.plot_data(
+        (pos, neg), ("Admitted", "Not admitted", "Exam 1 score", "Exam 2 score")
+    )
     theta = algorithms.optimize_theta(x, y)
     plots.plot_logistic_regression_fit((theta, x, y, pos, neg))
 

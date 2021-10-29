@@ -22,6 +22,7 @@ def hypothesis_function(x: np.ndarray, theta: np.ndarray) -> np.ndarray:
         A vector containing the values of the sigmoid function obtained after
         the function was given the dot product of the matrix x and the vector theta.
     """
+
     def sigmoid(z: np.ndarray) -> np.ndarray:
         """
         Sigmoid function implementation. It will apply the sigmoid function
@@ -39,7 +40,9 @@ def hypothesis_function(x: np.ndarray, theta: np.ndarray) -> np.ndarray:
     return sigmoid(np.dot(x, theta))
 
 
-def compute_cost(x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda: int = 0) -> np.float64:
+def compute_cost(
+    x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda: int = 0
+) -> np.float64:
     """
     Calculate the cost of logistic regression. Calculates the cost of using theta as
     the logistic regression parameter for the fit of the given data points.
@@ -66,12 +69,14 @@ def compute_cost(x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda
     a = np.dot(-np.array(y).T, np.log(hypothesis_function(x, theta)))
     b = np.dot((1 - np.array(y)).T, np.log(1 - hypothesis_function(x, theta)))
     j = (1.0 / m) * np.sum(a - b)
-    reg = (_lambda / 2*m) * np.sum(np.dot(theta[1:].T, theta[1:]))
+    reg = (_lambda / 2 * m) * np.sum(np.dot(theta[1:].T, theta[1:]))
 
     return j + reg
 
 
-def optimize_theta(x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda: int = 0) -> np.ndarray:
+def optimize_theta(
+    x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda: int = 0
+) -> np.ndarray:
     """
     Calculate the optimal value of theta. The derivative terms do not need to be specified explicitly when
     using the "fmin" function. It simply requires the cost function and uses the downhill simplex algorithm
@@ -122,7 +127,9 @@ def predict(theta: np.ndarray, score_1: int, score_2: int) -> np.ndarray:
     return hypothesis_function(theta, np.array([1, score_1, score_2]))
 
 
-def calculate_accuracy(theta: np.ndarray, positive_points: np.ndarray, negative_points: np.ndarray) -> float:
+def calculate_accuracy(
+    theta: np.ndarray, positive_points: np.ndarray, negative_points: np.ndarray
+) -> float:
     """
     Calculate the proportion of properly classified samples.
 
@@ -150,7 +157,9 @@ def calculate_accuracy(theta: np.ndarray, positive_points: np.ndarray, negative_
     return total / (len(positive_points) + len(negative_points))
 
 
-def map_feature(x1_col: np.ndarray, x2_col: np.ndarray, n_degrees:int = 6) -> np.ndarray:
+def map_feature(
+    x1_col: np.ndarray, x2_col: np.ndarray, n_degrees: int = 6
+) -> np.ndarray:
     """
     The two input features are mapped to quadratic features for use in the
     regularization exercise.
@@ -176,7 +185,9 @@ def map_feature(x1_col: np.ndarray, x2_col: np.ndarray, n_degrees:int = 6) -> np
     return result
 
 
-def optimize_regularized_theta(x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda: int = 0) -> np.ndarray:
+def optimize_regularized_theta(
+    x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda: int = 0
+) -> np.ndarray:
     """
     Compute the optimized values of regularized theta.
 

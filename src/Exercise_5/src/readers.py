@@ -10,7 +10,13 @@ from pathlib import Path
 import scipy.io
 
 
-def read_data(path: Path) -> Tuple[Tuple[np.ndarray, np.ndarray], Tuple[np.ndarray, np.ndarray], Tuple[np.ndarray, np.ndarray]]:
+def read_data(
+    path: Path
+) -> Tuple[
+    Tuple[np.ndarray, np.ndarray],
+    Tuple[np.ndarray, np.ndarray],
+    Tuple[np.ndarray, np.ndarray],
+]:
     """
     Reads the data from the given path and returns the training, validation and test data.
 
@@ -21,7 +27,7 @@ def read_data(path: Path) -> Tuple[Tuple[np.ndarray, np.ndarray], Tuple[np.ndarr
         A tuple containing the training, validation and test data.
     """
 
-    raw_data = scipy.io.loadmat(f'{path}')
+    raw_data = scipy.io.loadmat(f"{path}")
     x, y = raw_data["X"], raw_data["y"]
     x_validation, y_validation = raw_data["Xval"], raw_data["yval"]
     x_test, y_test = raw_data["Xtest"], raw_data["ytest"]

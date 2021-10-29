@@ -38,7 +38,9 @@ def part_1() -> None:
     for c_value in (1, 100):
         title = f"Decision boundary with C={c_value}"
         plots.plot_data((pos, neg), title)
-        plots.plot_boundary((algorithms.train_svm(x, y, C=c_value, kernel="linear"), 0, 4.5))
+        plots.plot_boundary(
+            (algorithms.train_svm(x, y, C=c_value, kernel="linear"), 0, 4.5)
+        )
 
 
 def part_2() -> None:
@@ -58,7 +60,9 @@ def part_2() -> None:
     plots.plot_data((pos, neg), title)
     plots.plot_boundary_gaussian(
         (
-            algorithms.train_svm(x, y, C=c_value, kernel="rbf", gamma=np.power(sigma, -2)),
+            algorithms.train_svm(
+                x, y, C=c_value, kernel="rbf", gamma=np.power(sigma, -2)
+            ),
             0,
             1,
             0.4,
@@ -84,7 +88,9 @@ def part_3() -> None:
     plots.plot_data((pos, neg), title)
     plots.plot_boundary_gaussian(
         (
-            algorithms.train_svm(x, y, C=c_value, kernel="rbf", gamma=np.power(sigma, -2)),
+            algorithms.train_svm(
+                x, y, C=c_value, kernel="rbf", gamma=np.power(sigma, -2)
+            ),
             -0.5,
             0.3,
             -0.8,

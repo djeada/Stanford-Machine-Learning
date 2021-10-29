@@ -29,7 +29,9 @@ def part_1() -> None:
     x, y = readers.read_data(DATA_PATH_1)
     plots.display_random_grid(x)
     theta = algorithms.train_model(x, y)
-    accuracy = algorithms.calculate_accuracy(x, y, theta, algorithms.predict_one_vs_all) * 100
+    accuracy = (
+        algorithms.calculate_accuracy(x, y, theta, algorithms.predict_one_vs_all) * 100
+    )
 
     with open("../result.txt", "w") as output_file:
         output_file.write("Part 1:\n")

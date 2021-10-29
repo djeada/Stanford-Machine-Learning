@@ -55,7 +55,7 @@ def read_movie_params(path: Path) -> Tuple[np.ndarray, np.ndarray]:
     Returns:
         A tuple containing the data.
     """
-    data = sio.loadmat(f'{path}')
+    data = sio.loadmat(f"{path}")
     x = data["X"]
     theta = data["Theta"]
 

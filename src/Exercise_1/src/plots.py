@@ -37,7 +37,9 @@ def plot_data(data: tuple, title: str = "Scatter Plot Of Training Data") -> None
     plt.savefig(title.lower().replace(" ", "_"))
 
 
-def plot_linear_regression_fit(data: tuple, title: str = "Linear Regression Fit") -> None:
+def plot_linear_regression_fit(
+    data: tuple, title: str = "Linear Regression Fit"
+) -> None:
     """
     Plot the linear regression fit. Linear regression fit is displayed as red line. 
     The points are scattered in the background.
@@ -52,7 +54,7 @@ def plot_linear_regression_fit(data: tuple, title: str = "Linear Regression Fit"
       None
     """
 
-    def fit(_theta : List, alpha : np.ndarray) -> np.ndarray:
+    def fit(_theta: List, alpha: np.ndarray) -> np.ndarray:
         """
         Compute the linear regression fit. The returned array is the same shape as the 
         input array. Fit has the form: y = mx + b.
@@ -82,8 +84,10 @@ def plot_linear_regression_fit(data: tuple, title: str = "Linear Regression Fit"
     plt.savefig(title.lower().replace(" ", "_"))
 
 
-def plot_cost_function_3d(data: Tuple[List, List, np.ndarray, np.ndarray],
-                          title: str = "Surface Plot Of Cost Function") -> None:
+def plot_cost_function_3d(
+    data: Tuple[List, List, np.ndarray, np.ndarray],
+    title: str = "Surface Plot Of Cost Function",
+) -> None:
     """
     Plot the surface plot of the cost function. The surface plot is represented as a 3D surface. 
 
@@ -104,7 +108,9 @@ def plot_cost_function_3d(data: Tuple[List, List, np.ndarray, np.ndarray],
     x_values = [x for x in x_range for _ in y_range]
     y_values = [y for _ in x_range for y in y_range]
     z_values = [
-        algorithms.compute_cost(x, y, np.array([[x], [y]])) for x in x_range for y in y_range
+        algorithms.compute_cost(x, y, np.array([[x], [y]]))
+        for x in x_range
+        for y in y_range
     ]
 
     fig = plt.figure(figsize=(12, 12))
@@ -115,7 +121,10 @@ def plot_cost_function_3d(data: Tuple[List, List, np.ndarray, np.ndarray],
     )
 
     plt.plot(
-        [theta[0] for theta in theta_history], [theta[1] for theta in theta_history], _costs, "-"
+        [theta[0] for theta in theta_history],
+        [theta[1] for theta in theta_history],
+        _costs,
+        "-",
     )
 
     plt.xlabel(r"$\theta_0$")
@@ -124,7 +133,9 @@ def plot_cost_function_3d(data: Tuple[List, List, np.ndarray, np.ndarray],
     plt.savefig(title.lower().replace(" ", "_"))
 
 
-def plot_convergence(data: list, y_lim: Tuple[float, float], title: str = "Convergence Of Cost Function") -> None:
+def plot_convergence(
+    data: list, y_lim: Tuple[float, float], title: str = "Convergence Of Cost Function"
+) -> None:
     """
     Plot the convergence of the cost function.  The cost function is plotted as a line.
 

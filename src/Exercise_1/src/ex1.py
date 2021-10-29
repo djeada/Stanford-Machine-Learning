@@ -73,7 +73,9 @@ def part_2() -> None:
     house_size = 1650
     num_bedrooms = 3
 
-    plots.plot_convergence(costs, (0, max(costs)), "Convergence Of Gradient Descent Part2")
+    plots.plot_convergence(
+        costs, (0, max(costs)), "Convergence Of Gradient Descent Part2"
+    )
 
     with open("../result.txt", "a") as output_file:
         # the expected result is 293083
@@ -87,7 +89,9 @@ def part_2() -> None:
         output_file.write(f"{result: .2f}$\n")
 
         # the expected result is 293083
-        result = algorithms.predict_from_normal_equation(x, y, house_size, num_bedrooms)[0]
+        result = algorithms.predict_from_normal_equation(
+            x, y, house_size, num_bedrooms
+        )[0]
         output_file.write(
             "\nNormal equation prediction for price of house with 1650 square feet and 3 bedrooms:\n"
         )

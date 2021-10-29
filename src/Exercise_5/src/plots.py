@@ -12,7 +12,9 @@ import matplotlib.pyplot as plt
 import algorithms
 
 
-def plot_data(data: Tuple[np.ndarray, np.ndarray], title: str = "Scatter Plot Of Training Data") -> None:
+def plot_data(
+    data: Tuple[np.ndarray, np.ndarray], title: str = "Scatter Plot Of Training Data"
+) -> None:
     """
     Plot the data points on a scatter plot. The function uses the matplotlib library. 
     The plot is saved as a png file.
@@ -35,7 +37,10 @@ def plot_data(data: Tuple[np.ndarray, np.ndarray], title: str = "Scatter Plot Of
     plt.savefig(title.lower().replace(" ", "_"))
 
 
-def plot_linear_regression_fit(data:  Tuple[np.ndarray, np.ndarray, np.ndarray], title: str = "Linear Regression Fit") -> None:
+def plot_linear_regression_fit(
+    data: Tuple[np.ndarray, np.ndarray, np.ndarray],
+    title: str = "Linear Regression Fit",
+) -> None:
     """
     Plot the linear regression fit on a scatter plot. The function uses the matplotlib library.
     The plot is saved as a png file.
@@ -93,10 +98,11 @@ def plot_learning_curve(data: Tuple[np.ndarray, np.ndarray, np.ndarray]) -> None
         theta_optimized = algorithms.optimize_theta(x_subset, y_subset, theta)
 
         m_history.append(y_subset.shape[0])
-        train_error_history.append(algorithms.compute_cost(x_subset, y_subset, theta_optimized))
+        train_error_history.append(
+            algorithms.compute_cost(x_subset, y_subset, theta_optimized)
+        )
         validation_error_history.append(
-            algorithms.
-                compute_cost(x_validation, y_validation, theta_optimized)
+            algorithms.compute_cost(x_validation, y_validation, theta_optimized)
         )
 
     plt.figure(figsize=(10, 6))
@@ -109,7 +115,9 @@ def plot_learning_curve(data: Tuple[np.ndarray, np.ndarray, np.ndarray]) -> None
     plt.savefig("learning_curve")
 
 
-def plot_polynomial_regression_fit(data: Tuple[np.ndarray, np.ndarray, np.ndarray, list, list, int], n_points: int = 50) -> None:
+def plot_polynomial_regression_fit(
+    data: Tuple[np.ndarray, np.ndarray, np.ndarray, list, list, int], n_points: int = 50
+) -> None:
     """
     Plot the polynomial regression fit on a scatter plot. The function uses the matplotlib library.
     The plot is saved as a png file.
@@ -138,8 +146,7 @@ def plot_polynomial_regression_fit(data: Tuple[np.ndarray, np.ndarray, np.ndarra
     plt.scatter(x[:, 1], y, c="red", s=50)
     plt.plot(
         x_range,
-        algorithms.
-            hypothesis_function(x_temp, theta),
+        algorithms.hypothesis_function(x_temp, theta),
         "b--",
         label="Polynomial regression",
     )
@@ -150,7 +157,9 @@ def plot_polynomial_regression_fit(data: Tuple[np.ndarray, np.ndarray, np.ndarra
     plt.savefig(f"polynomial_regression_fit_{_lambda}")
 
 
-def plot_polynomial_learning_curve(data: Tuple[np.ndarray, np.ndarray, np.ndarray], _lambda: int = 0, p: int = 5) -> None:
+def plot_polynomial_learning_curve(
+    data: Tuple[np.ndarray, np.ndarray, np.ndarray], _lambda: int = 0, p: int = 5
+) -> None:
     """
     Plot the learning curve for polynomial regression. The function uses the matplotlib library.
     The plot is saved as a png file.
@@ -170,8 +179,7 @@ def plot_polynomial_learning_curve(data: Tuple[np.ndarray, np.ndarray, np.ndarra
     x, y = training_set
     x_validation, y_validation = validation_set
     x_validation, _, __ = algorithms.normalize_features(
-        algorithms.
-            construct_polynomial_matrix(x_validation, p)
+        algorithms.construct_polynomial_matrix(x_validation, p)
     )
 
     m_history = list()
@@ -187,12 +195,12 @@ def plot_polynomial_learning_curve(data: Tuple[np.ndarray, np.ndarray, np.ndarra
 
         m_history.append(y_subset.shape[0])
         train_error_history.append(
-            algorithms.
-                compute_cost(x_subset, y_subset, theta_optimized, _lambda)
+            algorithms.compute_cost(x_subset, y_subset, theta_optimized, _lambda)
         )
         validation_error_history.append(
-            algorithms.
-                compute_cost(x_validation, y_validation, theta_optimized, _lambda)
+            algorithms.compute_cost(
+                x_validation, y_validation, theta_optimized, _lambda
+            )
         )
 
     plt.figure(figsize=(10, 6))

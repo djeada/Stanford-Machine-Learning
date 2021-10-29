@@ -61,6 +61,7 @@ def read_tokens(path: Path, vocabulary: list) -> list:
     Returns:
         A list of tokens.
     """
+
     def _tokenize_email(content: str, _vocabulary: list) -> list:
         """
         Tokenize the email content.
@@ -74,8 +75,7 @@ def read_tokens(path: Path, vocabulary: list) -> list:
         """
         tokens = []
         words = re.split(
-            r"\s|@|\$|/|#|\.|-|:|&|\*|\+|=|\[|\?|!|\(|\)|}|,|'|\"|>|_|<|;|%",
-            content,
+            r"\s|@|\$|/|#|\.|-|:|&|\*|\+|=|\[|\?|!|\(|\)|}|,|'|\"|>|_|<|;|%", content
         )
 
         stemmer = PorterStemmer()
@@ -137,7 +137,7 @@ def pre_processing(content: str) -> str:
     """
     content = content.lower()
 
-    def replace(old: str, new: str) -> str: 
+    def replace(old: str, new: str) -> str:
         """
         Replace the old string with the new string.
 

@@ -12,7 +12,9 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 
-def plot_data(data: Tuple[np.ndarray, np.ndarray], title: str = "Scatter Plot Of Training Data") -> None:
+def plot_data(
+    data: Tuple[np.ndarray, np.ndarray], title: str = "Scatter Plot Of Training Data"
+) -> None:
     """
     Plots the data in a scatter plot.
     Args:
@@ -60,7 +62,7 @@ def visualize_k_means(data: tuple, title="K means algorithm visualisation") -> N
         history = centroid_history[:, centroid, :]
         plt.plot(history[:, 0], history[:, 1], ".-", color="black", markersize=20)
 
-        #ADD SAVEFIG
+        # ADD SAVEFIG
 
     plt.title(title)
 

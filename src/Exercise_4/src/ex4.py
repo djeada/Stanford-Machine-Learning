@@ -63,7 +63,9 @@ def part_2() -> None:
     theta_1 = algorithms.random_weights(input_layer_size, hidden_layer_size)
     theta_2 = algorithms.random_weights(hidden_layer_size, num_labels)
     theta = np.concatenate([theta_1.ravel(), theta_2.ravel()], axis=0)
-    reshaped_theta = algorithms.split_theta(theta, input_layer_size, hidden_layer_size, num_labels)
+    reshaped_theta = algorithms.split_theta(
+        theta, input_layer_size, hidden_layer_size, num_labels
+    )
 
     readers.clean_y(y)
 
@@ -73,7 +75,9 @@ def part_2() -> None:
     theta = algorithms.optimize_theta(
         x, y, theta, input_layer_size, hidden_layer_size, num_labels
     )
-    reshaped_theta = algorithms.split_theta(theta, input_layer_size, hidden_layer_size, num_labels)
+    reshaped_theta = algorithms.split_theta(
+        theta, input_layer_size, hidden_layer_size, num_labels
+    )
     x = np.delete(x, 0, 1)
     accuracy = algorithms.calculate_accuracy(x, y, reshaped_theta) * 100
 

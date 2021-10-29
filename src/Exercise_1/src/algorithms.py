@@ -46,13 +46,18 @@ def compute_cost(x: np.ndarray, y: np.ndarray, theta: np.ndarray = None) -> np.f
 
     m = y.size
     a = (hypothesis_function(x, theta) - y).T
-    b = (hypothesis_function(x, theta) - y)
+    b = hypothesis_function(x, theta) - y
     j = (1.0 / (2 * m) * np.dot(a, b))[0][0]
     return j
 
 
-def gradient_descent(x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, num_iter: int = 2000,
-                     alpha: float = 0.01) -> Tuple[list, list]:
+def gradient_descent(
+    x: np.ndarray,
+    y: np.ndarray,
+    theta: np.ndarray = None,
+    num_iter: int = 2000,
+    alpha: float = 0.01,
+) -> Tuple[list, list]:
     """
     Performs gradient descent to learn theta. The function returns the theta and the cost history. 
     Theta is a vector of parameters for the regression function. The cost history is a list of the 
@@ -122,8 +127,13 @@ def normalize_features(x: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     return np.array(means), np.array(stds)
 
 
-def predict_using_normalized_features(means: np.ndarray, stds: np.ndarray, theta: np.ndarray, house_size: int,
-                                      num_bedrooms: int) -> np.ndarray:
+def predict_using_normalized_features(
+    means: np.ndarray,
+    stds: np.ndarray,
+    theta: np.ndarray,
+    house_size: int,
+    num_bedrooms: int,
+) -> np.ndarray:
     """
     Make a prediction of value for given house size and number of bedrooms using provided theta
     vector. Normalize the y values by substring the means and dividing by standard deviations.
@@ -151,7 +161,9 @@ def predict_using_normalized_features(means: np.ndarray, stds: np.ndarray, theta
     return hypothesis_function(y, theta)
 
 
-def predict_from_normal_equation(x: np.ndarray, y: np.ndarray, house_size: int, num_bedrooms: int) -> np.ndarray:
+def predict_from_normal_equation(
+    x: np.ndarray, y: np.ndarray, house_size: int, num_bedrooms: int
+) -> np.ndarray:
     """
     Using the normal equations, computes the closed-form solution to linear regression.
 

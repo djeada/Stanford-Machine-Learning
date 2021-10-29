@@ -10,8 +10,11 @@ import matplotlib.pyplot as plt
 import algorithms
 
 
-def plot_data(data: Tuple[np.ndarray, np.ndarray], labels : Tuple[str, str, str, str],
-              title: str = "scatter plot of training data") -> None:
+def plot_data(
+    data: Tuple[np.ndarray, np.ndarray],
+    labels: Tuple[str, str, str, str],
+    title: str = "scatter plot of training data",
+) -> None:
     """
     Scatter plot of training data.
 
@@ -38,7 +41,9 @@ def plot_data(data: Tuple[np.ndarray, np.ndarray], labels : Tuple[str, str, str,
     plt.savefig(title.lower().replace(" ", "_"))
 
 
-def plot_logistic_regression_fit(data: tuple, title: str = "logistic regression fit") -> None:
+def plot_logistic_regression_fit(
+    data: tuple, title: str = "logistic regression fit"
+) -> None:
     """
     Plot logistic regression fit.
 
@@ -51,6 +56,7 @@ def plot_logistic_regression_fit(data: tuple, title: str = "logistic regression 
     Returns:
       None
     """
+
     def fit(_theta: np.ndarray, alpha: np.ndarray) -> np.ndarray:
         """
         Compute the cost function for the logistic regression. 
@@ -82,7 +88,9 @@ def plot_logistic_regression_fit(data: tuple, title: str = "logistic regression 
     plt.savefig(title.lower().replace(" ", "_"))
 
 
-def plot_boundary(data: Tuple[np.ndarray, int], title: str = "Decision Boundary") -> None:
+def plot_boundary(
+    data: Tuple[np.ndarray, int], title: str = "Decision Boundary"
+) -> None:
     """"
     Plot a decision boundary on top of the dataset. A decision boundary is
     the line that divides two classes of data. Decision boundary occurs
