@@ -1,6 +1,6 @@
 """"
 The goal of this module is to give a comprehensive solution to Task 4
-from the coding homeworks in the Machine Learning course on coursera.com.
+from the coding homeworks from the Machine Learning course on coursera.com.
 The task is broken down into smaller parts.
 """
 
@@ -17,6 +17,15 @@ DATA_PATH_2 = Path("../data/weights.mat")
 
 
 def part_1() -> None:
+    """
+    Neural network implementation:
+    - Visualizing the data
+    - Feedforward algorithm and cost function computation
+    - Regularized cost function
+
+    Returns:
+      None
+    """
     x, y = readers.read_data(DATA_PATH_1)
     theta = readers.read_weights(DATA_PATH_2)
 
@@ -24,7 +33,7 @@ def part_1() -> None:
     theta = (theta_1, theta_2)
     plots.display_random_grid(x)
     readers.clean_y(y)
-    a, z = algorithms.forward_propagation(x, theta)
+    a, z = algorithms.propagate_forward(x, theta)
 
     with open("../result.txt", "w") as output_file:
         output_file.write("Part 1:\n")
@@ -36,6 +45,15 @@ def part_1() -> None:
 
 
 def part_2() -> None:
+    """
+    Neural network enhanced with backpropagation algorithm:
+    - Computation of sigmoid gradient
+    - Gradient checking
+    - Neural Network regularization
+
+    Returns:
+      None
+    """
     x, y = readers.read_data(DATA_PATH_1)
 
     input_layer_size = 400
@@ -49,15 +67,15 @@ def part_2() -> None:
 
     readers.clean_y(y)
 
-    a, z = algorithms.forward_propagation(x, reshaped_theta)
+    a, z = algorithms.propagate_forward(x, reshaped_theta)
     gradient = algorithms.backpropagation(a, z, y, reshaped_theta)
 
-    theta = algorithms.find_optimized_theta(
+    theta = algorithms.optimize_theta(
         x, y, theta, input_layer_size, hidden_layer_size, num_labels
     )
     reshaped_theta = algorithms.split_theta(theta, input_layer_size, hidden_layer_size, num_labels)
     x = np.delete(x, 0, 1)
-    accuracy = algorithms.calculate_training_accuracy(x, y, reshaped_theta) * 100
+    accuracy = algorithms.calculate_accuracy(x, y, reshaped_theta) * 100
 
     with open("../result.txt", "a") as output_file:
         output_file.write("Part 2:\n")
@@ -76,6 +94,13 @@ def part_2() -> None:
 
 
 def main() -> None:
+    """
+    The main functions. Calls the functions that implement different parts of the solution
+    to the Task 4 from the coding homeworks from the Machine Learning course on coursera.com.
+
+    Returns:
+      None
+    """
     plt.style.use("seaborn")
     part_1()
     part_2()
