@@ -1,6 +1,6 @@
 """"
 The goal of this module is to give a comprehensive solution to Task 5
-from the coding homeworks in the Machine Learning course on coursera.com.
+from the coding homeworks from the Machine Learning course on coursera.com.
 The task is broken down into smaller parts.
 """
 
@@ -16,6 +16,13 @@ DATA_PATH = Path("../data/data.mat")
 
 
 def part_1() -> None:
+    """
+    The goal of this function is to show how the polynomial regression works.
+    The function plots the polynomial regression fit for different degrees.
+
+    Returns:
+      None
+    """
     training_set, validation_set, test_set = readers.read_data(DATA_PATH)
     plots.plot_data(training_set)
 
@@ -40,6 +47,13 @@ def part_1() -> None:
 
 
 def part_2() -> None:
+    """
+    The goal of this function is to show how the polynomial regression works.
+    The function plots the polynomial regression fit for different degrees.
+      
+    Returns:
+      None
+    """
     training_set, validation_set, test_set = readers.read_data(DATA_PATH)
     x, y = training_set
 
@@ -60,6 +74,13 @@ def part_2() -> None:
 
 
 def main() -> None:
+    """
+    The main functions. Calls the functions that implement different parts of the solution
+    to the Task 5 from the coding homeworks from the Machine Learning course on coursera.com.
+
+    Returns:
+      None
+    """
     plt.style.use("seaborn")
     part_1()
     part_2()

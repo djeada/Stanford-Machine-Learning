@@ -4,15 +4,40 @@ methods needed to solve the Task 5 from the coding homeworks in the
 Machine Learning course on coursera.com.
 """
 
+from typing import Tuple
 import numpy as np
 import scipy.optimize
 
 
 def hypothesis_function(x: np.ndarray, theta: np.ndarray) -> np.ndarray:
+    """
+    Hypothesis function for linear regression. It is a linear function  of the form: 
+    h(x) = theta0 + theta1 * x1 + theta2 * x2 + ... + thetaN * xN.  
+    Theta is a vector containing the parameter values. 
+    
+    Args:
+        x: Matrix of features.
+        theta: Vector of parameters.
+    
+    Returns:
+        Vector of predictions.
+    """
     return np.dot(x, theta)
 
 
 def compute_cost(x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda: int = 0) -> np.float64:
+    """
+    Computes the cost of using theta as the parameter for linear regression to fit the data points in x and y. 
+    
+    Args:
+        x: Matrix of features.
+        y: Vector of labels.
+        theta: Vector of parameters.
+        _lambda: Regularization parameter.
+    
+    Returns:
+        Cost of using theta as the parameter for linear regression to fit the data points in x and y.
+    """
     if theta is None:
         theta = np.zeros((x.shape[1], 1))
 
@@ -32,6 +57,18 @@ def compute_cost(x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda
 
 
 def compute_gradient(x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda: int = 0) -> np.ndarray:
+    """
+    Computes the gradient of the cost function.
+
+    Args:
+        x: Matrix of features.
+        y: Vector of labels.
+        theta: Vector of parameters.
+        _lambda: Regularization parameter.
+    
+    Returns:
+        Vector of gradient.
+    """
     if theta is None:
         theta = np.zeros((x.shape[1], 1))
 
@@ -48,6 +85,18 @@ def compute_gradient(x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _la
 
 
 def optimize_theta(x: np.ndarray, y: np.ndarray, theta: np.ndarray, _lambda: int = 0) -> np.ndarray:
+    """
+    Optimizes theta using the scipy.optimize.minimize function.
+
+    Args:
+        x: Matrix of features.
+        y: Vector of labels.
+        theta: Vector of parameters.
+        _lambda: Regularization parameter.
+    
+    Returns:
+        Vector of optimized parameters.
+    """
     return scipy.optimize.minimize(
         lambda _theta: compute_cost(x, y, _theta, _lambda),
         x0=theta,
@@ -66,7 +115,14 @@ def construct_polynomial_matrix(x: np.ndarray, p: int) -> np.ndarray:
     """
     Takes an x matrix and returns an x matrix with additional columns.
     First additional column is 2'nd column with all values squared,
-    the next additional column is 2'nd column with all values cubed etc.
+    the next additional column is 2'nd column with all values cubed etc.    
+
+    Args:
+        x: Matrix of features.
+        p: Degree of the polynomial.
+    
+    Returns:
+        Matrix of features with additional columns.
     """
 
     p_matrix = x.copy()
@@ -77,7 +133,16 @@ def construct_polynomial_matrix(x: np.ndarray, p: int) -> np.ndarray:
     return p_matrix
 
 
-def normalize_features(x: np.ndarray) -> tuple:
+def normalize_features(x: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """
+    Normalizes the features in x.  
+    
+    Args:
+        x: Matrix of features.
+
+    Returns:
+        The normalized x, the mean of the original features and the standard deviation of the original features
+    """
     x_norm = x.copy()
 
     feature_means = np.mean(x_norm, axis=0)

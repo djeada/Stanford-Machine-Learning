@@ -5,22 +5,52 @@ for the Task 5 from the coding homeworks in the Machine Learning
 course on coursera.com.
 """
 
+from typing import Tuple
 import numpy as np
 import matplotlib.pyplot as plt
 
 import algorithms
 
 
-def plot_data(data: tuple) -> None:
+def plot_data(data: Tuple[np.ndarray, np.ndarray], title: str = "Scatter Plot Of Training Data") -> None:
+    """
+    Plot the data points on a scatter plot. The function uses the matplotlib library. 
+    The plot is saved as a png file.
+
+    Args:
+      data:
+        A tuple of x and y values for the points to be plotted.
+      title:
+        A string that serves as both the plot's title and the saved figure's filename.
+
+    Returns:
+      None
+    """
     x, y = data
     plt.figure(figsize=(10, 6))
     plt.scatter(x[:, 1], y, c="red", s=50)
     plt.ylabel("Water flowing out of the dam (y)")
     plt.xlabel("Change in water level (x)")
-    plt.savefig("scatter_plot_of_training_data")
+    plt.title(title)
+    plt.savefig(title.lower().replace(" ", "_"))
 
 
-def plot_linear_regression_fit(data: tuple) -> None:
+def plot_linear_regression_fit(data:  Tuple[np.ndarray, np.ndarray, np.ndarray], title: str = "Linear Regression Fit") -> None:
+    """
+    Plot the linear regression fit on a scatter plot. The function uses the matplotlib library.
+    The plot is saved as a png file.
+
+    Args:
+      data:
+        A tuple of x and y values for the points to be plotted.
+
+      title:
+        A string that serves as both the plot's title and the saved figure's filename.
+
+    Returns:
+      None
+    """
+
     def fit(_theta, alpha):
         return _theta[0] + _theta[1] * alpha
 
@@ -33,10 +63,22 @@ def plot_linear_regression_fit(data: tuple) -> None:
     plt.ylabel("Water flowing out of the dam (y)")
     plt.xlabel("Change in water level (x)")
     plt.legend(loc="lower right")
-    plt.savefig("linear_regression_fit")
+    plt.title(title)
+    plt.savefig(title.lower().replace(" ", "_"))
 
 
-def plot_learning_curve(data: tuple) -> None:
+def plot_learning_curve(data: Tuple[np.ndarray, np.ndarray, np.ndarray]) -> None:
+    """
+    Plot the learning curve for linear regression. The function uses the matplotlib library.
+    The plot is saved as a png file.
+
+    Args:
+      data:
+        A tuple consiting of the training set, validation set, and test set.
+
+    Returns:
+      None
+    """
     training_set, validation_set, theta = data
     x, y = training_set
     x_validation, y_validation = validation_set
@@ -67,7 +109,20 @@ def plot_learning_curve(data: tuple) -> None:
     plt.savefig("learning_curve")
 
 
-def plot_polynomial_regression_fit(data: tuple, n_points: int = 50) -> None:
+def plot_polynomial_regression_fit(data: Tuple[np.ndarray, np.ndarray, np.ndarray, list, list, int], n_points: int = 50) -> None:
+    """
+    Plot the polynomial regression fit on a scatter plot. The function uses the matplotlib library.
+    The plot is saved as a png file.
+
+    Args:
+      data:
+        A tuple of x and y values for the points, theta parameters, means and standard deviations and lambda.
+      n_points:
+        The number of points to be plotted on the polynomial regression fit.
+
+    Returns:
+      None
+    """
     theta, x, y, means, stds, _lambda = data
 
     x_range = np.linspace(-50, 50, n_points)
@@ -95,7 +150,22 @@ def plot_polynomial_regression_fit(data: tuple, n_points: int = 50) -> None:
     plt.savefig(f"polynomial_regression_fit_{_lambda}")
 
 
-def plot_polynomial_learning_curve(data: tuple, _lambda: int = 0, p: int = 5) -> None:
+def plot_polynomial_learning_curve(data: Tuple[np.ndarray, np.ndarray, np.ndarray], _lambda: int = 0, p: int = 5) -> None:
+    """
+    Plot the learning curve for polynomial regression. The function uses the matplotlib library.
+    The plot is saved as a png file.
+
+    Args:
+      data:
+        A tuple consiting of the training set, validation set, and test set.
+      _lambda:
+        The regularization parameter.
+      p:
+        The degree of the polynomial.
+
+    Returns:
+      None
+    """
     training_set, validation_set, theta = data
     x, y = training_set
     x_validation, y_validation = validation_set
