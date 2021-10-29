@@ -1,6 +1,6 @@
 """"
 The goal of this module is to give a comprehensive solution to Task 6
-from the coding homeworks in the Machine Learning course on coursera.com.
+from the coding homeworks from the Machine Learning course on coursera.com.
 The task is broken down into smaller parts.
 """
 
@@ -24,6 +24,12 @@ DATA_PATH_7 = Path("../data/spamTest.mat")
 
 
 def part_1() -> None:
+    """
+    The goal of this function is to show how to read the data from the files.
+
+    Returns:
+      None
+    """
     x, y = readers.read_data(DATA_PATH_1)
     pos = np.array([x[i] for i in range(x.shape[0]) if y[i] == 1])
     neg = np.array([x[i] for i in range(x.shape[0]) if y[i] == 0])
@@ -36,6 +42,11 @@ def part_1() -> None:
 
 
 def part_2() -> None:
+    """
+
+    Returns:
+      None
+    """
     x, y = readers.read_data(DATA_PATH_2)
     pos = np.array([x[i] for i in range(x.shape[0]) if y[i] == 1])
     neg = np.array([x[i] for i in range(x.shape[0]) if y[i] == 0])
@@ -57,6 +68,11 @@ def part_2() -> None:
 
 
 def part_3() -> None:
+    """
+
+    Returns:
+      None
+    """
     x, y = readers.read_data(DATA_PATH_3)
     pos = np.array([x[i] for i in range(x.shape[0]) if y[i] == 1])
     neg = np.array([x[i] for i in range(x.shape[0]) if y[i] == 0])
@@ -78,6 +94,11 @@ def part_3() -> None:
 
 
 def part_4() -> None:
+    """
+
+    Returns:
+      None
+    """
     vocabulary = readers.read_vocabulary(DATA_PATH_5)
     tokens = readers.read_tokens(DATA_PATH_4, vocabulary)
     feature_vector_len = len(vocabulary)
@@ -112,6 +133,13 @@ def part_4() -> None:
 
 
 def main() -> None:
+    """
+    The main functions. Calls the functions that implement different parts of the solution
+    to the Task 6 from the coding homeworks from the Machine Learning course on coursera.com.
+
+    Returns:
+      None
+    """
     plt.style.use("seaborn")
     part_1()
     part_2()
