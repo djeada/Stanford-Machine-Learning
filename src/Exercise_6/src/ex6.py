@@ -25,7 +25,9 @@ DATA_PATH_7 = Path("../data/spamTest.mat")
 
 def part_1() -> None:
     """
-    The goal of this function is to show how to read the data from the files.
+    Support Vector Machines:
+    - Data visualization.
+    - Implementing SVM with Gaussian Kernels.
 
     Returns:
       None
@@ -45,6 +47,9 @@ def part_1() -> None:
 
 def part_2() -> None:
     """
+    Support Vector Machines:
+    - Data visualization.
+    - Implementing SVM with Gaussian Kernels.
 
     Returns:
       None
@@ -73,6 +78,9 @@ def part_2() -> None:
 
 def part_3() -> None:
     """
+    Support Vector Machines:
+    - Data visualization.
+    - Implementing SVM with Gaussian Kernels.
 
     Returns:
       None
@@ -101,6 +109,11 @@ def part_3() -> None:
 
 def part_4() -> None:
     """
+    Spam Classification:
+    - Preprocessing emails.
+    - Making a vocabulary list.
+    - Extracting features from emails.
+    - Training SVM for spam classification.
 
     Returns:
       None
