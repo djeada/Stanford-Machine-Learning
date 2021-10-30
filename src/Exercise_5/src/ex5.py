@@ -17,8 +17,10 @@ DATA_PATH = Path("../data/data.mat")
 
 def part_1() -> None:
     """
-    The goal of this function is to show how the polynomial regression works.
-    The function plots the polynomial regression fit for different degrees.
+    Regularized linear regression:
+    - Data visualization.
+    - Implementation of regularized linear regression gradient.
+    - Showing the bias-variance tradeoff.
 
     Returns:
       None
@@ -48,8 +50,10 @@ def part_1() -> None:
 
 def part_2() -> None:
     """
-    The goal of this function is to show how the polynomial regression works.
-    The function plots the polynomial regression fit for different degrees.
+    Polynomial regression:
+    - Learning Polynomial Regression.
+    - Adjusting the regularization parameter.
+    - Selecting lambda using a cross validation set.
       
     Returns:
       None
