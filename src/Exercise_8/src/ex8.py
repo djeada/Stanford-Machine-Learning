@@ -21,6 +21,15 @@ DATA_PATH_5 = Path("../data/movie_ids.txt")
 
 
 def part_1() -> None:
+    """
+    Anomaly detection:
+    - Implementing gaussian distribution.
+    - Estimating parameters for a Gaussian.
+    - Selecting the threshold epsilon.
+
+    Returns:
+      None
+    """
     x, x_val, y_val = readers.read_data(DATA_PATH_1)
     plots.plot_data((x[:, 0], x[:, 1]))
 
@@ -40,6 +49,13 @@ def part_1() -> None:
 
 
 def part_2() -> None:
+    """
+    Anomaly detection:
+    - Testing anomaly detection on a high dimensional dataset.
+
+    Returns:
+      None
+    """
     x, x_val, y_val = readers.read_data(DATA_PATH_2)
 
     mu, sigma_2 = algorithms.get_gaussian_parameters(x)
@@ -56,6 +72,14 @@ def part_2() -> None:
 
 
 def part_3() -> None:
+    """
+    Recommender Systems:
+    - Reading and ploting movie ratings dataset.
+    - Implementing collaborative filtering learning algorithm.
+
+    Returns:
+      None
+    """
     y, r = readers.read_movie_data(DATA_PATH_3)
     print(f"Average rating for movie 1: {np.mean(y[0, r[0, :]])}")
     plots.plot_movies_data(y)
@@ -76,6 +100,13 @@ def part_3() -> None:
 
 
 def part_4() -> None:
+    """
+    Recommender Systems:
+    - Learning movie recommendations.
+
+    Returns:
+      None
+    """
     y, r = readers.read_movie_data(DATA_PATH_3)
     new_ratings, y, r = algorithms.update_matrices_with_new_ratings(y, r)
     movies = readers.read_movie_ids(DATA_PATH_5)
