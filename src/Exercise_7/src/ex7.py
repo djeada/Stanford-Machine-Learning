@@ -20,6 +20,10 @@ DATA_PATH_4 = Path("../data/faces.mat")
 
 def part_1():
     """
+    K-means Clustering:
+    - Implementing K-means.
+    - Finding closest centroids.
+    - Computing centroid means.
 
     Returns:
       None
@@ -38,6 +42,9 @@ def part_1():
 
 def part_2():
     """
+    K-means Clustering:
+    - Random initialization.
+    - Image compression with K-means.
 
     Returns:
       None
@@ -55,6 +62,10 @@ def part_2():
 
 def part_3():
     """
+    Principal Component Analysis:
+    - Implementing PCA.
+    - Dimensionality Reduction with PCA.
+    - Visualizing the projections.
 
     Returns:
       None
@@ -76,6 +87,9 @@ def part_3():
 
 def part_4():
     """
+    Principal Component Analysis:
+    - PCA on faces.
+    - Dimensionality reduction.
 
     Returns:
       None
