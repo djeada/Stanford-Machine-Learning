@@ -8,6 +8,8 @@
 # Stanford-Machine-Learning
 The following notes give an overview of Professor Andrew Ng's machine learning course. The course is available on the <a href="https://www.coursera.org/learn/machine-learning">coursera platform</a>.
 
+![Capture](https://user-images.githubusercontent.com/37275728/186025613-538378ce-2cc9-4db7-9829-d513dc34a344.PNG)
+
 <h1>Notes</h1>
 
 I recommend that you visit this <a href="http://www.holehouse.org/mlclass/">website</a> for more detailed notes.
