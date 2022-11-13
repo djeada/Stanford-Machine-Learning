@@ -4,8 +4,7 @@
 * Using logistic regression becomes expensive really fast.
 * The only way to get around this is to use a subset of features. This, however, may result in less accuracy.
 
-
-\includegraphics[width=0.5\textwidth]{resources/many_features_classifier}
+![many_features_classifier](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/many_features_classifier.png)
 
 ## Problems where n is large - computer vision
 
@@ -13,8 +12,8 @@
 * To build a car detector: Build a training set of cars and not cars. Then test against a car.
 * Plot two pixels (two pixel locations) and car or not car on the graph.
 
+![cars](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/cars.png)
 
-\includegraphics[width=0.8\textwidth]{resources/cars}
 
 Feature space
 ## Problems where n is large - computer vision
@@ -49,9 +48,7 @@ Neuron:
 * Number of input wires (dendrites)
 * Output wire (axon)
 
-
-\includegraphics[width=0.8\textwidth]{resources/neuron}
-
+![neuron](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/neuron.png)
 
 * Neurone gets one or more inputs through dendrites.
 * Does processing.
@@ -91,9 +88,8 @@ $$
 * The diagram above represents a single neurone.
 * $x_0$ is called the bias unit.
 * $\theta$ vector is called the weights of a model.
-* 
-![hidden_layer](https://user-images.githubusercontent.com/37275728/201517995-ff2af22c-ea22-4be9-9bfc-b7e6c771d69c.png)
 
+![hidden_layer](https://user-images.githubusercontent.com/37275728/201517995-ff2af22c-ea22-4be9-9bfc-b7e6c771d69c.png)
 
 * First layer is the input layer.
 * Final layer is the output layer - produces value computed by a hypothesis.
@@ -146,7 +142,7 @@ $$
 * We send our input values to the hidden layers and let them learn which values produce the best final result to feed into the final output layer.
 * This process is also called forward propagation.
 
-Other architectural designs are also possible:\\
+Other architectural designs are also possible:
 
 * More/less nodes per layer.
 * More layers.
@@ -175,8 +171,8 @@ Then hypothesis is:
 
 $$h_{\Theta}(x) = g(-30 \cdot 1 + 20 \cdot x_1 + 20 \cdot x_2)$$
 
-\includegraphics[width=\textwidth]{resources/sigmoid}
+![sigmoid](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/sigmoid.png)
 
 ### XNOR function
 
-\includegraphics[width=\textwidth]{resources/xnor}
+![xnor](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/xnor.png)
