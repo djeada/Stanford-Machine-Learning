@@ -66,17 +66,8 @@ Neuron:
 * Logistic unit does computation.
 * Sends output down output wires.
 
+![neuron](https://user-images.githubusercontent.com/37275728/201517992-cdc14304-2af9-4821-bcae-71caa1a62663.png)
 
-\begin{multicols}{2}
-
-  \begin{neuralnetwork}[height=4]
-    \newcommand{\x}[2]{$x_#2$}
-    \newcommand{\y}[2]{$h_{\theta}(x)$}
-    \inputlayer[count=3, bias=true, title=Input\\layer, text=\x]
-    \outputlayer[count=1, title=Output\\layer, text=\y] \linklayers
-  \end{neuralnetwork}
-
-  \columnbreak
 
 $$
 x = \begin{bmatrix}
@@ -100,16 +91,8 @@ $$
 * The diagram above represents a single neurone.
 * $x_0$ is called the bias unit.
 * $\theta$ vector is called the weights of a model.
-
-
-\begin{neuralnetwork}[height=4]
-  \newcommand{\x}[2]{$x_#2$}
-  \newcommand{\h}[2]{\small $a^{(1)}_#2$}
-  \newcommand{\y}[2]{$h_{\theta}(x)$}
-  \inputlayer[count=3, bias=true, title=Input\\layer, text=\x]
-  \hiddenlayer[count=3, bias=true, title=Hidden\\layer, text=\h] \linklayers
-  \outputlayer[count=1, title=Output\\layer, text=\y] \linklayers
-\end{neuralnetwork}
+* 
+![hidden_layer](https://user-images.githubusercontent.com/37275728/201517995-ff2af22c-ea22-4be9-9bfc-b7e6c771d69c.png)
 
 
 * First layer is the input layer.
@@ -124,7 +107,7 @@ $$a^{(2)}_2 = g(\Theta^{(1)}_{20}x_0+\Theta^{(1)}_{21}x_1+\Theta^{(1)}_{22}x_2+\
 $$a^{(2)}_1 = g(\Theta^{(1)}_{30}x_0+\Theta^{(1)}_{31}x_1+\Theta^{(1)}_{32}x_2+\Theta^{(1)}_{33}x_3)$$
 $$h_{\Theta}(x) = g(\Theta^{(2)}_{10}a^{(2)}_0+\Theta^{(2)}_{11}a^{(2)}_1+\Theta^{(2)}_{12}a^{(2)}_2+\Theta^{(2)}_{13}a^{(2)}_3)$$
 
-### Model representation II}
+### Model representation II
 In this section, we'll look at how to do the computation efficiently using a vectorized approach. We'll also look at why NNs are useful and how we can use them to learn complicated nonlinear things.
 
 
@@ -169,29 +152,14 @@ Other architectural designs are also possible:\\
 * More layers.
 
 
-\begin{neuralnetwork}[height=4]
-  \newcommand{\x}[2]{$x_#2$}
-  \newcommand{\hfirst}[2]{\small $a^{(1)}_#2$}
-  \newcommand{\hsecond}[2]{\small $a^{(2)}_#2$}
-  \newcommand{\y}[2]{$h_{\theta}(x)$}
-  \inputlayer[count=3, bias=true, title=Input\\layer, text=\x]
-  \hiddenlayer[count=3, bias=true, title=Hidden\\layer, text=\hfirst] \linklayers\\
-  \hiddenlayer[count=2, bias=true, title=Hidden\\layer, text=\hsecond] \linklayers
-  \outputlayer[count=1, title=Output\\layer, text=\y] \linklayers
-\end{neuralnetwork}
+![multi_layer](https://user-images.githubusercontent.com/37275728/201517998-e5f9f245-a6f1-4aed-8a58-fcb0178f38c4.png)
 
 
 Layer 2 has three hidden units (plus bias), layer 3 has two hidden units (plus bias), and by the time you get to the output layer, you have a really intriguing non-linear hypothesis.
 
-### AND function}
+### AND function
 
-\begin{neuralnetwork}[height=3]
-  \newcommand{\x}[2]{$x_#2$}
-  \newcommand{\y}[2]{$h_{\theta}(x)$}
-  \inputlayer[count=2, bias=true, title=Input\\layer, text=\x]
-  \outputlayer[count=1, title=Output\\layer, text=\y] \linklayers
-\end{neuralnetwork}
-
+![and_function](https://user-images.githubusercontent.com/37275728/201518002-72b41fb7-ca3f-4612-aa65-c34f58138737.png)
 
 Let $x_0 = 1$ and theta vector be:
 
@@ -209,6 +177,6 @@ $$h_{\Theta}(x) = g(-30 \cdot 1 + 20 \cdot x_1 + 20 \cdot x_2)$$
 
 \includegraphics[width=\textwidth]{resources/sigmoid}
 
-### XNOR function}
+### XNOR function
 
 \includegraphics[width=\textwidth]{resources/xnor}
