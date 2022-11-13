@@ -95,7 +95,6 @@ $$
       \theta_2   \\
       \theta_3
     \end{bmatrix}
-  \end{align*}
 $$
 
 * The diagram above represents a single neurone.
