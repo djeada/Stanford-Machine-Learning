@@ -51,17 +51,16 @@ $$J(\theta) = \frac{1}{2m} [ \sum_{i=1}^{m}(h_{\theta}(x^{(i)} + y^{(i)})^2 + \l
 * Test these hypothesis on the cross validation set to generate the cross validation error.
 * Pick the hypothesis with the lowest cross validation error.
 
-
-
 Training error:
+
 $$J_{train}(\theta) = \frac{1}{2m}  \sum_{i=1}^{m}(h_{\theta}(x^{(i)} + y^{(i)})^2$$
 
-
 Cross Validation error:
+
 $$J_{cv}(\theta) = \frac{1}{2m_{cv}}  \sum_{i=1}^{m_{cv}}(h_{\theta}(x^{(i)}_{cv} + y^{(i)}_{cv})^2$$
 
-
 Test error:
+
 $$J_{test}(\theta) = \frac{1}{2m_{test}}  \sum_{i=1}^{m_{test}}(h_{\theta}(x^{(i)}_{test} + y^{(i)}_{test})^2$$
 
 ## Model selection and training validation test sets
