@@ -21,7 +21,7 @@ $$h_{\theta}(x) = \theta^T X$$
 
 ## Gradient descent for multiple variables
 
-$$\quad J(\theta_0, \theta_1, ..., \theta_n) = \frac{1}{2m} \sum_{m}^{i=1}(h_{\theta}(x^{(i)}) - y^{(i)})^2$$
+$$J(\theta_0, \theta_1, ..., \theta_n) = \frac{1}{2m} \sum_{i=1}^{m}(h_{\theta}(x^{(i)}) - y^{(i)})^2$$
 
     \theta = [0] * n
     while not converged:
