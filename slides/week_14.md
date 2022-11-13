@@ -6,7 +6,7 @@
 * Example: different units for same attribute.
 
 
-!(compression_units)[https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/compression_units.png]
+![compression_units](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/compression_units.png)
 
 Now we can represent x1 as a 1D number (Z dimension).
 
@@ -18,7 +18,7 @@ Now we can represent x1 as a 1D number (Z dimension).
 * Dimensionality reduction can help us show information in a more readable fashion for human consumption.
 * Collect a huge data set including numerous facts about a country from around the world.
 
-!(table)[https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/table.png]
+![table](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/table.png)
 
 * Assume each country has 50 characteristics.
 * How can we better comprehend this data?
@@ -35,7 +35,7 @@ Now we can represent x1 as a 1D number (Z dimension).
 * PCA tries to find a lower dimensional surface so the sum of squares onto that surface is minimized.
 * PCA tries to find the surface (a straight line in this case) which has the minimum projection error.
 
-!(pca)[https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/pca.png]
+![pca](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/pca.png)
 
 * PCA is not linear regression.
 * For linear regression, fitting a straight line to minimize the straight line between a point and a squared line. VERTICAL distance between point.
