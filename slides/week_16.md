@@ -21,7 +21,7 @@ Example: predict movie ratings.
 * So we have a $[3 \times 1]$ vector for each film, which for film number three ("Cute Puppies of Love") would be:
 
 $$
-  x^{(3)} & = \begin{bmatrix}
+  x^{(3)} = \begin{bmatrix}
     1    \\
     0.99 \\
     0
@@ -30,14 +30,13 @@ $$
 
 So, let's take a look at user 1 (Alice) and see what she thinks of the modern classic Cute Puppies of Love (CPOL). She is associated with the following parameter vector:
 
-
-  \theta^{(1)} & = \begin{bmatrix}
+$$
+  \theta^{(1)} = \begin{bmatrix}
     0 \\
     5 \\
     0
   \end{bmatrix}
-
-
+$$
 
 Our prediction:
 
