@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, latexsym}
+\usepackage{neuralnetwork}
+\usepackage{multicol}
+
+\usepackage{pgfplots}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{tikz}
+\usepackage{nicefrac}
+\pgfplotsset{every axis legend/.append style={
+at={(0,0)},
+anchor=north east}}
+\usetikzlibrary{shapes,positioning,intersections,quotes}
+\usetikzlibrary{arrows.meta,
+                bending,
+                intersections,
+                quotes,
+                shapes.geometric}
+                
+\definecolor{darkgreen}{rgb}{0.0, 0.6, 0.0}
+\definecolor{darkred}{rgb}{0.7, 0.0, 0.0}
+\makeatletter
+\begin{document}
+
+\begin{neuralnetwork}[height=6]
+  \newcommand{\x}[2]{$x_#2$}
+  \newcommand{\hfirst}[2]{\small $a^{(1)}_#2$}
+  \newcommand{\hsecond}[2]{\small $a^{(2)}_#2$}
+  \newcommand{\hthird}[2]{\small $a^{(3)}_#2$}
+  \inputlayer[count=3, bias=true, title=Input\\layer, text=\x]
+  \hiddenlayer[count=5, bias=true, title=Hidden\\layer, text=\hfirst] \linklayers\\
+  \hiddenlayer[count=5, bias=true, title=Hidden\\layer, text=\hsecond] \linklayers
+  \hiddenlayer[count=4, bias=false, title=Hidden\\layer, text=\hthird] \linklayers
+\end{neuralnetwork}
+
+
+\end{document}

@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, latexsym}
+ 
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{nicefrac}
+\pgfplotsset{every axis legend/.append style={
+at={(0,0)},
+anchor=north east}}
+\usetikzlibrary{shapes,positioning,intersections,quotes}
+
+\definecolor{darkgreen}{rgb}{0.0, 0.6, 0.0}
+\definecolor{darkred}{rgb}{0.7, 0.0, 0.0}
+\begin{document}
+
+\begin{tikzpicture}
+  \begin{axis}[
+      axis x line=middle,
+      axis y line=middle,
+      width=12cm, height=5cm,     % size of the image
+      grid = none,
+      grid style={dashed, gray!0},
+      %xmode=log,log basis x=10,
+      %ymode=log,log basis y=10,
+      xmin=0,     % start the diagram at this x-coordinate
+      xmax= 1,    % end   the diagram at this x-coordinate
+      ymin=0,     % start the diagram at this y-coordinate
+      ymax=1,   % end   the diagram at this y-coordinate
+      %/pgfplots/xtick={0,1,...,60}, % make steps of length 5
+      %extra x ticks={23},
+      %extra y ticks={0, 1},
+      axis background/.style={fill=white},
+      ylabel=Age,
+      xlabel=Tumor size,
+      xticklabels={,,},
+      yticklabels={,,},
+      tick align=outside,
+      tension=0.08]
+    % plot the stirling-formulae
+    \fill[blue] (5, 10) circle (5pt);
+    \fill[blue] (20, 10) circle (5pt);
+    \fill[blue] (30, 10) circle (5pt);
+    \fill[blue] (40, 10) circle (5pt);
+    \fill[blue] (45, 10) circle (5pt);
+    \fill[blue] (10, 30) circle (5pt);
+    \fill[blue] (25, 30) circle (5pt);
+    \fill[blue] (35, 30) circle (5pt);
+    \fill[blue] (15, 70) circle (5pt);
+    \fill[blue] (25, 60) circle (5pt);
+    \fill[blue] (15, 50) circle (5pt);
+    \fill[blue] (20, 50) circle (5pt);
+    \fill[blue] (30, 50) circle (5pt);
+    \fill[blue] (40, 50) circle (5pt);
+    \fill[blue] (25, 60) circle (5pt);
+    \fill[blue] (55, 60) circle (5pt);
+    \fill[red] (50, 80) circle (5pt);
+    \fill[red] (45, 80) circle (5pt);
+    \fill[red] (65, 90) circle (5pt);
+    \fill[red] (25, 40) circle (5pt);
+    \fill[red] (55, 70) circle (5pt);
+    \fill[red] (50, 90) circle (5pt);
+    \fill[red] (50, 60) circle (5pt);
+    \fill[red] (45, 60) circle (5pt);
+    \fill[red] (65, 60) circle (5pt);
+    \fill[red] (75, 20) circle (5pt);
+    \fill[red] (70, 30) circle (5pt);
+    \fill[red] (30, 80) circle (5pt);
+    \fill[red] (40, 70) circle (5pt);
+    \fill[red] (65, 30) circle (5pt);
+    \fill[red] (55, 40) circle (5pt);
+  \end{axis}
+\end{tikzpicture}
+
+
+\end{document}

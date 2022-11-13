@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, latexsym}
+
+\usepackage{pgfplots}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{tikz}
+\usepackage{nicefrac}
+\pgfplotsset{every axis legend/.append style={
+at={(0,0)},
+anchor=north east}}
+\usetikzlibrary{shapes,positioning,intersections,quotes}
+\usetikzlibrary{arrows.meta,
+                bending,
+                intersections,
+                quotes,
+                shapes.geometric}
+                
+\definecolor{darkgreen}{rgb}{0.0, 0.6, 0.0}
+\definecolor{darkred}{rgb}{0.7, 0.0, 0.0}
+\makeatletter
+\makeatother
+\begin{document}
+
+\begin{tikzpicture}
+  \begin{axis}[
+      axis x line=middle,
+      axis y line=middle,
+      width=12cm, height=5cm,     % size of the image
+      grid = none,
+      grid style={dashed, gray!0},
+      %xmode=log,log basis x=10,
+      %ymode=log,log basis y=10,
+      xmin=0,     % start the diagram at this x-coordinate
+      xmax= 1,    % end   the diagram at this x-coordinate
+      ymin=-0.1,     % start the diagram at this y-coordinate
+      ymax= 2.5,   % end   the diagram at this y-coordinate
+      %/pgfplots/xtick={0,1,...,60}, % make steps of length 5
+      %extra x ticks={23},
+      extra y ticks={0, 1},
+      axis background/.style={fill=white},
+      ylabel=Maligant?,
+      xlabel=Tumor size,
+      xticklabels={,,},
+      yticklabels={,,},
+      tick align=outside,
+      tension=0.08]
+    % plot the stirling-formulae
+    \fill[blue] (5, 5) circle (5pt);
+    \fill[blue] (20, 5) circle (5pt);
+    \fill[blue] (30, 5) circle (5pt);
+    \fill[blue] (50, 5) circle (5pt);
+    \fill[blue] (60, 5) circle (5pt);
+    \fill[red] (50, 20) circle (5pt);
+    \fill[red] (45, 20) circle (5pt);
+    \fill[red] (65, 20) circle (5pt);
+    \fill[red] (75, 20) circle (5pt);
+    \fill[red] (89, 20) circle (5pt);
+    \addplot[domain=0:10, gray, ultra thick,samples=500] {2.5*x - 0.3};
+
+  \end{axis}
+  \node[above,font=\large\bfseries] at (current bounding box.north) {Define breast cancer as malignant or benign based on tumour size
+  };
+\end{tikzpicture}
+
+\end{document}

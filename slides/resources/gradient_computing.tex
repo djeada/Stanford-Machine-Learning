@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, latexsym}
+\usepackage{neuralnetwork}
+\usepackage{multicol}
+
+\usepackage{pgfplots}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{tikz}
+\usepackage{nicefrac}
+\pgfplotsset{every axis legend/.append style={
+at={(0,0)},
+anchor=north east}}
+\usetikzlibrary{shapes,positioning,intersections,quotes}
+\usetikzlibrary{arrows.meta,
+                bending,
+                intersections,
+                quotes,
+                shapes.geometric}
+                
+\definecolor{darkgreen}{rgb}{0.0, 0.6, 0.0}
+\definecolor{darkred}{rgb}{0.7, 0.0, 0.0}
+\makeatletter
+\begin{document}
+
+\begin{neuralnetwork}[height=5]
+  \newcommand{\x}[2]{$x_#2$}
+  \newcommand{\hfirst}[2]{\small $a^{(1)}_#2$}
+  \newcommand{\hsecond}[2]{\small $a^{(2)}_#2$}
+  \newcommand{\hthird}[2]{\small $a^{(3)}_#2$}
+  \newcommand{\hforth}[2]{\small $a^{(4)}_#2$}
+  \hiddenlayer[count=4, bias=true, title=Layer 1, text=\hfirst] \linklayers\\
+  \hiddenlayer[count=4, bias=true, title=Layer 2, text=\hsecond] \linklayers
+  \hiddenlayer[count=4, bias=true, title=Layer 3, text=\hthird] \linklayers
+  \hiddenlayer[count=4, bias=false, title=Layer 4, text=\hforth] \linklayers
+\end{neuralnetwork}
+
+
+\end{document}
