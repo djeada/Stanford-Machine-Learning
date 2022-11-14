@@ -8,7 +8,7 @@ import numpy as np
 from pathlib import Path
 import matplotlib.pyplot as plt
 
-import readers
+import exercise_1.src.preprocessing as preprocessing
 import algorithms
 import plots
 
@@ -29,12 +29,12 @@ def part_1() -> None:
       None
     """
 
-    x, y = readers.read_data(DATA_PATH_1)
-    plots.plot_data((x, y))
+    x, y = preprocessing.read_data(DATA_PATH_1)
+    # plots.plot_data((x, y))
     theta_history, costs = algorithms.gradient_descent(x, y)
-    plots.plot_convergence(costs, (4, 7), "Convergence Of Gradient Descent Part1")
-    plots.plot_linear_regression_fit((theta_history[-1], x, y))
-    plots.plot_cost_function_3d((theta_history, costs, x, y))
+    # plots.plot_convergence(costs, (4, 7), "Convergence Of Gradient Descent Part1")
+    # plots.plot_linear_regression_fit((theta_history[-1], x, y))
+    # plots.plot_cost_function_3d((theta_history, costs, x, y))
 
     with open("../result.txt", "w") as output_file:
         # the expected value of cost is 32.07
@@ -61,7 +61,7 @@ def part_2() -> None:
       None
     """
 
-    x, y = readers.read_data(DATA_PATH_2, (0, 1, 2))
+    x, y = preprocessing.read_data(DATA_PATH_2, (0, 1, 2))
     plots.plot_histogram(x, "Count Freq Per Column Before Norm")
 
     x_norm = x.copy()
