@@ -133,7 +133,7 @@ $$x_0 =1,\quad y \in \{0,1\}$$
 
 Linear regression uses the following function to determine $\theta$:
 
-$$J(\theta) = \frac{1}{2m} \sum_{m}^{i=1}(h_{\theta}(x^{(i)}) - y^{(i)})^2$$
+$$J(\theta) = \frac{1}{2m} \sum_{i=1}^{m}(h_{\theta}(x^{(i)}) - y^{(i)})^2$$
 
 We define "cost()" as:
 
@@ -141,7 +141,7 @@ $$cost(h_{\theta}(x^{(i)}), y^{(i)}) = \frac{1}{2} (h_{\theta}(x^{(i)}) - y^{(i)
 
 We can now redefine $J(\theta)$ as:
 
-$$J(\theta) = \frac{1}{2} \sum_{m}^{i=1}cost(h_{\theta}(x^{(i)}), y^{(i)})$$
+$$J(\theta) = \frac{1}{m} \sum_{i=1}^{m}cost(h_{\theta}(x^{(i)}), y^{(i)})$$
 
 * This is the cost you want the learning algorithm to pay if the outcome is $h_{\theta}(x)$ but the actual outcome is y.
 * This function is a non-convex function for parameter optimization when used for logistic regression.
@@ -154,6 +154,16 @@ $$
   \end{cases}
 \]
 $$
+
+Finally:
+
+$$J(\theta) = \frac{1}{m} \sum_{i=1}^{m}[-y^{(i)}log(h_{\theta}(x^{(i)})) - (1-y^{(i)})log(1 - h_{\theta}(x^{(i)}))]$$
+
+$$\frac{\partial}{\partial \theta} J(\theta) = \frac{1}{m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)})x_j^{(i)}$$
+
+Note that while this gradient looks identical to the linear regression gra-
+dient, the formula is actually different because linear and logistic regression
+have different definitions of hθ (x).
 
 ## Multiclass classification problems
 Getting logistic regression for multiclass classification using one vs. all.
