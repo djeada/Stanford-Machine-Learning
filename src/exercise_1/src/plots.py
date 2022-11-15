@@ -35,7 +35,7 @@ def scatter(
 def plot_regression_fit(
     x: np.ndarray,
     y: np.ndarray,
-    model: algorithms.LinearRegressionGD,
+    model: algorithms.LinearRegressionBase,
     title: str = "Training Data With Linear Regression Fit",
     x_label="x",
     y_label="y",
@@ -59,6 +59,7 @@ def plot_regression_fit(
     plt.title(title)
     # add legend with string representation of the model
     plt.legend(["Training Data", str(model)])
+    plt.show()
 
 
 def plot_cost_function(
@@ -76,11 +77,11 @@ def plot_cost_function(
     plt.xlabel("Iterations")
     plt.ylabel("Cost J")
     plt.title(title)
-    plt.savefig(title.lower().replace(" ", "_"))
+    plt.show()
 
 
 def plot_cost_function_3d(
-    model: algorithms.LinearRegressionGD,
+    model: algorithms.LinearRegressionBase,
     x: np.ndarray,
     y: np.ndarray,
     title: str = "Surface Plot Of Cost Function",
@@ -137,6 +138,7 @@ def plot_cost_function_3d(
     ax.set_zlabel("Cost J")
     plt.legend()
     plt.title(title)
+    plt.show()
 
 
 def plot_histogram(x: np.ndarray, title: str = "Histogram") -> None:
@@ -155,3 +157,4 @@ def plot_histogram(x: np.ndarray, title: str = "Histogram") -> None:
     plt.ylabel("Counts")
     plt.legend()
     plt.title(title)
+    plt.show()

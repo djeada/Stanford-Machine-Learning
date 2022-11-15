@@ -8,32 +8,36 @@ from typing import Tuple
 import numpy as np
 import matplotlib.pyplot as plt
 import algorithms
+from preprocessing import FeatureMapper
 
 
 def plot_data(
-    data: Tuple[np.ndarray, np.ndarray],
-    labels: Tuple[str, str, str, str],
-    title: str = "scatter plot of training data",
+    positive: np.ndarray,
+    negative: np.ndarray,
+    title: str = "Training Data",
+    label_x: str = "x_1",
+    label_y: str = "x_2",
+    label_positive: str = "positive",
+    label_negative: str = "negative",
 ) -> None:
     """
-    Scatter plot of training data.
+    Plot the training data.
 
-    Args:
-      data:
-        A tuple of x and y values for the points to be plotted.
-      labels:
-        A tuple of four strings that are used for axis labels and legend.
-      title:
-        A string that serves as both the plot's title and the saved figure's filename.
-
-    Returns:
-      None
+    :param positive: The training data.
+    :param negative: The training labels.
+    :param title: The title of the plot.
+    :param label_x: The label of the x-axis.
+    :param label_y: The label of the y-axis.
+    :param label_positive: The label of the positive data.
+    :param label_negative: The label of the negative data.
     """
-    x, y = data
-    label_pos, label_neg, label_x, label_y = labels
     plt.figure(figsize=(10, 6))
-    plt.scatter(x[:, 1], x[:, 2], marker="+", c="k", s=150, label=label_pos)
-    plt.scatter(y[:, 1], y[:, 2], marker="o", c="y", s=100, label=label_neg)
+    plt.scatter(
+        positive[:, 1], positive[:, 2], marker="+", c="k", s=150, label=label_positive
+    )
+    plt.scatter(
+        negative[:, 1], negative[:, 2], marker="o", c="y", s=100, label=label_negative
+    )
     plt.ylabel(label_y)
     plt.xlabel(label_x)
     plt.legend(loc="upper right")
@@ -41,87 +45,113 @@ def plot_data(
     plt.savefig(title.lower().replace(" ", "_"))
 
 
-def plot_logistic_regression_fit(
-    data: tuple, title: str = "logistic regression fit"
+def plot_cost_function(
+    cost_history: np.ndarray, title: str = "Cost Function Convergence"
 ) -> None:
     """
-    Plot logistic regression fit.
+    Plot the cost function convergence.
 
-    Args:
-      data:
-        A tuple consisting of theta values as well as x and y sets.
-      title:
-        A string that serves as both the plot's title and the saved figure's filename.
-
-    Returns:
-      None
+    :param cost_history: The cost function history.
+    :param title: The title of the plot.
     """
-
-    def fit(_theta: np.ndarray, alpha: np.ndarray) -> np.ndarray:
-        """
-        Compute the cost function for the logistic regression. 
-        This function is used to plot the cost function as a function of theta.
-        The logistic regression fit has the form: y_i = -1/theta_2*(alpha_i*theta_1 + theta_0)
-
-        Args:
-          _theta:
-            A list of three parameters used in the linear hypothesis function.
-          alpha:
-            An array of x values that are used in the linear fit.
-
-        Returns:
-          An array of Y values.
-        """
-        return (-1.0 / _theta[2]) * (_theta[0] + _theta[1] * alpha)
-
-    theta, x, y, pos, neg = data
-    x_range = np.array([np.min(x[:, 1]), np.max(x[:, 1])])
 
     plt.figure(figsize=(10, 6))
-    plt.scatter(pos[:, 1], pos[:, 2], marker="+", c="k", s=150, label="Admitted")
-    plt.scatter(neg[:, 1], neg[:, 2], marker="o", c="y", s=100, label="Not admitted")
-    plt.plot(x_range, fit(theta, x_range), "b-")
-    plt.ylabel("Exam 2 score")
-    plt.xlabel("Exam 1 score")
-    plt.legend(loc="upper right")
+    plt.scatter(np.arange(cost_history.size), cost_history, marker="o", c="g", s=10)
+    plt.xlabel("Iterations")
+    plt.ylabel("Cost J")
     plt.title(title)
-    plt.savefig(title.lower().replace(" ", "_"))
+    plt.show()
 
 
-def plot_boundary(
-    data: Tuple[np.ndarray, int], title: str = "Decision Boundary"
+def plot_logistic_regression_fit(
+    positive: np.ndarray,
+    negative: np.ndarray,
+    model: algorithms.LogisticRegression,
+    title: str = "Training Data With Logistic Regression Fit",
+    label_x: str = "x_1",
+    label_y: str = "x_2",
+    label_positive: str = "positive",
+    label_negative: str = "negative",
 ) -> None:
-    """"
-    Plot a decision boundary on top of the dataset. A decision boundary is
-    the line that divides two classes of data. Decision boundary occurs
-    when the hypothesis function is equal to zero.
+    """
+    Plot the training data and the logistic regression fit.
 
-    Args:
-      data:
-        A tuple consisting  of an array of theta values and a single lambda value.
-      title:
-        A string that serves as both the plot's title and the saved figure's filename.
-
-    Returns:
-      None
+    :param positive: The training data.
+    :param negative: The training labels.
+    :param model: The trained logistic regression model.
+    :param title: The title of the plot.
+    :param label_x: The label of the x-axis.
+    :param label_y: The label of the y-axis.
+    :param label_positive: The label of the positive data.
+    :param label_negative: The label of the negative data.
     """
 
-    theta, _lambda = data
-
-    range_x = np.linspace(-1, 1.5)
-    range_y = np.linspace(-1, 1.5)
-    range_z = [
-        [
-            np.dot(theta, algorithms.map_feature(np.array([y]), np.array([x])).T)[0][0]
-            for x in range_x
-        ]
-        for y in range_y
-    ]
-    range_z = np.array(range_z).T
-
-    contour = plt.contour(
-        range_x, range_y, range_z, [0], cmap=plt.cm.coolwarm, extend="both"
+    plt.figure(figsize=(10, 6))
+    plt.scatter(
+        positive[:, 1], positive[:, 2], marker="+", c="k", s=150, label=label_positive
     )
-    plt.clabel(contour, inline=1, fmt={0: f"Lambda = {_lambda}"})
+    plt.scatter(
+        negative[:, 1], negative[:, 2], marker="o", c="y", s=100, label=label_negative
+    )
+    plt.ylabel(label_y)
+    plt.xlabel(label_x)
+    plt.legend(loc="upper right")
     plt.title(title)
-    plt.savefig(title.lower().replace(" ", "_"))
+    domain = np.array([np.min(negative[:, 1]), np.max(positive[:, 1])])
+    plt.plot(domain, model.boundary(domain), c="b")
+    plt.legend(["positive", "negative", f"{model}"])
+    plt.show()
+
+
+def plot_boundary_as_contour(
+    positive: np.ndarray,
+    negative: np.ndarray,
+    model: algorithms.LogisticRegression,
+    title: str = "Decision Boundary",
+    label_x: str = "x_1",
+    label_y: str = "x_2",
+    label_positive: str = "positive",
+    label_negative: str = "negative",
+) -> None:
+    """
+    Plot the decision boundary as a contour plot.
+
+    :param positive: The training data.
+    :param negative: The training labels.
+    :param model: The trained logistic regression model.
+    :param title: The title of the plot.
+    :param label_x: The label of the x-axis.
+    :param label_y: The label of the y-axis.
+    :param label_positive: The label of the positive data.
+    :param label_negative: The label of the negative data.
+    """
+
+    plt.figure(figsize=(10, 6))
+    plt.scatter(
+        positive[:, 1], positive[:, 2], marker="+", c="k", s=150, label=label_positive
+    )
+    plt.scatter(
+        negative[:, 1], negative[:, 2], marker="o", c="y", s=100, label=label_negative
+    )
+    plt.ylabel(label_y)
+    plt.xlabel(label_x)
+    plt.legend(loc="upper right")
+    plt.title(title)
+
+    # Create grid coordinates for plotting
+    u = np.linspace(np.min(positive[:, 1]), np.max(positive[:, 1]), 50)
+    v = np.linspace(np.min(negative[:, 2]), np.max(negative[:, 2]), 50)
+    z = np.zeros((u.size, v.size))
+    # Evaluate z = theta*x over the grid
+    mapper = FeatureMapper()
+    for i, ui in enumerate(u):
+        for j, vj in enumerate(v):
+            # z[i, j] = model.predict(algorithms.map_feature(np.array([ui]), np.array([vj])))
+            z[i, j] = mapper.map(np.array([ui]), np.array([vj])) @ model.theta
+
+    z = z.T  # important to transpose z before calling contour
+
+    # Plot z = 0
+    # Notice you need to specify the range [0, 0]
+    plt.contour(u, v, z, levels=[0], linewidths=2, colors="g")
+    plt.show()
