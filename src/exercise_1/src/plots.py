@@ -1,4 +1,4 @@
-""""
+"""
 The goal of this module is to implement all the visualization
 tools needed to graph the data and results of the computations
 for the Task 1 from the coding homeworks in the Machine Learning

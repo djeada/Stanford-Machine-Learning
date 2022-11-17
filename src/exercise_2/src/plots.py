@@ -1,10 +1,9 @@
-""""
+"""
 The goal of this module is to implement all the visualization
 tools needed to graph the data and results of the computations
 for the Task 2 from the coding homeworks in the Machine Learning
 course on coursera.com.
 """
-from typing import Tuple
 import numpy as np
 import matplotlib.pyplot as plt
 import algorithms
