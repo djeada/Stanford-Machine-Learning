@@ -15,8 +15,7 @@ $$J(\theta) = \frac{1}{2m} [ \sum_{i=1}^{m}(h_{\theta}(x^{(i)} + y^{(i)})^2 + \l
     - Change the value of $\lambda$.
         
 
-## Evaluating a hypothesis
-
+## Evaluating the hypothesis
 
 * Split data into two portions: training set and test set.
 * Learn parameters $\theta$ from training data, minimizing $J(\theta)$ using 70\% of the training data.
