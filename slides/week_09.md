@@ -38,8 +38,7 @@ $$J(\theta) = -\frac{1}{m} [\sum_{i=1}^{m} y^{(i)} log h_{\theta}(x^{(i)}) + (1-
 
 For neural networks our cost function is a generalization of this equation above, so instead of one output we generate $k$ outputs:
 
-$$J(\Theta) = -\frac{1}{m} [\sum_{i=1}^{m} \sum_{k=1}^{K} y^{(i)}_k log (h_{\Theta}(x^{(i)}))_k + (1- y^{(i)}_k)log(1 - (h_{\Theta}(x^{(i)}))_k)] +  \frac{\lambda}{2m} \sum_{l=1}^{L-1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_l+1} (\Theta^{(l)}_{ji})^2$$
-
+$$J(\Theta) = -\frac{1}{m} [\sum_{i=1}^{m} \sum_{k=1}^{K} y_k^{(i)} \log{(h_{\theta}(x^{(i)}))}_k + (1- y_k^{(i)}) \log(1 - {(h_{\theta} (x^{(i)}))}_k)] +  \frac{\lambda}{2m} \sum_{l=1}^{L-1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_l+1} (\Theta^{(l)}_{ji})^2$$
 
 * Our cost function now outputs a $k$ dimensional vector.
 * Costfunction $J(\Theta)$ is $-1/m$ times a sum of a similar term to which we had for logic regression.
