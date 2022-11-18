@@ -33,7 +33,7 @@ So here we have:
 
 Logistic regression cost function is as follows:
 
-$$J(\theta) = -\frac{1}{m} [\sum_{i=1}^{m} y^{(i)} log h_{\theta}(x^{(i)}) + (1- y^{(i)})log(1 - h_{\theta}(x^{(i)}))] +  \frac{\lambda}{2m} \sum_{j=1}^{m} \theta_j^2$$
+$$J(\theta) = -\frac{1}{m} \sum_{i=1}^{m} [y^{(i)} log h_{\theta}(x^{(i)}) + (1- y^{(i)})log(1 - h_{\theta}(x^{(i)}))] +  \frac{\lambda}{2m} \sum_{j=1}^{m} \theta_j^2$$
 
 
 For neural networks our cost function is a generalization of this equation above, so instead of one output we generate $k$ outputs:
