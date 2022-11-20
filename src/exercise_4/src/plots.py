@@ -9,26 +9,34 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def display_random_grid(x: np.ndarray, n: int = 20, indices: np.ndarray = None) -> None:
-    """"
-    Display a grid with n digits on it. If no indices are specified,
-    a grid of n random digits is displayed.
+def display_grid_of_rows(
+    x: np.ndarray, indices: np.ndarray, cell_size: int = 20, cells_per_row: int = 8
+) -> None:
+    """ "
+    Displays a grid with n digits on it. Each index in the indices
+    represents a single digit. There are maximal 10 digits displayed
+    in a single row.
 
-    Args:
-      x:
-       An array containing 5000 images. Each image is a row. Each image contains 400 pixels (20x20).
-      n:
-        Number of digits to be displayed.
-      indices:
-        The indices of the digits in matrix x.
-
-    Returns:
-      None
+    :param x: The input array.
+    :param indices: The indices of the digits in matrix x.
+    :param cell_size: The size of each cell in the grid.
+    :param cells_per_row: The number of cells per row.
+    :return: None
     """
-    if indices is None:
-        indices = np.random.choice(x.shape[0], n)
+    # number of cells in a single column
+    cells_per_column = int(np.ceil(len(indices) / cells_per_row))
 
-    plt.figure(figsize=(6, 6))
-    image = x[indices, 1:].reshape(-1, n).T
-    plt.imshow(image)
-    plt.axis("off")
+    # create a new figure
+    fig = plt.figure(figsize=(cells_per_row, cells_per_column))
+
+    # iterate over all indices
+    for i, index in enumerate(indices):
+        # create a new subplot
+        ax = fig.add_subplot(cells_per_column, cells_per_row, i + 1)
+        # display the digit
+        ax.imshow(x[index].reshape(cell_size, cell_size).T, cmap="gray")
+        # remove the axis
+        ax.axis("off")
+
+    # show the figure
+    plt.show()

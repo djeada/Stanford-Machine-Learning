@@ -3,338 +3,228 @@ The goal of this module is to implement all algorithms and numerical
 methods needed to solve the Task 4 from the coding homeworks in the
 Machine Learning course on coursera.com.
 """
-from typing import Tuple
+from abc import ABC, abstractmethod
 
 import numpy as np
 from scipy import optimize
+    
 
-
-def propagate_forward(
-    row: np.ndarray, thetas: Tuple[np.ndarray, np.ndarray]
-) -> Tuple[Tuple[np.ndarray, np.ndarray, np.ndarray], Tuple[np.ndarray, np.ndarray]]:
+class ModelBase(ABC):
     """
-    Implementation of the forward propagation algorithm. The function is
-    a simple neural network including input layer, single hidden layer
+    Base class for all models.
+    """
+
+    @abstractmethod
+    def fit(self, x: np.ndarray, y: np.ndarray) -> None:
+        """
+        Fits the model to the given data.
+
+        :param x: The input data.
+        :param y: The output data.
+        """
+
+    @abstractmethod
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        """
+        Predicts the output data for the given input data.
+
+        :param x: The input data.
+        :return: The predicted output data.
+        """
+
+
+class NeuralNetwork(ModelBase):
+    """
+    Implementation of the neural network. The network includes input layer, single hidden layer
     and output.
-
-    Args:
-      row:
-        A single row form the matrix X.
-      thetas:
-        Two sets of weights used for neural network training.
-
-    Returns:
-      A tuple of arrays made up of an input layer, a hidden layer, and an output layer.
     """
 
-    def sigmoid(z: np.ndarray) -> np.ndarray:
+    def __init__(
+        self,
+        input_layer_size: int,
+        hidden_layer_size: int,
+        output_layer_size: int,
+        _lambda: float = 0.0,
+    ):
         """
-        Sigmoid function implementation. It will apply the sigmoid function
-        to each member of a given vector z.
+        Initializes the neural network.
 
-        Args:
-         z:
-           An n+1-element vector.
-
-        Returns:
-           A vector of sigmoid function values for every element of z.
+        :param input_layer_size: The size of the input layer.
+        :param hidden_layer_size: The size of the hidden layer.
+        :param output_layer_size: The size of the output layer.
+        :param _lambda: The regularization parameter.
         """
-        return 1 / (1 + np.exp(-z))
+        self.input_layer_size = input_layer_size
+        self.hidden_layer_size = hidden_layer_size
+        self.output_layer_size = output_layer_size
+        self._lambda = _lambda
 
-    theta_1, theta_2 = thetas
-    m = row.shape[0]
+        self.theta_1 = np.random.rand(hidden_layer_size, input_layer_size + 1)
+        self.theta_2 = np.random.rand(output_layer_size, hidden_layer_size + 1)
 
-    # input layer a_1 is row from matrix X with added column of bias units (ones)
-    a_1 = row
-
-    # hidden layer computed with dot product of input layer and theta
-    # plus column of bias units
-    z_2 = np.dot(a_1, theta_1.T)
-    a_2 = sigmoid(z_2)
-    a_2 = np.concatenate([np.ones((m, 1)), a_2], axis=1)
-
-    # output layer, computed like the hidden layer
-    z_3 = np.dot(a_2, theta_2.T)
-    a_3 = sigmoid(z_3)
-
-    return (a_1, a_2, a_3), (z_2, z_3)
-
-
-def compute_cost(
-    x: np.ndarray,
-    y: np.ndarray,
-    thetas: Tuple[np.ndarray, np.ndarray] = None,
-    _lambda: int = 0,
-) -> np.float64:
-    """
-    Calculate the cost of a simple neural network. Calculates the cost of using theta as
-    the neural network parameter for the fit of the given data points.
-
-    Args:
-      x:
-        Input dataset. A matrix with m rows and n columns.
-      y:
-        The values corresponding to the input dataset. An m-element vector.
-      thetas:
-        Two sets of weights used for neural network training.
-     _lambda:
-        For regularization, non-zero lambda values are utilized.
-        There is no regularization when lambda is set to 0.
-
-    Returns:
-      The cost of neural network.
-    """
-    if thetas is None:
-        thetas = np.zeros((x.shape[1], 1)).reshape(-1)
-
-    theta_1, theta_2 = thetas
-    m = y.size
-
-    y_matrix = np.eye(10)[y.reshape(-1)]
-
-    j = -1 / m * (np.sum(y_matrix * np.log(x) + (1 - y_matrix) * np.log(1 - x)))
-    reg = (
-        _lambda
-        / (2 * m)
-        * (np.sum(np.square(theta_1[:, 1:])) + np.sum(np.square(theta_2[:, 1:])))
-    )
-
-    return j + reg
-
-
-def backpropagation(
-    a: Tuple[np.ndarray, np.ndarray, np.ndarray],
-    z: Tuple[np.ndarray, np.ndarray],
-    y: np.ndarray,
-    thetas: Tuple[np.ndarray, np.ndarray],
-    _lambda: int = 0,
-) -> Tuple[np.ndarray, np.ndarray]:
-    """
-    Implementation of backpropagation algorithm for a simple neural network. Computes the optimal weights
-    for given values of neural network layers.
-
-    Args:
-      a:
-        A tuple of arrays made up of an input layer, a hidden layer, and an output layer.
-      z:
-        A tuple of arrays made up of an input layer, a hidden layer, and an output layer.
-      y:
-        The values corresponding to the input dataset. An m-element vector.
-      thetas:
-        Two sets of weights used for neural network training.
-      _lambda:
-
-
-    Returns:
-      Optimal weights for the neural network.
-    """
-
-    def sigmoid_gradient(_z: np.ndarray) -> np.ndarray:
+    def cost(
+        self,
+        x: np.ndarray,
+        y: np.ndarray,
+    ) -> float:
         """
-        Implementation of sigmoid function gradient. It will apply the sigmoid function
-        gradient to each member of a given vector z.
+        Implementation of the cost function.
 
-        Args:
-          _z:
-            An n+1-element vector.
-
-        Returns:
-            A vector of sigmoid function gradient values for every element of z.
+        :param x: The input data.
+        :param y: The output data.
+        :param regularization: The regularization parameter.
+        :return: The cost function value.
         """
-        gradient = 1 / (1 + np.exp(-_z))
+        m = x.shape[0]
 
-        return gradient * (1 - gradient)
+        #     y_matrix = np.eye(10)[y.reshape(-1)]
+        y_matrix = np.eye(10)[y]
 
-    a_1, a_2, a_3 = a
-    z_2, _ = z
-    theta_1, theta_2 = thetas
-    m = y.size
+        cost = 0
 
-    y_matrix = np.eye(10)[y.reshape(-1)]
+        for i in range(m):
+            _, output_layer = self.propagate_forward(x[i])
+            cost += np.sum(
+                -y_matrix[i] * np.log(output_layer)
+                - (1 - y_matrix[i]) * np.log(1 - output_layer)
+            )
 
-    d_3 = a_3 - y_matrix
-    d_2 = np.dot(d_3, theta_2[:, 1:]) * sigmoid_gradient(z_2)
+        cost /= m
 
-    theta_1_grad = 1 / m * np.dot(d_2.T, a_1)
-    theta_2_grad = 1 / m * np.dot(d_3.T, a_2)
-
-    theta_2_grad[:, 1:] += _lambda / m * theta_2[:, 1:]
-    theta_1_grad[:, 1:] += _lambda / m * theta_1[:, 1:]
-
-    return theta_1_grad.ravel(), theta_2_grad.ravel()
-
-
-def random_weights(
-    input_layer_size: int, hidden_layer_size: int, epsilon: float = 0.12
-) -> np.ndarray:
-    """
-    Randomly initialize the weights of a layer in a neural network.
-    
-    Args:
-      input_layer_size:
-        The number of nodes in the input layer.
-      hidden_layer_size:
-        The number of nodes in the hidden layer.
-      epsilon:
-        The epsilon value used to generate random weights.
-
-    Returns:
-      An array of random weights.
-    """
-    return (
-        np.random.rand(hidden_layer_size, 1 + input_layer_size) * 2 * epsilon - epsilon
-    )
-
-
-def split_theta(
-    theta: np.ndarray, input_layer_size: int, hidden_layer_size: int, num_labels: int
-) -> tuple[np.ndarray, np.ndarray]:
-    """
-    Split theta values into two sets of weights used in the neural network.
-    
-    Args:
-      theta:
-        The parameters for the neural network. An n+1-element vector.
-      input_layer_size:
-        The number of nodes in the input layer.
-      hidden_layer_size:
-        The number of nodes in the hidden layer.
-      num_labels:
-        The number of nodes in the output layer.
-
-
-    Returns:
-      Two sets of weights.
-    """
-    theta_1 = np.reshape(
-        theta[: hidden_layer_size * (input_layer_size + 1)],
-        (hidden_layer_size, (input_layer_size + 1)),
-    )
-
-    theta_2 = np.reshape(
-        theta[(hidden_layer_size * (input_layer_size + 1)) :],
-        (num_labels, (hidden_layer_size + 1)),
-    )
-
-    return theta_1, theta_2
-
-
-def optimize_theta(
-    x: np.ndarray,
-    y: np.ndarray,
-    theta: np.ndarray,
-    input_layer_size: int,
-    hidden_layer_size: int,
-    num_labels: int,
-    options: dict = {"maxiter": 100},
-) -> np.ndarray:
-    """
-    Calculate the optimal value of theta. The derivative terms need to be specified explicitly when using the "minimize"
-    function. We supply it with our compute_gradient function.
-
-    Args:
-      x:
-        Input dataset. A matrix with m rows and n columns.
-      y:
-        The values corresponding to the input dataset. An m-element vector.
-      theta:
-        The parameters for the neural network. An n+1-element vector.
-      input_layer_size:
-        The number of nodes in the input layer.
-      hidden_layer_size:
-        The number of nodes in the hidden layer.
-      num_labels:
-        The number of nodes in the output layer.
-      options:
-        Options for the minimization algorithm.
-
-    Returns:
-     The optimized value of theta.
-    """
-
-    def f_wrapper(_theta: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
-        """
-        Args:
-          _theta:
-            The parameters for the neural network. An n+1-element vector.
-
-        Returns:
-          A prediction vector represents the predicted label for a given row.
-        """
-        reshaped_theta = split_theta(
-            _theta, input_layer_size, hidden_layer_size, num_labels
+        cost += (
+            self._lambda
+            / (2 * m)
+            * (np.sum(self.theta_1[:, 1:] ** 2) + np.sum(self.theta_2[:, 1:] ** 2))
         )
-        a, z = propagate_forward(x, reshaped_theta)
-        cost = compute_cost(a[-1], y, reshaped_theta)
-        gradient = backpropagation(a, z, y, reshaped_theta)
-        return cost, np.concatenate([gradient[0].ravel(), gradient[1].ravel()])
 
-    return optimize.minimize(
-        f_wrapper, theta, jac=True, method="TNC", options=options
-    ).x
+        return cost
 
-
-def calculate_accuracy(
-    x: np.ndarray, y: np.ndarray, thetas: Tuple[np.ndarray, np.ndarray]
-) -> float:
-    """
-    Calculate the proportion of properly classified samples.
-
-    Args:
-      x:
-        Input dataset. A matrix with m rows and n columns.
-      y:
-        The values corresponding to the input dataset. An m-element vector.
-      thetas:
-        Two sets of weights used for neural network training.
-
-    Returns:
-      A float representing the proportion of properly classified samples.
-    """
-    n = x.shape[0]
-    correct = 0
-
-    predictions = predict(x, thetas)
-
-    for prediction, expected in zip(predictions, y):
-        if prediction == expected:
-            correct += 1
-
-    return correct / n
-
-
-def predict(row: np.ndarray, thetas: Tuple[np.ndarray, np.ndarray]) -> np.ndarray:
-    """
-    Using a trained neural network, make a prediction for a single example (row) from the matrix X.
-
-    Args:
-      row:
-        A single row form the matrix X.
-      thetas:
-        Two sets of weights used for neural network training.
-
-    Returns:
-      A prediction vector represents the predicted label for a given row.
-    """
-
-    def sigmoid(z: np.ndarray) -> np.ndarray:
+    def sigmoid(self, z: np.ndarray) -> np.ndarray:
         """
         Sigmoid function implementation. It will apply the sigmoid function
         to each member of a given vector z.
 
-        Args:
-         z:
-           An n+1-element vector.
-
-        Returns:
-           A vector of sigmoid function values for every element of z.
+        :param z: The input vector.
+        :return: The output vector.
         """
         return 1 / (1 + np.exp(-z))
 
-    theta_1, theta_2 = thetas
-    m = row.shape[0]
+    def sigmoid_gradient(self, z: np.ndarray) -> np.ndarray:
+        """
+        Sigmoid gradient function implementation. It will apply the sigmoid gradient function
+        to each member of a given vector z.
 
-    h_1 = sigmoid(np.dot(np.concatenate([np.ones((m, 1)), row], axis=1), theta_1.T))
-    h_2 = sigmoid(np.dot(np.concatenate([np.ones((m, 1)), h_1], axis=1), theta_2.T))
+        :param z: An n+1-element vector.
+        :return: A vector of sigmoid gradient function values for every element of z.
+        """
+        return self.sigmoid(z) * (1 - self.sigmoid(z))
 
-    return np.argmax(h_2, axis=1)
+    def propagate_forward(self, x: np.ndarray) -> (np.ndarray, np.ndarray):
+        """
+        Propagates the input forward through the network.
+
+        :param x: The input data.
+        :return: The hidden layer and output layer.
+        """
+        hidden_layer = self.sigmoid(self.theta_1 @ x)
+        hidden_layer = np.insert(hidden_layer, 0, 1)
+        output_layer = self.sigmoid(self.theta_2 @ hidden_layer)
+        return hidden_layer, output_layer
+
+    def propagate_backward(
+        self, x: np.ndarray, y: np.ndarray
+    ) -> (np.ndarray, np.ndarray):
+        """
+        Propagates the input backward through the network.
+
+        :param x: The input data.
+        :param y: The output data.
+        :return: The gradients for theta_1 and theta_2.
+        """
+        m = x.shape[0]
+
+        y_matrix = np.eye(10)[y.reshape(-1)]
+
+        delta_2_sum = np.zeros(self.theta_1.shape)
+        delta_3_sum = np.zeros(self.theta_2.shape)
+
+        for i in range(m):
+            hidden_layer, output_layer = self.propagate_forward(x[i])
+            delta_3 = output_layer - y_matrix[i]
+            delta_2 = np.dot(delta_3, self.theta_2[:, 1:]) * self.sigmoid_gradient(
+                hidden_layer[1:]
+            )
+            delta_2_sum += np.dot(delta_2.reshape(-1, 1), x[i].reshape(1, -1))
+            delta_3_sum += np.dot(delta_3.reshape(-1, 1), hidden_layer.reshape(1, -1))
+
+        delta_2_sum /= m
+        delta_3_sum /= m
+
+        delta_2_sum[:, 1:] += self._lambda / m * self.theta_1[:, 1:]
+        delta_3_sum[:, 1:] += self._lambda / m * self.theta_2[:, 1:]
+
+        return delta_2_sum, delta_3_sum
+
+    def optimize_theta(self, x: np.ndarray, y: np.ndarray) -> None:
+        """
+        Optimizes the weights of the neural network.
+
+        :param x: The input data.
+        :param y: The output data.
+        """
+        theta = np.concatenate([self.theta_1.flatten(), self.theta_2.flatten()])
+
+        def function_to_minimize(theta):
+            self.theta_1 = theta[: self.theta_1.size].reshape(self.theta_1.shape)
+            self.theta_2 = theta[self.theta_1.size :].reshape(self.theta_2.shape)
+            return self.cost(x, y)
+
+        def gradient_wrapper(theta):
+            self.theta_1 = theta[: self.theta_1.size].reshape(self.theta_1.shape)
+            self.theta_2 = theta[self.theta_1.size :].reshape(self.theta_2.shape)
+            theta_1_grad, theta_2_grad = self.propagate_backward(x, y)
+            return np.concatenate([theta_1_grad.flatten(), theta_2_grad.flatten()])
+
+        result = optimize.minimize(
+            fun=function_to_minimize,
+            x0=theta,
+            method="TNC",
+            jac=gradient_wrapper,
+            options={"maxiter": 1000},
+        )
+
+        self.theta_1 = result.x[
+            : self.hidden_layer_size * (self.input_layer_size + 1)
+        ].reshape(self.hidden_layer_size, self.input_layer_size + 1)
+        self.theta_2 = result.x[
+            self.hidden_layer_size * (self.input_layer_size + 1) :
+        ].reshape(self.output_layer_size, self.hidden_layer_size + 1)
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> None:
+        """
+        Fits the model to the given data.
+
+        :param x: The input data.
+        :param y: The output data.
+        """
+        self.optimize_theta(x, y)
+
+    def predict(self, row: np.ndarray) -> float:
+        """
+        Using a trained neural network, makes a prediction for a given input.
+
+        :param row: A single row form the matrix X.
+        :return: A prediction for the given input.
+        """
+
+        def map_to_correct_range(value: float) -> float:
+            """
+            Maps the value to 0-9 range.
+
+            :param value: The value to be mapped.
+            :return: The mapped value.
+            """
+            return value if value != 9 else 0
+
+        output = np.argmax(self.propagate_forward(row)[1])
+        return map_to_correct_range(output)
