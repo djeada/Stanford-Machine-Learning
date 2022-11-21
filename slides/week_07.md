@@ -34,6 +34,11 @@ $\lambda$ is the regularization parameter that controls a trade off between our 
 
 Later in the course, we'll look at various automated methods for selecting $\lambda$.
 
+The gradient of the cost function is a vector where the j th element is defined as follows:
+
+$$\frac{\partial}{\partial \theta_0} J(\theta) = \frac{1}{m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)})x_j^{(i)} \quad for\;j=0$$
+
+$$\frac{\partial}{\partial \theta_j} J(\theta) = (\frac{1}{m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)})x_j^{(i)}) + \frac{\lambda}{m}\theta_j \quad for\;j\ge1$$
 
 ## Regularized linear regression
 
