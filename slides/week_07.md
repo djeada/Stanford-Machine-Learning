@@ -11,7 +11,7 @@
 Penalize and make some of the $\theta$ parameters really small.
 
 
-$$min \frac{1}{2m} \sum_{i=1}^{m}(h_{\theta}(x^{(i)} + y^{(i)})^2 + 1000 \theta_3^2 +  1000 \theta_4^2$$
+$$min \frac{1}{2m} \sum_{i=1}^{m}(h_{\theta}(x^{(i)} - y^{(i)})^2 + 1000 \theta_3^2 +  1000 \theta_4^2$$
 
 
 So we simply end up with $\theta_3$ and $\theta_4$ being near to zero (because of the huge constants) and we're basically left with a quadratic function.
