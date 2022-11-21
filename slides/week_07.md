@@ -22,7 +22,7 @@ So we simply end up with $\theta_3$ and $\theta_4$ being near to zero (because o
 ### Regularization
 Small parameter values correlate to a simpler hypothesis (you effectively get rid of some of the terms). Overfitting is less likely with a simpler hypothesis.
 
-$$J(\theta) = \frac{1}{2m} [ \sum_{i=1}^{m}(h_{\theta}(x^{(i)} + y^{(i)})^2 + \lambda \sum_{j=1}^{m} \theta_j^2] $$
+$$J(\theta) = \frac{1}{2m} [ \sum_{i=1}^{m}(h_{\theta}(x^{(i)} - y^{(i)})^2 + \lambda \sum_{j=1}^{m} \theta_j^2] $$
 
 
 $\lambda$ is the regularization parameter that controls a trade off between our two goals:
