@@ -9,151 +9,216 @@ import numpy as np
 import scipy.optimize
 
 
-def hypothesis_function(x: np.ndarray, theta: np.ndarray) -> np.ndarray:
+class LinearRegression:
+    """ "
+    The goal of this class is to implement a linear regression model.
+    The gradient descent algorithm is used to learn the parameters of the model.
     """
-    Hypothesis function for linear regression. It is a linear function  of the form: 
-    h(x) = theta0 + theta1 * x1 + theta2 * x2 + ... + thetaN * xN.  
-    Theta is a vector containing the parameter values. 
-    
-    Args:
-        x: Matrix of features.
-        theta: Vector of parameters.
-    
-    Returns:
-        Vector of predictions.
-    """
-    return np.dot(x, theta)
 
+    def __init__(self, _lambda: float = 0.0):
+        self._lambda = _lambda
+        self.theta = []
+        self.theta_history = []
+        self.cost_history = []
 
-def compute_cost(
-    x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda: int = 0
-) -> np.float64:
-    """
-    Computes the cost of using theta as the parameter for linear regression to fit the data points in x and y. 
-    
-    Args:
-        x: Matrix of features.
-        y: Vector of labels.
-        theta: Vector of parameters.
-        _lambda: Regularization parameter.
-    
-    Returns:
-        Cost of using theta as the parameter for linear regression to fit the data points in x and y.
-    """
-    if theta is None:
-        theta = np.zeros((x.shape[1], 1))
+    def hypothesis_function(self, x: np.ndarray) -> np.ndarray:
+        """
+        Takes an x matrix and returns the hypothesis function for the current theta.
+        """
+        return x @ self.theta
 
-    m = y.size
+    def compute_cost(self, x: np.ndarray, y: np.ndarray) -> float:
+        """
+        Takes an x matrix and a y matrix and returns the cost function for the current theta.
+        """
+        m = x.shape[0]
 
-    j = (
-        1
-        / (2 * m)
-        * np.dot(
-            (hypothesis_function(x, theta).reshape((m, 1)) - y).T,
-            (hypothesis_function(x, theta).reshape((m, 1)) - y),
+        j = (
+            1
+            / (2 * m)
+            * np.dot(
+                (self.hypothesis_function(x).reshape((m, 1)) - y).T,
+                (self.hypothesis_function(x).reshape((m, 1)) - y),
+            )
         )
-    )
-    reg = _lambda / (2 * m) * np.dot(theta[1:].T, theta[1:])
+        reg = self._lambda / (2 * m) * np.dot(self.theta[1:].T, self.theta[1:])
 
-    return (j + reg)[0][0]
+        return (j + reg)[0][0]
+
+    def compute_cost_gradient(self, x: np.ndarray, y: np.ndarray) -> np.ndarray:
+        """
+        Takes an x matrix and a y matrix and returns the gradient of the cost function for the current theta.
+        """
+        m = x.shape[0]
+
+        grad = (
+            1
+            / m
+            * np.dot(
+                (self.hypothesis_function(x).reshape((m, 1)) - y).T,
+                x,
+            ).T
+        )
+
+        reg = self._lambda / m * self.theta
+
+        reg[0] = 0
+
+        return grad + reg
+
+    def optimize_theta(self, x: np.ndarray, y: np.ndarray) -> None:
+
+        """
+        Takes an x matrix and a y matrix and optimizes the theta using scipy.optimize.minimize.
+        """
+
+        def function_to_minimize(theta):
+            self.theta = theta
+            return self.compute_cost(x, y)
+
+        result = scipy.optimize.minimize(
+            function_to_minimize,
+            x0=self.theta,
+            method="BFGS",
+            options={
+                "disp": False,
+                "gtol": 1e-05,
+                "eps": 1.4901161193847656e-08,
+                "return_all": False,
+                "maxiter": None,
+            },
+        ).x
+        return result
+
+    def fit(self, x: np.ndarray, y: np.ndarray) -> None:
+        """
+        Takes an x matrix and a y matrix and fits the model to the data.
+        """
+        self.theta = np.zeros((x.shape[1], 1))
+        result = self.optimize_theta(x, y)
+        self.theta = result
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        """
+        Takes an x matrix and returns the predicted y values.
+        """
+        return self.hypothesis_function(x)
+
+    def __str__(self) -> str:
+        """ "
+        Returns a string representation of the model
+        in the form of a linear equation.
+
+        :return: A string representation of the model.
+        """
+        return f"y = {self.theta[0]:.2f} + {self.theta[1]:.2f}x"
 
 
-def compute_gradient(
-    x: np.ndarray, y: np.ndarray, theta: np.ndarray = None, _lambda: int = 0
-) -> np.ndarray:
+class FeatureNormalizer:
     """
-    Computes the gradient of the cost function.
-
-    Args:
-        x: Matrix of features.
-        y: Vector of labels.
-        theta: Vector of parameters.
-        _lambda: Regularization parameter.
-    
-    Returns:
-        Vector of gradient.
-    """
-    if theta is None:
-        theta = np.zeros((x.shape[1], 1))
-
-    m = y.size
-    theta = theta.reshape((theta.shape[0], 1))
-
-    gradient = 1 / m * np.dot(x.T, hypothesis_function(x, theta) - y)
-    reg = _lambda / m * theta
-
-    # don't regularize the bias term
-    reg[0] = 0
-
-    return gradient + reg.reshape((gradient.shape[0], 1))
-
-
-def optimize_theta(
-    x: np.ndarray, y: np.ndarray, theta: np.ndarray, _lambda: int = 0
-) -> np.ndarray:
-    """
-    Optimizes theta using the scipy.optimize.minimize function.
-
-    Args:
-        x: Matrix of features.
-        y: Vector of labels.
-        theta: Vector of parameters.
-        _lambda: Regularization parameter.
-    
-    Returns:
-        Vector of optimized parameters.
-    """
-    return scipy.optimize.minimize(
-        lambda _theta: compute_cost(x, y, _theta, _lambda),
-        x0=theta,
-        method="BFGS",
-        options={
-            "disp": False,
-            "gtol": 1e-05,
-            "eps": 1.4901161193847656e-08,
-            "return_all": False,
-            "maxiter": None,
-        },
-    ).x
-
-
-def construct_polynomial_matrix(x: np.ndarray, p: int) -> np.ndarray:
-    """
-    Takes an x matrix and returns an x matrix with additional columns.
-    First additional column is 2'nd column with all values squared,
-    the next additional column is 2'nd column with all values cubed etc.    
-
-    Args:
-        x: Matrix of features.
-        p: Degree of the polynomial.
-    
-    Returns:
-        Matrix of features with additional columns.
+    A class that normalizes features by subtracting the mean and dividing by the standard deviation.
     """
 
-    p_matrix = x.copy()
+    def __init__(self, x: np.ndarray, excluded_columns: Tuple[int, ...] = ()):
+        """
+        Initializes a new instance of the FeatureNormalizer class.
+        :param x: The input array.
+        :param excluded_columns: The columns to exclude from normalization.
+        """
+        self.means = np.mean(x, axis=0)
+        self.stds = np.std(x, axis=0)
 
-    for i in range(2, p + 2):
-        p_matrix = np.insert(p_matrix, p_matrix.shape[1], np.power(x[:, 1], i), axis=1)
+        for i in excluded_columns:
+            self.means[i] = 0
+            self.stds[i] = 1
 
-    return p_matrix
+    def normalize(self, x: np.ndarray, epsilon=1e-100) -> np.ndarray:
+        """
+        Normalizes the input array.
+        :param x: The input array.
+        :param epsilon: A small value to avoid division by zero.
+        :return: The normalized input array.
+        """
+        return (x - self.means) / (self.stds + epsilon)
+
+    def denormalize(self, x: np.ndarray) -> np.ndarray:
+        """
+        Denormalizes the input array.
+        :param x: The input array.
+        :return: The denormalized input array.
+        """
+        return x * self.stds + self.means
 
 
-def normalize_features(x: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+class PolynomialRegression(LinearRegression):
     """
-    Normalizes the features in x.  
-    
-    Args:
-        x: Matrix of features.
-
-    Returns:
-        The normalized x, the mean of the original features and the standard deviation of the original features
+    The goal of this class is to implement a polynomial regression model.
+    Polynomial regression is similar to linear regression, but the features
+    are the powers of the original features up to the p-th power. This fact
+    has to be taken into account when implementing the methods.
+    For the supplied data x, we have to disregard first column of ones.
+    Then construct polynomial features from it and then normalize it.
     """
-    x_norm = x.copy()
 
-    feature_means = np.mean(x_norm, axis=0)
-    x_norm[:, 1:] = x_norm[:, 1:] - feature_means[1:]
-    feature_stds = np.std(x_norm, axis=0, ddof=1)
-    x_norm[:, 1:] = x_norm[:, 1:] / feature_stds[1:]
+    def __init__(self, p: int, _lambda: float = 0):
+        """
+        Initializes a new instance of the PolynomialRegression class.
+        :param p: The degree of the polynomial.
+        :param _lambda: The regularization parameter.
+        """
+        super().__init__(_lambda)
+        self.p = p
+        self.feature_normalizer = None
 
-    return x_norm, feature_means, feature_stds
+    def fit(self, x: np.ndarray, y: np.ndarray) -> None:
+        """
+        Takes an x matrix and a y matrix and fits the model to the data.
+        """
+        x = x[:, 1:]
+        x = self.construct_polynomial_features(x)
+        self.feature_normalizer = FeatureNormalizer(x)
+        x = self.feature_normalizer.normalize(x)
+        x = np.hstack((np.ones((x.shape[0], 1)), x))
+        super().fit(x, y)
+
+    def process_input(self, x: np.ndarray) -> np.ndarray:
+        """
+        Takes an x matrix and returns the processed x matrix.
+        """
+        x = np.atleast_2d(x)
+        x = x[:, 1:]
+        x = self.construct_polynomial_features(x)
+        x = self.feature_normalizer.normalize(x)
+        x = np.hstack((np.ones((x.shape[0], 1)), x))
+        return x
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        """
+        Takes an x matrix and returns the predicted y values.
+        """
+        x = self.process_input(x)
+        return super().predict(x)
+
+    def construct_polynomial_features(self, x: np.ndarray) -> np.ndarray:
+        """
+        Takes an x matrix and returns the polynomial features.
+        """
+        x = np.hstack([x ** i for i in range(1, self.p + 1)])
+        return x
+
+    def __str__(self) -> str:
+        """ "
+        Returns a string representation of the model
+        in the form of a polynomial equation.
+
+        :return: A string representation of the model.
+        """
+        s = "y = "
+        for i in range(self.p + 1):
+            if i == 0:
+                s += f"{self.theta[i]:.2f}"
+            elif i == 1:
+                s += f" + {self.theta[i]:.2f}x"
+            else:
+                s += f" + {self.theta[i]:.2f}x^{i}"
+        return s
