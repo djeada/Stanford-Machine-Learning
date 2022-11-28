@@ -24,8 +24,8 @@ $$h_{\theta}(x) = \theta_0 + \theta_1x$$
 * $\theta_1$ is gradient.
 
 ### Cost function
-* We may use a cost function to determine how to fit the best straight line
-to our data.
+* A cost function expresses how dissatisfied we are with the model's present coefficients in the prediction of output y from input x. 
+* We may use the cost function to determine how to fit the best straight line to our data.
 * We want to want to solve a minimization problem. Minimize $(h_{\theta}(x) - y)^2$.
 * Sum this over the training set.
 
