@@ -84,8 +84,7 @@ What's a good metric to use for evaluation?
 * Compute precision/recall.
 * Compute F1-score.
 
-
-## Multivariate Gaussian distribution}
+## Multivariate Gaussian distribution
 It is a somewhat different approach that can occasionally discover anomalies that normal Gaussian distribution anomaly detection fails to detect.
 
 
