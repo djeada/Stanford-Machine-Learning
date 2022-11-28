@@ -26,8 +26,7 @@ Now we can represent x1 as a 1D number (Z dimension).
 * Create a new feature representation (2 z values) that summarizes these features.
 * Reduce $50D\ ->\ 2D$ (now possible to plot).
 
-
-## Principle Component Analysis (PCA): Problem Formulation
+## Principle Component Analysis (PCA): problem formulation
 
 * Assume we have a 2D data collection that we want to reduce to 1D.
 * How can we choose a single line that best fits our data?
@@ -42,8 +41,7 @@ Now we can represent x1 as a 1D number (Z dimension).
 * For PCA minimizing the magnitude of the shortest orthogonal distance.
 * With PCA there is no $y$ - instead we have a list of features and all features are treated equally.
 
-## PCA Algorithm
-
+## PCA algorithm
 
 * Compute the covariance matrix.
 
@@ -56,9 +54,7 @@ Now we can represent x1 as a 1D number (Z dimension).
 * Just take the first k-vectors from U.
 * Next, calculate $z$.  $$z = (U_{reduce})^T \cdot x$$
 
-
-## Reconstruction from Compressed Representation
-
+## Reconstruction from compressed representation
 
 * Is it possible to decompress data from a low dimensionality format to a higher dimensionality format?
 
@@ -66,9 +62,7 @@ Now we can represent x1 as a 1D number (Z dimension).
 
 * We lose some information (everything is now precisely aligned on that line), but it is now projected into 2D space.
 
-
-## Choosing the number of Principle Components
-
+## Choosing the number of principle components
 
 * PCA attempts to minimize the averaged squared projection error.
 
@@ -80,7 +74,11 @@ Now we can represent x1 as a 1D number (Z dimension).
 
 * To determine k, we may use the following formula:
 
- $$\frac{\frac{1}{m} \sum_{i=1}^{m} ||x^{(i)} - x_{approx}^{(i)}||^2}{\frac{1}{m} \sum_{i=1}^{m} ||x^{(i)}||^2} \leq 0.01$$
+ $$
+ \frac{\frac{1}{m} \sum_{i=1}^{m} ||x^{(i)} - x_{approx}^{(i)}||^2}
+ {\frac{1}{m} \sum_{i=1}^{m} ||x^{(i)}||^2} 
+ \leq 0.01
+ $$
 
 ## Applications of PCA
 
