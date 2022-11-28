@@ -3,6 +3,7 @@
 * The same thing may happen with logistic regression.
 * Sigmoidal function is an underfit.
 * A high order polynomial, on the other hand, results in overfitting (high variance hypothesis).
+* Regularization prevents the model from overfitting to the training data.
 
 ![overfitting_logistic_regression](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/overfitting_logistic_regression.png)
 
