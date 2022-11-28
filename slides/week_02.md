@@ -123,16 +123,11 @@ $$j=0:\frac{\partial}{\partial \theta_0} J(\theta_0, \theta_1)=\frac{\partial}{\
 
 $$j=1:\frac{\partial}{\partial \theta_1} J(\theta_0, \theta_1)=\frac{\partial}{\partial \theta_1} \frac{1}{m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)})x^{(i)}$$
 
-## Two extension to the algorithm
-
-### Normal equation for numeric solution
-* To solve the minimization problem we can solve it $[ min J(\theta_0, \theta_1) ]$ exactly using a numeric method which avoids the iterative approach used by gradient descent
-
-### Normal equations method.
+## Normal equations method
+* To solve the minimization problem we can solve it $[ min J(\theta_0, \theta_1) ]$ exactly using a numerical method which avoids the iterative approach used by gradient descent.
 * Can be much faster for some problems, but it is much more complicated (will be covered in detail later).
 
 We can learn with a larger number of features
 * e.g. with houses: Size, Age, Number bedrooms, Number floors...
 * Can’t really plot in more than 3 dimensions.
-* Best way to get around with this is the notation of linear algebra (matrices
-and vectors)
+* Best way to get around with this is the notation of linear algebra (matrices and vectors)
