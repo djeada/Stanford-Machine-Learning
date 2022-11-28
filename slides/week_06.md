@@ -10,10 +10,7 @@ Let’s go back to the cancer example from the Week 1 and try to apply linear re
 
 ![cancer_classification](https://user-images.githubusercontent.com/37275728/201496614-36ec47d4-437e-4d25-82bf-27289489a5a7.png)
 
-We see that it wasn’t the best idea. Of course, we could attempt another
-approach to find a straight line that would better separate the points, but a
-straight line isn’t our sole choice. There are more appropriate functions for that
-job.
+We see that it wasn’t the best idea. Of course, we could attempt another approach to find a straight line that would better separate the points, but a straight line isn’t our sole choice. There are more appropriate models for that job.
 
 ## Hypothesis representation
 * We want our classifier to output values between 0 and 1.
@@ -22,7 +19,7 @@ job.
         $$g(z) = \frac{1}{1 + e^{-z}}$$
 * If we combine these equations we can write out the hypothesis as:
 
-$$h_{\theta}(x) = \frac{1}{1+e^{-\theta Tx}}$$
+$$h_{\theta}(x) = \frac{1}{1+e^{-\theta^Tx}}$$
 
 ![sigmoid](https://user-images.githubusercontent.com/37275728/201496643-38a45685-61a5-4af4-bf24-2acaa22ef1ff.png)
 
