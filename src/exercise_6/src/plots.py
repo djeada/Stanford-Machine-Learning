@@ -7,70 +7,123 @@ course on coursera.com.
 
 import numpy as np
 import matplotlib.pyplot as plt
+import algorithms
 
 
-def plot_data(data: tuple, title: str = "scatter plot of training data 1") -> None:
+def plot_data(
+    positive: np.ndarray,
+    negative: np.ndarray,
+    title: str = "Training Data",
+    label_x: str = "x_1",
+    label_y: str = "x_2",
+    label_positive: str = "positive",
+    label_negative: str = "negative",
+) -> None:
     """
-    Plots the data points x and y into a scatter plot. Two different colors are used 
-    to distinguish the positive and negative examples.
-
-    Args:
-      data:
-        A tuple of x and y values for the points to be plotted.
-
-      title:
-        A string that serves as both the plot's title and the saved figure's filename.
-
-    Returns:
-      None
+    Plot the training data.
+    :param positive: The training data.
+    :param negative: The training labels.
+    :param title: The title of the plot.
+    :param label_x: The label of the x-axis.
+    :param label_y: The label of the y-axis.
+    :param label_positive: The label of the positive data.
+    :param label_negative: The label of the negative data.
     """
-    pos, neg = data
     plt.figure(figsize=(10, 6))
-    plt.scatter(pos[:, 0], pos[:, 1], marker="+", c="k", s=150, label="Positive Sample")
-    plt.scatter(neg[:, 0], neg[:, 1], marker="o", c="y", s=100, label="Negative Sample")
-    plt.xlabel("Column 1 Variable")
-    plt.ylabel("Column 2 Variable")
+    plt.scatter(
+        positive[:, 0], positive[:, 1], marker="+", c="k", s=150, label=label_positive
+    )
+    plt.scatter(
+        negative[:, 0], negative[:, 1], marker="o", c="y", s=100, label=label_negative
+    )
+    plt.ylabel(label_y)
+    plt.xlabel(label_x)
+    plt.legend(loc="upper right")
+    plt.title(title)
+    plt.show()
+
+
+def plot_data_and_svm_boundary(
+    positive: np.ndarray,
+    negative: np.ndarray,
+    model: algorithms.SvmRegressionBase,
+    title: str = "Decision Boundary",
+    label_x: str = "x_1",
+    label_y: str = "x_2",
+    label_positive: str = "positive",
+    label_negative: str = "negative",
+) -> None:
+    """
+    Plots the training data and the decision boundary of the SVM regression model.
+
+    :param positive: The training data.
+    :param negative: The training labels.
+    :param model: The SVM regression model.
+    :param title: The title of the plot.
+    :param label_x: The label of the x-axis.
+    :param label_y: The label of the y-axis.
+    :param label_positive: The label of the positive data.
+    :param label_negative: The label of the negative data.
+    """
+    plt.figure(figsize=(10, 6))
+    plt.scatter(
+        positive[:, 0], positive[:, 1], marker="+", c="k", s=150, label=label_positive
+    )
+    plt.scatter(
+        negative[:, 0], negative[:, 1], marker="o", c="y", s=100, label=label_negative
+    )
+
+    x = np.linspace(plt.xlim()[0], plt.xlim()[1], 100)
+    y = model.boundary(x)
+    plt.plot(x, y, label=str(model))
+    plt.ylabel(label_y)
+    plt.xlabel(label_x)
     plt.legend()
     plt.title(title)
-    plt.savefig(title.replace(" ", "_").lower())
+    plt.show()
 
 
-def plot_boundary(data: tuple) -> None:
+def plot_boundary_as_contour(
+    positive: np.ndarray,
+    negative: np.ndarray,
+    model: algorithms.SvmRegressionBase,
+    title: str = "Decision Boundary",
+    label_x: str = "x_1",
+    label_y: str = "x_2",
+    label_positive: str = "positive",
+    label_negative: str = "negative",
+) -> None:
     """
-    Boundary is drawn for the SVM classifier.
-
-    Args:
-      data: Contains the gaussian kernel and the extreme values of the data.
-    
-    Returns:
-      None
+    Plot the decision boundary as a contour plot.
+    :param positive: The training data.
+    :param negative: The training labels.
+    :param model: The trained logistic regression model.
+    :param title: The title of the plot.
+    :param label_x: The label of the x-axis.
+    :param label_y: The label of the y-axis.
+    :param label_positive: The label of the positive data.
+    :param label_negative: The label of the negative data.
     """
-    clf, x_min, x_max = data
-    w = clf.coef_[0]
-    a = -w[0] / w[1]
 
-    xp = np.array(np.linspace(x_min, x_max, 100))
-    yp = a * xp - (clf.intercept_[0]) / w[1]
-    plt.plot(xp, yp, "-k")
+    plt.figure(figsize=(10, 6))
+    plt.scatter(
+        positive[:, 0], positive[:, 1], marker="+", c="k", s=150, label=label_positive
+    )
+    plt.scatter(
+        negative[:, 0], negative[:, 1], marker="o", c="y", s=100, label=label_negative
+    )
 
+    plt.ylabel(label_y)
+    plt.xlabel(label_x)
+    plt.legend(loc="upper right")
+    plt.title(title)
 
-def plot_boundary_gaussian(data: tuple, n: int = 200) -> None:
-    """
-    Boundary is drawn for the SVM classifier with gaussian kernel.
-
-    Args:
-      data: Contains the gaussian kernel and the extreme values of the data.
-      n: Number of points to be plotted.
-
-    Returns:
-      None
-    """
-    clf, x_min, x_max, y_min, y_max = data
-
-    x_range = np.array(np.linspace(x_min, x_max, n))
-    y_range = np.array(np.linspace(y_min, y_max, n))
-    u, v = np.meshgrid(x_range, y_range)
-    grid = np.array(list(zip(u.flatten(), v.flatten())))
-
-    prediction_grid = clf.predict(grid).reshape((n, n))
-    plt.contour(x_range, y_range, prediction_grid, cmap=plt.cm.coolwarm, extend="both")
+    x_min, x_max = plt.xlim()
+    x_min, x_max = x_min - 0.1, x_max + 0.1
+    x1 = np.linspace(x_min, x_max, 100)
+    x2 = np.linspace(x_min, x_max, 100)
+    x1, x2 = np.meshgrid(x1, x2)
+    z = model.boundary(np.c_[x1.ravel(), x2.ravel()])
+    z = z.reshape(x1.shape)
+    plt.contour(x1, x2, z, [0], linewidths=2, colors="g")
+    plt.show()
