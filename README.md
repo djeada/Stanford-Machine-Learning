@@ -100,7 +100,7 @@ I recommend that you visit this <a href="http://www.holehouse.org/mlclass/">webs
         </tr>
         <tr>
             <td>Week 16</td>
-            <td>Recommender Systems.</td>
+            <td>Recommendation Systems.</td>
             <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_16.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
