@@ -8,120 +8,148 @@ course on coursera.com.
 from typing import Tuple
 import numpy as np
 import matplotlib.pyplot as plt
-
+import algorithms
 from PIL import Image
 
 
-def plot_data(
-    data: Tuple[np.ndarray, np.ndarray], title: str = "Scatter Plot Of Training Data"
+def scatter(
+    x: np.ndarray,
+    y: np.ndarray,
+    title: str = "Training Data",
+    x_label: str = "x",
+    y_label: str = "y",
 ) -> None:
     """
-    Plots the data in a scatter plot.
-    Args:
-      data:
-        A tuple of x and y values for the points to be plotted.
-
-      title:
-        A string that is used as the plot's title and the filename of the saved figure.
-
-    Returns:
-      None
+    Plots the data as a scatter plot.
+    :param x: The x values.
+    :param y: The y values.
+    :param title: The title of the plot.
+    :param x_label: The label of the x axis.
+    :param y_label: The label of the y axis.
     """
-    x, y = data
     plt.figure(figsize=(10, 6))
     plt.scatter(x, y, marker="o", c="g", s=100)
+    plt.ylabel(y_label)
+    plt.xlabel(x_label)
     plt.title(title)
-    plt.savefig(title.lower().replace(" ", "_"))
+    plt.show()
 
 
-def visualize_k_means(data: tuple, title="K means algorithm visualisation") -> None:
+def visualize_k_means(x: np.ndarray, model: algorithms.KMeansRegression) -> None:
     """
-    Visualizes the k-means algorithm. The algorithm is visualized by plotting the data points 
-    in a scatter plot and the centroids in a different color.
+    Visualizes the KMeans algorithm. The algorithm is visualized by plotting the
+    data points and the centroids.
 
-    Args:
-      data:
-        A tuple of x and y values for the points to be plotted.
-      title:
-        A string that serves as both the plot's title and the saved figure's filename.
-    
-    Returns:
-      None
+    :param x: The data points.
+    :param model: The KMeans model.
     """
-    x, k, idx, centroid_history = data
     plt.figure(figsize=(10, 6))
-    for centroid in range(k):
-        row = list()
-        for j in range(len(x)):
-            if idx[j] == centroid:
-                row.append(x[j])
 
-        row = np.array(row)
-        plt.scatter(row[:, 0], row[:, 1], marker="o", s=100)
+    centorid_history = np.array(model.centroids_history)
+    clustered_points = {
+        tuple(cluster_center): [] for cluster_center in centorid_history[-1]
+    }
+    for point in x:
+        cluster_center = model.predict(point)
+        cluster_center = tuple(cluster_center[0])
+        clustered_points[cluster_center].append(point)
 
-        history = centroid_history[:, centroid, :]
-        plt.plot(history[:, 0], history[:, 1], ".-", color="black", markersize=20)
+    for cluster_center, points in clustered_points.items():
+        points = np.array(points)
+        plt.scatter(
+            points[:, 0],
+            points[:, 1],
+            marker="o",
+            s=20,
+            label=f"Cluster center: {cluster_center[0]:.2f}, {cluster_center[1]:.2f}",
+        )
 
-        # ADD SAVEFIG
+    for i in range(centorid_history.shape[1]):
+        plt.plot(
+            centorid_history[:, i, 0],
+            centorid_history[:, i, 1],
+            marker="x",
+            color="black",
+        )
 
-    plt.title(title)
+    plt.xlabel("x_1")
+    plt.ylabel("x_2")
+    plt.title("KMeans visualization")
+    plt.legend()
+    plt.show()
 
 
-def visualize_pca(data: Tuple[np.ndarray, np.ndarray]) -> None:
+def visualize_pca(
+    x: np.ndarray,
+    x_recovered: np.ndarray,
+    title: str = "PCA visualization",
+    x_label: str = "x_1 (Feature Normalized)",
+    y_label: str = "x_2 (Feature Normalized)",
+) -> None:
     """
-    Visualizes the PCA algorithm. The algorithm is visualized by plotting the 
+    Visualizes the PCA algorithm. The algorithm is visualized by plotting the
     data points and the pcas results.
 
-    Args:
-      data:
-        A tuple of normalized data points and the pca results.
-      
-    Returns:
-      None
+    :param x: The original data points.
+    :param x_recovered: The data points after PCA.
     """
-    x_norm, x_rec = data
     plt.figure(figsize=(10, 6))
+
+    # scatter plot the original data points and the recovered data points
+    plt.scatter(x[:, 0], x[:, 1], marker="o", c="g", s=20, label="Original Data")
     plt.scatter(
-        x_norm[:, 0], x_norm[:, 1], s=30, edgecolors="b", label="Original Data Points"
-    )
-    plt.scatter(
-        x_rec[:, 0], x_rec[:, 1], s=30, edgecolors="r", label="PCA Reduced Data Points"
+        x_recovered[:, 0], x_recovered[:, 1], marker="o", c="b", s=20, label="PCA"
     )
 
-    for x in range(x_norm.shape[0]):
-        plt.plot([x_norm[x, 0], x_rec[x, 0]], [x_norm[x, 1], x_rec[x, 1]], "k--")
+    # draw the line between the original and the recovered data points
+    for i in range(x.shape[0]):
+        plt.plot([x[i, 0], x_recovered[i, 0]], [x[i, 1], x_recovered[i, 1]], "k--")
 
-    plt.xlabel("x_1 (Feature Normalized)")
-    plt.ylabel("x_2 (Feature Normalized)")
-
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+    plt.title(title)
     plt.legend()
-    plt.title("Original Data Points and Reduced Dimension Points")
+    plt.show()
 
 
-def display_image_grid(x: np.ndarray) -> None:
+def display_image_grid(
+    x: np.ndarray,
+    rows: int = 4,
+    cols: int = 4,
+    width: int = 32,
+    height: int = 32,
+    title: str = "Image Grid",
+) -> None:
     """
-    Displays a grid of images. The images are scaled to the range [0, 1].
+    Displays a grid of images.
 
-    Args:
-      x:
-        A numpy array of shape (n_images, height, width, channels) containing the images.
-
-    Returns:
-      None
+    :param x: The images to be displayed.
+    :param rows: The number of rows in the grid.
+    :param cols: The number of columns in the grid.
+    :param width: The width of the grid.
+    :param height: The height of the grid.
+    :param title: The title of the grid.
     """
-    rows, cols = 4, 4
-    width, height = 32, 32
-    size = int(np.sqrt(x.shape[-1]))
-    num_samples = rows * cols
-    samples = x[:num_samples]
-    image = Image.new("RGB", (rows * width, rows * height))
 
-    for i in range(rows):
-        for j in range(cols):
-            array = samples[i * rows + j]
-            array = ((array / max(array)) * 255).reshape((size, size)).T
-            image.paste(Image.fromarray(array + 128), (i * width, j * height))
+    plt.figure(figsize=(6, 6))
+    plt.gray()
+    for i in range(rows * cols):
+        plt.subplot(rows, cols, i + 1)
+        plt.imshow(x[i].reshape(width, height).T)
+        plt.axis("off")
+    plt.suptitle(title)
+    plt.show()
 
+
+def plot_image(image: Image, title: str = "Image") -> None:
+    """
+    Plots a PIL image.
+
+    :param image: The image to be plotted.
+    :param title: The title of the plot.
+    """
     plt.figure(figsize=(6, 6))
     plt.imshow(image)
     plt.axis("off")
+    plt.title(title)
+    plt.show()

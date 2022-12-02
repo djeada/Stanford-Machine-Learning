@@ -9,170 +9,160 @@ import numpy as np
 from PIL import Image
 
 
-def initialize_k_centroids(x: np.ndarray, k: int) -> np.ndarray:
+class KMeansRegression:
     """
-    Pick k random points as initial centroids. This is the first step in K-means algorithm.
+    The K-Means Regression algorithm.
 
-    Args:
-        x: the dataset
-        k: the number of centroids
-
-    Returns:
-        the initial centroids
+    :param k: The number of clusters.
     """
-    n = x.shape[0]
-    return x[np.random.choice(n, k, replace=False), :]
+
+    def __init__(self, k: int) -> None:
+        self.k = k
+        self.centroids_history = []
+
+    def fit(
+        self,
+        x: np.ndarray,
+        max_iterations: int = 10,
+        initial_centroids: Optional[np.ndarray] = None,
+    ) -> None:
+        """
+        Fits the model to the data.
+
+        :param x: The data points.
+        :param max_iterations: The maximum number of iterations.
+        :param initial_centroids: The initial centroids.
+        """
+        if initial_centroids is not None:
+            centroids = initial_centroids
+        else:
+            centroids = self._initialize_centroids(x)
+
+        self.centroids_history = [centroids]
+        for _ in range(max_iterations):
+            idx = self._find_closest_centroids(x, centroids)
+            centroids = self._compute_centroids(x, idx)
+            self.centroids_history.append(centroids)
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        """
+        Accepts an array of data points and returns an array of cluster centroids
+        for each data point.
+
+        :param x: The data points.
+        :return: The cluster centroids.
+        """
+        x = np.atleast_2d(x)
+        return self.centroids_history[-1][
+            self._find_closest_centroids(x, self.centroids_history[-1])
+        ]
+
+    def _initialize_centroids(self, x: np.ndarray) -> np.ndarray:
+        """
+        Initializes the centroids.
+
+        :param x: The data points.
+        :return: The centroids.
+        """
+        return x[np.random.choice(x.shape[0], self.k, replace=False)]
+
+    def _find_closest_centroids(
+        self, x: np.ndarray, centroids: np.ndarray
+    ) -> np.ndarray:
+        """
+        Finds the closest centroid for each data point.
+
+        :param x: The data points.
+        :param centroids: The centroids.
+        :return: The cluster index of each data point.
+        """
+        return np.argmin(np.linalg.norm(x[:, np.newaxis] - centroids, axis=2), axis=1)
+
+    def _compute_centroids(self, x: np.ndarray, idx: np.ndarray) -> np.ndarray:
+        """
+        Computes the centroids.
+
+        :param x: The data points.
+        :param idx: The cluster index of each data point.
+        :return: The centroids.
+        """
+        return np.array(
+            [x[idx == centroid_index].mean(axis=0) for centroid_index in range(self.k)]
+        )
 
 
-def find_closest_centroids(x: np.ndarray, centroids: np.ndarray) -> list:
+class PcaRegression:
     """
-    Implementation of cluster assignment step in K-means algorithm. 
-    This function returns the list of centroid assignments for each data point.
+    The PCA Regression algorithm.
 
-    Args:
-        x: the dataset
-        centroids: the centroids
-    
-    Returns:
-        the list of centroid assignments for each data point.
+    :param k: The number of eigenvectors.
     """
-    closest_cluster = [np.argmin(np.linalg.norm(row - centroids, axis=1)) for row in x]
-    return closest_cluster
 
+    def __init__(self, k: int) -> None:
+        self.k = k
+        self.u = None
+        self.z = None
 
-def compute_means(x: np.ndarray, idx: list, k: int) -> list:
-    """
-    Implementation of the mean update step in K-means algorithm.
+    def fit(self, x: np.ndarray) -> None:
+        """
+        Fits the model to the data.
 
-    Args:
-        x: the dataset
-        idx: the list of centroid assignments for each data point
-        k: the number of centroids
+        :param x: The data points.
+        """
+        sigma = (1 / x.shape[0]) * x.T @ x
+        self.u, _, _ = np.linalg.svd(sigma)
+        u_reduce = self.u[:, : self.k]
+        self.z = x @ u_reduce
 
-    Returns:
-        the updated centroids
-    """
-    rows = list()
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        """
+        Accepts an array of data points and returns an array of cluster centroids
+        for each data point.
 
-    for i in range(k):
-        row = list()
-        for j in range(len(x)):
-            if idx[j] == i:
-                row.append(x[j])
-        rows.append(np.array(row))
+        :param x: The data points.
+        :return: The cluster centroids.
+        """
+        x = np.atleast_2d(x)
+        u_reduce = self.u[:, : self.k]
+        z = x @ u_reduce
+        return z
 
-    centroids = [[np.mean(column) for column in row.T] for row in rows]
-    return centroids
+    def recover_data(self) -> np.ndarray:
+        """
+        Recovers the original data.
+
+        :return: The original data.
+        """
+        return self.z @ self.u[:, : self.k].T
 
 
 def reconstruct_image(
-    centroids: np.ndarray, idx: list, original_shape: tuple[int]
+    model: KMeansRegression, x: np.ndarray, original_shape: Tuple[int, int]
 ) -> Image:
     """
-    Reconstruct an image from its compressed representation. The compressed representation is given by the indices of the centroids.
+    Reconstructs the image from the compressed representation.
 
-    Args:
-        centroids: the centroids
-        idx: the list of centroid assignments for each data point
-        original_shape: the original shape of the image
-    
-    Returns:
-        the reconstructed image
+    :param model: The K-Means Regression model.
+    :param x: The compressed representation.
+    :param original_shape: The original shape of the image.
+    :return: The reconstructed image.
     """
-    idx = np.array(idx, dtype=np.uint8)
+    centorid_history = np.array(model.centroids_history)
+    clustered_points = {
+        tuple(cluster_center): [] for cluster_center in centorid_history[-1]
+    }
+    for point in x:
+        cluster_center = model.predict(point)
+        cluster_center = tuple(cluster_center[0])
+        clustered_points[cluster_center].append(point)
+    centroids = np.array(
+        [
+            np.mean(clustered_points[cluster_center], axis=0)
+            for cluster_center in clustered_points
+        ]
+    )
+    idx = [np.argmin(np.linalg.norm(point - centroids, axis=1)) for point in x]
     x_reconstructed = np.array(centroids[idx, :] * 255, dtype=np.uint8).reshape(
         original_shape
     )
     return Image.fromarray(x_reconstructed)
-
-
-def find_k_means(
-    x: np.ndarray, k: int, max_iter: int = 10
-) -> Tuple[np.ndarray, Optional[list]]:
-    """
-    Implementation of K-means algorithm. This function returns the centroids and the list of centroid assignments for each data point.
-
-    Args:
-        x: the dataset
-        k: the number of centroids
-        max_iter: the maximum number of iterations
-    
-    Returns:
-        the centroids and the list of centroid assignments for each data point.
-    """
-    idx = None
-    centroid_history = list()
-    centroids = initialize_k_centroids(x, k)
-
-    for i in range(max_iter):
-        idx = find_closest_centroids(x, centroids)
-        centroids = compute_means(x, idx, k)
-        centroid_history.append(centroids)
-
-    return np.array(centroid_history), idx
-
-
-def normalize_features(x: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """
-    Normalize the features in x. This function returns the normalized features and the mean used for normalization.
-
-    Args:
-        x: the dataset
-    
-    Returns:
-        the normalized features and the mean used for normalization.
-    """
-    feature_means = np.mean(x, axis=0)
-    feature_stds = np.std(x, axis=0)
-    x_norm = (x - feature_means) / feature_stds
-    return x_norm, feature_means, feature_stds
-
-
-def pca(x: np.ndarray) -> tuple:
-    """
-    Implementation of PCA. This function returns the eigenvectors and eigenvalues of the covariance matrix.
-
-    Args:
-        x: the dataset
-    
-    Returns:
-        the eigenvectors and eigenvalues of the covariance matrix.
-    """
-    m = len(x)
-    sigma = (1 / m) * x.T @ x
-    u, s, _ = np.linalg.svd(sigma)
-    return u, s
-
-
-def project_data(x: np.ndarray, u: np.ndarray, k: int) -> np.ndarray:
-    """
-    Project the data onto the first k eigenvectors.
-
-    Args:
-        x: the dataset
-        u: the eigenvectors
-        k: the number of eigenvectors
-    
-    Returns:
-        the projected data
-    """
-    u_reduce = u[:, :k]
-    z = x @ u_reduce
-    return z
-
-
-def recover_data(z: np.ndarray, u: np.ndarray, k: int) -> np.ndarray:
-    """
-    Recover the data from the compressed representation given by the first k eigenvectors.
-
-    Args:
-        z: the compressed representation
-        u: the eigenvectors
-        k: the number of eigenvectors
-    
-    Returns:
-        the recovered data
-    """
-    u_reduce = u[:, :k]
-    x_rec = u_reduce @ z.T
-    return x_rec.T
