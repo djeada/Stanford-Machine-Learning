@@ -7,156 +7,195 @@ Machine Learning course on coursera.com.
 import numpy as np
 import scipy.stats as stats
 from scipy import optimize
+from typing import Tuple, List
 
 
 def compute_f1(predictions: np.ndarray, real_values: np.ndarray) -> float:
     """
-    F1 = 2 * (p*r)/(p+r)
-    where p is precision, r is recall
-    precision = "of all predicted y=1, what fraction had true y=1"
-    recall = "of all true y=1, what fraction predicted y=1?
-    Note predictionVec and trueLabelVec should be boolean vectors.
+    Calculates the F1 score, using the formula:
+    F1 = 2 * (precision * recall) / (precision + recall)
+
+    :param predictions: The predictions.
+    :param real_values: The real values.
+    :return: The F1 score.
     """
 
-    p, r = 0, 0
-    if np.sum(predictions) != 0:
-        p = np.sum(
-            [real_values[x] for x in range(predictions.shape[0]) if predictions[x]]
-        ) / np.sum(predictions)
-    if np.sum(real_values) != 0:
-        r = np.sum(
-            [predictions[x] for x in range(real_values.shape[0]) if real_values[x]]
-        ) / np.sum(real_values)
+    tp = np.sum((predictions == 1) & (real_values == 1))
+    fp = np.sum((predictions == 1) & (real_values == 0))
+    fn = np.sum((predictions == 0) & (real_values == 1))
 
-    return 2 * p * r / (p + r) if (p + r) else 0.0
+    p = tp / (tp + fp) if tp + fp > 0 else 0
+    r = tp / (tp + fn) if tp + fn > 0 else 0
+
+    return 2 * p * r / (p + r) if p + r > 0 else 0
 
 
-def get_gaussian_parameters(x: np.ndarray) -> tuple:
-    mu, sigma_2 = np.mean(x, axis=0), np.var(x, axis=0)
-    return mu, sigma_2
-
-
-def compute_gauss(grid: np.ndarray, mu: np.ndarray, sigma_2: np.ndarray) -> np.ndarray:
-    return stats.multivariate_normal.pdf(x=grid, mean=mu, cov=sigma_2)
-
-
-def select_threshold(
-    y_cv: np.ndarray, cv_set: np.ndarray, n_steps: int = 1000
-) -> tuple:
+class GaussianRegression:
     """
-    Function to select the best epsilon value from the CV set
-    by looping over possible epsilon values and computing the F1
-    score for each.
-    """
-    epsilons = np.linspace(np.min(cv_set), np.max(cv_set), n_steps)
+    Gaussian regression model.
 
-    best_f1, best_eps = 0, 0
-    real_values = (y_cv == 1).flatten()
-    for epsilon in epsilons:
-        predictions = cv_set < epsilon
-        f1 = compute_f1(predictions, real_values)
-        if f1 > best_f1:
-            best_f1 = f1
-            best_eps = epsilon
-
-    return best_f1, best_eps
-
-
-def collaborative_filtering_cost(
-    x: np.ndarray, theta: np.ndarray, y: np.ndarray, r: np.ndarray, _lambda: float = 1.0
-):
-    """
-    Collaborative filtering cost function
+    :param mu: The mean of the Gaussian distribution.
+    :param sigma_2: The variance of the Gaussian distribution.
     """
 
-    j = np.sum(np.sum(((x @ theta.T - y) * r) ** 2)) / 2
+    def __init__(self, mu: np.ndarray, sigma_2: np.ndarray):
+        self.mu = mu
+        self.sigma_2 = sigma_2
+        self.epsilon = None
 
-    # Theta regularization
-    j += np.sum(np.sum(theta ** 2)) * (_lambda / 2)
-    # X regularization
-    j += np.sum(np.sum(x ** 2)) * (_lambda / 2)
+    @classmethod
+    def from_array(cls, x: np.ndarray) -> "GaussianRegression":
+        """
+        Creates a GaussianRegression object from an array of data.
 
-    return j
+        :param x: The data array.
+        :return: The GaussianRegression object.
+        """
+        mu, sigma_2 = np.mean(x, axis=0), np.var(x, axis=0)
+        return cls(mu, sigma_2)
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        """
+        Predicts the probability of a given data point.
+
+        :param x: The data point.
+        :return: The probability.
+        """
+        return stats.multivariate_normal.pdf(x=x, mean=self.mu, cov=self.sigma_2)
+
+    def select_threshold(self, x: np.ndarray, y: np.ndarray) -> tuple:
+        """
+        Computes the best threshold (epsilon) to use for selecting outliers.
+
+        :param x: The validation set.
+        :param y: The labels of the validation set.
+        :return: The best threshold and the corresponding F1 score.
+        """
+        x_cv = self.predict(x)
+        epsilons = np.linspace(np.min(x_cv), np.max(x_cv), 1000)
+
+        best_f1, best_eps = 0, 0
+        real_values = (y == 1).flatten()
+        for epsilon in epsilons:
+            predictions = x_cv < epsilon
+            f1 = compute_f1(predictions, real_values)
+            if f1 > best_f1:
+                best_f1, best_eps = f1, epsilon
+
+        self.epsilon = best_eps
+        return best_eps, best_f1
+
+    def is_anomaly(self, x: np.ndarray) -> bool:
+        """
+        Checks if a given data point is an anomaly.
+
+        :param x: The data point.
+        :return: True if the data point is an anomaly, False otherwise.
+        """
+        if self.epsilon is None:
+            raise ValueError("Please select a threshold first.")
+        return self.predict(x) < self.epsilon
 
 
-def collaborative_filtering_gradient(
-    x: np.ndarray, theta: np.ndarray, y: np.ndarray, r: np.ndarray, _lambda: float = 1.0
-) -> np.ndarray:
+class CollaborativeFilteringRegression:
     """
-    Collaborative filtering gradient
+    Collaborative filtering regression model.
+
+    :param _lambda: The regularization parameter.
     """
 
-    # compute gradient
-    x_grad = ((x @ theta.T - y) * r) @ theta
-    theta_grad = ((x @ theta.T - y) * r).T @ x
+    def __init__(
+        self,
+        _lambda: float = 1.0,
+    ):
+        self.theta = None
+        self._lambda = _lambda
 
-    # regularization
-    x_grad += _lambda * x_grad
-    theta_grad += _lambda * theta_grad
+    def cost(self, x: np.ndarray, y: np.ndarray, r: np.ndarray) -> float:
+        """
+        Computes the cost of the model.
 
-    return np.hstack((x_grad.flatten(), theta_grad.flatten()))
+        :param x: The feature matrix.
+        :param y: The rating matrix.
+        :param r: The rating matrix.
+        :return: The cost.
+        """
 
+        cost = 0.5 * np.sum(((x @ self.theta.T - y) * r) ** 2)
+        cost += 0.5 * self._lambda * np.sum(self.theta ** 2)
+        cost += 0.5 * self._lambda * np.sum(x ** 2)
 
-def normalize_ratings(y: np.ndarray, r: np.ndarray) -> tuple:
-    """
-    Preprocess data by removing the mean rating for each film (every row).
-    Without this, a user who hasn't rated any movies will have a predicted
-    score of 0 for every movie, whereas in reality they should have a
-    predicted score of average score of that movie.
-    """
+        return cost
 
-    mean = np.sum(y, axis=1) / np.sum(r, axis=1)
-    mean = mean.reshape((mean.shape[0], 1))
+    def gradient(self, x: np.ndarray, y: np.ndarray, r: np.ndarray) -> np.ndarray:
+        """
+        Computes the gradient of the model.
 
-    return y - mean, mean
+        :param x: The feature matrix.
+        :param y: The rating matrix.
+        :param r: The rating matrix.
+        :return: The gradient.
+        """
+        x_grad = ((x @ self.theta.T - y) * r) @ self.theta
+        x_grad += self._lambda * x
 
+        theta_grad = ((x @ self.theta.T - y) * r).T @ x
+        theta_grad += self._lambda * self.theta
 
-def update_matrices_with_new_ratings(y: np.ndarray, r: np.ndarray) -> tuple:
-    """
-    Insert new ratings into the Y matrix and the corresponding row into the R matrix.
-    """
+        return np.concatenate((x_grad.flatten(), theta_grad.flatten()))
 
-    new_ratings = np.zeros((y.shape[0], 1))
-    new_ratings[0] = 4
-    new_ratings[97] = 2
-    new_ratings[6] = 3
-    new_ratings[11] = 5
-    new_ratings[53] = 4
-    new_ratings[63] = 5
-    new_ratings[65] = 3
-    new_ratings[68] = 5
-    new_ratings[182] = 4
-    new_ratings[225] = 5
-    new_ratings[354] = 5
+    def fit(self, x: np.ndarray, y: np.ndarray, r: np.ndarray) -> None:
+        """
+        Fits the model.
 
-    y = np.hstack((y, new_ratings))
-    r = np.hstack((r, new_ratings > 0))
+        :param x: The feature matrix.
+        :param y: The rating matrix.
+        :param r: The rating matrix.
+        """
 
-    return new_ratings, y, r
-
-
-def optimize_theta(
-    y: np.ndarray, r: np.ndarray, params=None, _lambda: int = 0
-) -> np.ndarray:
-    if params is None:
         x = np.random.rand(5, 3)
         theta = np.random.rand(4, 3)
         params = np.concatenate((x.flatten(), theta.flatten()))
 
-    def collaborative_filtering_cost_wrapper(_params):
-        _x = _params[: 5 * 3].reshape((5, 3))
-        _theta = _params[5 * 3 :].reshape((4, 3))
-        return collaborative_filtering_cost(_x, _theta, y, r, _lambda)
+        def cost_wrapper(params):
+            x = params[:15].reshape(5, 3)
+            self.theta = params[15:].reshape(4, 3)
+            return self.cost(x, y, r)
 
-    def collaborative_filtering_gradient_wrapper(_params):
-        _x = _params[: 5 * 3].reshape((5, 3))
-        _theta = _params[5 * 3 :].reshape((4, 3))
-        return collaborative_filtering_gradient(_x, _theta, y, r, _lambda)
+        def gradient_wrapper(params):
+            x = params[:15].reshape(5, 3)
+            self.theta = params[15:].reshape(4, 3)
+            return self.gradient(x, y, r)
 
-    return optimize.fmin_cg(
-        collaborative_filtering_cost_wrapper,
-        x0=params,
-        fprime=collaborative_filtering_gradient_wrapper,
-        maxiter=400,
-        full_output=True,
-    )[0]
+        res = optimize.minimize(
+            cost_wrapper,
+            params,
+            method="CG",
+            jac=gradient_wrapper,
+            options={"maxiter": 100},
+        )
+
+        self.theta = res.x[15:].reshape(4, 3)
+
+    def predict(self, x: np.ndarray) -> np.ndarray:
+        """
+        Predicts the ratings of a given user.
+
+        :param x: The feature matrix.
+        :return: The predicted ratings.
+        """
+        return x @ self.theta.T
+
+    def top_predictions(
+        self, x: np.ndarray, n: int = 10
+    ) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        Predicts the top n recommendations for a given user.
+
+        :param x: The feature matrix.
+        :param n: The number of recommendations.
+        :return: The top n recommendations and their indices.
+        """
+        predictions = self.predict(x)
+        indices = np.argsort(predictions, axis=1)[:, -n:]
+        return predictions[0, indices[0]], indices[0]

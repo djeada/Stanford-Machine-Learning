@@ -16,7 +16,7 @@ def read_data(path: Path) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
 
     Args:
         path: Path to the data.
-    
+
     Returns:
         A tuple containing the data.
     """
@@ -34,7 +34,7 @@ def read_movie_data(path: Path) -> Tuple[np.ndarray, np.ndarray]:
 
     Args:
         path: Path to the data.
-    
+
     Returns:
         A tuple containing the data.
     """
@@ -46,12 +46,12 @@ def read_movie_data(path: Path) -> Tuple[np.ndarray, np.ndarray]:
 
 
 def read_movie_params(path: Path) -> Tuple[np.ndarray, np.ndarray]:
-    """	
+    """
     Reads the movie parameters from the path and returns the data as a tuple.
 
     Args:
         path: Path to the data.
-    
+
     Returns:
         A tuple containing the data.
     """

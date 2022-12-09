@@ -11,7 +11,7 @@ from scipy import optimize
 
 def compute_f1(predictions: np.ndarray, real_values: np.ndarray) -> float:
     """
-    Compute the F1 score for the predictions. Equation of F1 has the form: 
+    Compute the F1 score for the predictions. Equation of F1 has the form:
     F1 = 2 * (precision * recall) / (precision + recall)
     The definition of precision is the number of correct predictions divided by the total number of predictions.
     The definition of recall is the number of correct predictions divided by the total number of real values.
@@ -21,7 +21,7 @@ def compute_f1(predictions: np.ndarray, real_values: np.ndarray) -> float:
         real_values: array of real values
 
     Returns:
-      The F1 score for the predictions.        
+      The F1 score for the predictions.
     """
 
     p, r = 0, 0
@@ -43,7 +43,7 @@ def get_gaussian_parameters(x: np.ndarray) -> tuple:
 
     Args:
         x: array of data
-    
+
     Returns:
         A tuple consisting of:
         - mu: mean of the data
@@ -61,7 +61,7 @@ def compute_gauss(grid: np.ndarray, mu: np.ndarray, sigma_2: np.ndarray) -> np.n
         grid: array of grid values
         mu: mean of the data
         sigma_2: variance of the data
-    
+
     Returns:
         The gaussian function for the given grid.
     """
@@ -72,14 +72,14 @@ def select_threshold(
     y_cv: np.ndarray, cv_set: np.ndarray, n_steps: int = 1000
 ) -> tuple:
     """
-    Function to select the best epsilon value from the cross validation set. 
+    Function to select the best epsilon value from the cross validation set.
     Loops over the values of epsilon and computes the F1 score for each value.
 
     Args:
         y_cv: array of cross validation values
         cv_set: array of cross validation set
         n_steps: number of steps to compute the F1 score
-    
+
     Returns:
         A tuple consisting of:
         - best_epsilon: the best epsilon value
@@ -138,7 +138,7 @@ def collaborative_filtering_gradient(
         y: array of ratings
         r: array of binary ratings
         _lambda: regularization parameter
-    
+
     Returns:
         The gradient of the predictions.
     """
@@ -161,7 +161,7 @@ def normalize_ratings(y: np.ndarray, r: np.ndarray) -> tuple:
     Args:
         y: array of ratings
         r: array of binary ratings
-    
+
     Returns:
         A tuple consisting of:
         - y_norm: normalized ratings
@@ -181,7 +181,7 @@ def update_matrices_with_new_ratings(y: np.ndarray, r: np.ndarray) -> tuple:
     Args:
         y: array of ratings
         r: array of binary ratings
-    
+
     Returns:
         A tuple consisting of:
         - y_new: new ratings
@@ -218,7 +218,7 @@ def optimize_theta(
         r: array of binary ratings
         params: array of parameters
         _lambda: regularization parameter
-    
+
     Returns:
         The optimized parameters.
     """
@@ -233,7 +233,7 @@ def optimize_theta(
 
         Args:
             _params: array of parameters
-        
+
         Returns:
             The cost of the predictions.
         """
@@ -247,7 +247,7 @@ def optimize_theta(
 
         Args:
             _params: array of parameters
-        
+
         Returns:
             The gradient of the predictions.
         """

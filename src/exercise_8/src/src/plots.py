@@ -35,7 +35,7 @@ def plot_data(data: tuple, title: str = "Scatter Plot Of Training Data") -> None
 
 def plot_gaussian_contours(data: tuple, n: int = 200) -> None:
     """
-    Plot the contours of the gaussian function. The contours are computed by sampling the function at n points. 
+    Plot the contours of the gaussian function. The contours are computed by sampling the function at n points.
     The contours are plotted as a black line.
 
     Args:
@@ -43,7 +43,7 @@ def plot_gaussian_contours(data: tuple, n: int = 200) -> None:
         A tuple containing extreme values of the x and y axes.
       n:
         The number of points to be sampled.
-      
+
     Returns:
       None
     """
@@ -77,7 +77,7 @@ def plot_anomalies(x: np.ndarray, best_eps: float) -> None:
         A numpy array containing the data.
       best_eps:
         The epsilon value used to compute the anomalies.
-    
+
     Returns:
       None
     """
