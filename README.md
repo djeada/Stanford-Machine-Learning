@@ -6,7 +6,10 @@
 </div>
 
 # Stanford-Machine-Learning
-The following notes give an overview of Professor Andrew Ng's machine learning course. The course is available on the <a href="https://www.coursera.org/learn/machine-learning">coursera platform</a>.
+
+Welcome to the Stanford Machine Learning course! This course, taught by Professor Andrew Ng, provides a comprehensive introduction to the field of machine learning. Through a combination of lectures, exercises, and projects, you will learn the fundamental concepts and techniques needed to build and apply machine learning models to real-world problems.
+
+These notes are intended to give you an overview of the course and its content. For more detailed information, including lecture slides and video lectures, please visit the course page on the  <a href="https://www.coursera.org/learn/machine-learning">Coursera platform</a>. We hope that you find this course valuable and that it helps you to develop a strong foundation in machine learning.
 
 ![Capture](https://user-images.githubusercontent.com/37275728/186025613-538378ce-2cc9-4db7-9829-d513dc34a344.PNG)
 
