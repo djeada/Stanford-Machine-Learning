@@ -13,7 +13,7 @@ These notes are intended to give you an overview of the course and its content. 
 
 ![Capture](https://user-images.githubusercontent.com/37275728/186025613-538378ce-2cc9-4db7-9829-d513dc34a344.PNG)
 
-<h1>Notes</h1>
+## Notes
 
 I recommend that you visit this <a href="http://www.holehouse.org/mlclass/">website</a> for more detailed notes.
 
@@ -119,7 +119,7 @@ I recommend that you visit this <a href="http://www.holehouse.org/mlclass/">webs
     </tbody>
 </table>
 
-<h1>Programming exercises</h1>
+## Programming exercises
 
 <table>
     <thead>
