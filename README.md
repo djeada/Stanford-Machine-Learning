@@ -29,22 +29,22 @@ I recommend that you visit this <a href="http://www.holehouse.org/mlclass/">webs
         <tr>
             <td>Week 1</td>
             <td>Introduction to machine learning.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_01.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_01.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 2</td>
             <td>Linear Regression with One Variable.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_02.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_02.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 3</td>
             <td>Linear Algebra - review.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_03.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_03.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 4</td>
             <td>Linear Regression with Multiple Variables.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_04.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_04.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 5</td>
@@ -54,67 +54,67 @@ I recommend that you visit this <a href="http://www.holehouse.org/mlclass/">webs
         <tr>
             <td>Week 6</td>
             <td>Logistic Regression.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_06.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_06.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 7</td>
             <td>Regularization.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_07.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_07.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 8</td>
             <td>Neural Networks - Representation.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_08.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_08.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 9</td>
             <td>Neural Networks - Learning.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_09.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_09.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 10</td>
             <td>Advice for applying machine learning techniques.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_10.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_10.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 11</td>
             <td>Machine Learning System Design.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_11.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_11.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 12</td>
             <td>Support Vector Machines.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_12.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_12.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 13</td>
             <td>Clustering.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_13.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_13.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 14</td>
             <td>Dimensionality Reduction.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_14.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_14.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 15</td>
             <td>Anomaly Detection.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_15.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_15.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 16</td>
             <td>Recommendation Systems.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_16.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_16.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 17</td>
             <td>Large Scale Machine Learning.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_17.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_17.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
         <tr>
             <td>Week 18</td>
             <td>Application Example - Photo OCR.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_18.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
+            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_18.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
         </tr>
     </tbody>
 </table>
