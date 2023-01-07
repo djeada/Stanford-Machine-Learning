@@ -1,3 +1,6 @@
+## Application Example - Photo OCR.
+Optical character recognition, or OCR, is the process of teaching computers to interpret text in images. A machine learning pipeline is a series of steps that helps to solve a problem, such as detecting pedestrians or text in an image. One way to do this is to create a training set of positive and negative examples, train a classifier using this data, and then apply the classifier to an image using a sliding window method. The final stage of the process, character recognition, involves using a training set of character images to teach the system to recognize characters based on image patches. This training data can be enhanced through techniques such as data synthesis, which involves adding distortion to existing data. The goal of these pipelines is to allow computers to better understand and interpret digital images.
+
 ## Problem description and pipeline
 
 * Consider how a complex system may be built.
