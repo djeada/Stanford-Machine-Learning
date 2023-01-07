@@ -1,3 +1,7 @@
+## Neural Networks - Learning
+
+Neural networks are a type of machine learning algorithm that are inspired by the structure and function of the human brain. They consist of layers of interconnected nodes, where each node represents a unit that performs a specific task. There are different types of classification problems that can be solved using neural networks, including binary classification, where the goal is to predict a single output that can take on only two values, and multi-class classification, where the goal is to predict one of multiple possible classes. The cost function is used to measure the difference between the predicted values and the actual values and is used to adjust the parameters of the neural network to improve its performance. For neural networks, the cost function is a generalization of the logistic regression cost function and involves summing over all the output units for each of the possible classes. The gradient computation involves using the chain rule to calculate the partial derivative of the cost function with respect to each parameter in the neural network. The backpropagation algorithm is then used to calculate these partial derivatives and update the parameters of the network in order to minimize the cost function.
+
 ## Types of classification problems with NNs
 
 * Training set is ${(x^1, y^1), (x^2, y^2), ..., (x^n, y^n)}$.
