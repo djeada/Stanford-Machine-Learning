@@ -1,3 +1,7 @@
+## Advice for applying machine learning techniques
+
+If you're having trouble with your machine learning model producing high errors when tested on new data, there are several steps you can take to troubleshoot the problem. You can try adding more training data or features, or you can try changing the value of the regularization parameter. You can also split your data into a training set and a test set to evaluate the model's performance. Another option is to use a technique called "model selection" and create a training, validation, and test set to identify the best performing model. If your model is underperforming, it may be due to either high bias (underfitting) or high variance (overfitting). You can diagnose the issue by plotting the error for both the training and validation set as a function of the polynomial degree. If all else fails, you can try using an advanced optimization algorithm to minimize the cost function and improve the performance of your model.
+
 ## Debugging a learning algorithm
 
 Imagine you've used regularized linear regression to forecast home prices:
