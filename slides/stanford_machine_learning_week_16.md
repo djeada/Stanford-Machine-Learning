@@ -1,4 +1,8 @@
-## Recommender systems
+## Recommendation Systems
+
+A recommender system is a tool used by many businesses, such as Amazon, eBay, and iTunes, to suggest new products or content to their customers based on their previous purchases and interactions with the business. These systems are not a specific method, but rather a concept. An example of a recommender system is one that predicts movie ratings. In this example, a firm sells movies and allows viewers to rate them on a scale from 1 to 5. The system has data on the ratings given to five films by four users. The system uses this data, along with features such as the number of users and movies, to recommend films to each user. One way to learn the parameters needed for the system to make these recommendations is through the use of collaborative filtering, which has the ability to learn the characteristics it needs to make recommendations on its own. This can be done through the use of algorithms such as gradient descent. Collaborative filtering can be used to find either the preferences of the users or the features of the films, depending on which is unknown.
+
+## The algorithm
 * Many technological businesses consider recommender systems to be critical (amazon, Ebay, iTunes genius).
 * Based on previous purchases, try to propose new content to you.
 * It's not so much a method as it is a concept.
