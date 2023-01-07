@@ -1,3 +1,6 @@
+## Logistic Regression
+In machine learning, classification is the task of predicting a discrete value for a given input. An example of this is determining whether an email is spam or not spam. Logistic regression is a popular method for classification, which uses the sigmoid function to predict the probability that a given input belongs to a specific class. The decision boundary is the line that separates the different classes and can be either linear or non-linear. By adding polynomial features to the input data, we can create a non-linear decision boundary that is better able to fit and classify complex data sets.
+
 ## Classification
 * Y can only have discrete values.
 * For example: 0 = negative class (absence of something) and 1 = positive
