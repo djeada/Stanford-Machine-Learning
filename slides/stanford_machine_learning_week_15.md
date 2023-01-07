@@ -1,4 +1,7 @@
-## Anomaly detection
+## Anomaly Detection
+Anomaly detection is the process of identifying unusual or unexpected data points within a dataset. This can be done by using the dataset as a baseline and flagging data points as anomalous if they fall below a certain probability threshold, called Epsilon. Anomaly detection has a variety of applications, including fraud detection, manufacturing, and monitoring computers in data centers. One common method for detecting anomalies is to use the Gaussian distribution, which is characterized by a mean and variance. The probability of a given data point can be calculated using these parameters. When developing and evaluating an anomaly detection system, it is important to split the data into a training set, cross-validation set, and test set, and to use metrics such as precision and recall to measure the performance of the system.
+
+## The main idea
 * We can assess whether data points are anomalous by using the dataset as a baseline.
 * if $p(x_{test}) < \epsilon \quad$, then flag this as an anomaly
 * if $p(x_{test}) \geq \epsilon \quad$, then this is OK
