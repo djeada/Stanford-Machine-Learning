@@ -1,7 +1,8 @@
+## Large Scale Machine Learning
+Training machine learning models on large datasets can be challenging due to the computational resources required. However, there are techniques that can make this process more efficient and effective. One such technique is using a low bias algorithm and training it on a large amount of data. This can help you achieve high performance. In this discussion, we will explore techniques such as stochastic gradient descent and online learning, which allow us to efficiently train models on large datasets. We will also examine how to determine if our model is suffering from high bias or high variance and how to address these issues. By the end of this discussion, you should have a better understanding of how to effectively train models on large datasets.
 
 ## Learning with large datasets
 Taking a low bias algorithm and training it on a large amount of data is one of the greatest approaches to get high performance.
-
 
 * Assume we have a data collection with m = 100,000, 000.
 * On such a large system, how can we train a logistic regression model?
