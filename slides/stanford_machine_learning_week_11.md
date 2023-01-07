@@ -1,3 +1,6 @@
+## Machine Learning System Design.
+These notes provide a summary of various strategies and considerations for building a spam classification system. The process of building such a system involves selecting features to include in a vector representation of an email, improving the accuracy of the system through various means such as collecting more data and developing sophisticated features, and analyzing errors made by the system through error analysis and metrics such as precision, recall, and the F-score. The notes also mention the importance of considering the skewed nature of some datasets, such as when the number of negative samples (in this case, non-spam emails) is much larger than the number of positive samples (spam emails). The final section discusses the trade-off between precision and recall, and how the F-score can be used to select the threshold for the classification system based on the highest value on the cross validation set.
+
 ## Prioritizing what to work on - spam classification example
 * Building a spam classifier.
 * Misspelled word $=>$ Spam (1).
