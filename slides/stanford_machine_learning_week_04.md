@@ -1,4 +1,7 @@
-## Linear regression with multiple features
+## Linear Regression with Multiple Variables
+Multiple linear regression is a statistical method used to predict a dependent variable based on multiple independent variables. It is a extension of simple linear regression, which is used to predict a dependent variable based on only one independent variable. In multiple linear regression, we try to find the values of the parameters, known as theta, that result in the best fit line for the data. The cost function, which measures the difference between the predicted values and the actual values, is used to determine the optimal values for theta. An optimization algorithm called gradient descent is used to find the values of theta that minimize the cost function. It is important to scale the features and choose an appropriate learning rate for the algorithm to work efficiently. Techniques like mean normalization and feature scaling can be used to improve the performance of multiple linear regression.
+
+## The Algorithm
 
 * Multiple variables = multiple features.
 * $x_1$ - size, $x_2$ - number of bedrooms, $x_3$ - number of floors, $x_4$ - age of home.
