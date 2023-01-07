@@ -1,3 +1,7 @@
+## Dimensionality Reduction
+
+Principle Component Analysis (PCA) is a technique used in machine learning to reduce the dimensionality of data and improve the performance of algorithms. It works by finding a lower dimensional surface that minimizes the projection error, or the distance between each point and the projected version of the point. PCA can be used for tasks such as compression, visualization, and noise reduction. It is also useful for feature selection and can be used to improve the performance of machine learning algorithms. To use PCA, you need to compute the covariance matrix and find the eigenvectors of this matrix, then choose the first k eigenvectors and use them to calculate a new feature representation. You can choose the number of principle components by comparing the projection error to the total data variation.
+
 ## Compression
 
 * Speeds up algorithms.
@@ -5,11 +9,9 @@
 * Dimension reduction: not all features are needed.
 * Example: different units for same attribute.
 
-
 ![compression_units](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/compression_units.png)
 
 Now we can represent x1 as a 1D number (Z dimension).
-
 
 ## Visualization
 
