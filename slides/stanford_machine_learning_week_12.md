@@ -1,9 +1,11 @@
+## Support Vector Machines
+In this article, we explore how to use logistic regression cost functions to create support vector machine (SVM) cost functions. We start by introducing logistic regression cost functions and how they can be used to make predictions about data. Then, we show how the SVM cost functions are derived from the logistic regression cost functions by replacing the logistic regression terms with $cost_1(\theta^Tx)$ and $cost_0(\theta^Tx)$. We also explain how adjusting the value of C in the SVM cost function can impact the bias and variance of the resulting hypothesis, with larger values of C leading to higher variance and lower bias, and smaller values leading to lower variance and higher bias. Finally, we discuss the concept of large margin classification, which involves trying to find a hypothesis that separates the classes as widely as possible.
+
 ## An alternative view of logistic regression
 
 As previously stated, the logistic regression hypothesis is as follows:
 
 $$h_{\theta}(x) = \frac{1}{1+e^{-\theta^Tx}}$$
-
 
 We have an example in which $y = 1$. We expect that $h_{\theta}(x)$ is close to 1.
 
