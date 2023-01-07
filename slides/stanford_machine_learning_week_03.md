@@ -1,3 +1,6 @@
+## Linear Algebra - review
+Matrices are rectangular arrays of numbers written between square brackets and are often represented by capital letters. They are used to organize and index large amounts of data and have dimensions in the form of rows and columns. Vectors are special types of matrices that are usually represented by lower case letters and have only one column. Matrices can be manipulated using operations such as addition, multiplication by a scalar, multiplication by a vector, and multiplication by another matrix. In practice, matrices are often used to apply multiple hypotheses to a dataset, as in the case of predicting house prices. Matrix multiplication has some specific properties, such as the lack of commutativity and the associativity. The identity matrix, denoted by the letter I, is also an important concept in matrix manipulation. The inverse of a matrix is another matrix that can be used to "undo" the effects of matrix multiplication.
+
 ## Matrices - overview
 * Rectangular array of numbers written between square brackets.
 * 2D array.
