@@ -1,3 +1,7 @@
+## Neural Networks - Representation
+
+Neural networks are a type of machine learning model that is designed to mimic the way the brain works. They are particularly useful for handling large and complex data sets that may have many features. Logistic regression, a common method for analyzing such data, can become computationally expensive when dealing with a large number of features. To avoid this issue, a subset of the features must be used, which can reduce the accuracy of the analysis. Neural networks have become more popular in recent years due to the increasing computational power of computers, which has made it possible to build large-scale neural networks. These networks are made up of neurons, which are connected by input and output wires and communicate through electric spikes. In an artificial neural network, input is fed through input wires and processed before being sent out through output wires. The input layer is the first layer, the output layer is the last, and any layers in between are called hidden layers. The weights of the model are represented by the $\theta$ vector, and the bias unit is represented by $x_0$. Neural networks are particularly useful in fields such as computer vision, where the data sets can be very large.
+
 ### Why do we need neural networks?
 
 * We can have complex data sets with many (1000's) important features.
