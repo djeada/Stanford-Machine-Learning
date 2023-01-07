@@ -1,3 +1,6 @@
+## Clustering
+Unsupervised learning is a type of machine learning where the goal is to understand the structure of the data without being given any labeled examples or predefined categories. A common task in unsupervised learning is clustering, where the goal is to organize the data into coherent groups or clusters. One popular algorithm for clustering is the K-means algorithm, which involves randomly selecting k initial cluster centroids and then assigning each data point to the cluster that is closest to its centroid. The algorithm then updates the centroids by taking the average of all the points in the cluster, and this process is repeated until convergence. K-means can be used on datasets with poorly defined clusters, such as in market segmentation where the goal is to create categories based on the characteristics of the data. The optimization objective of K-means is to minimize the sum of the squared distances between each data point and the cluster centroid to which it has been assigned. 
+
 ## Unsupervised learning
 
 * Try to figure out the structure of the data.
