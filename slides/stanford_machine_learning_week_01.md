@@ -1,3 +1,6 @@
+## Introduction to machine learning
+Machine learning is a field of artificial intelligence that enables computers to learn and make decisions based on data and experience, without being explicitly programmed. It involves training algorithms on a set of labeled data, allowing the algorithm to make predictions or take actions based on new input. There are several types of machine learning, including supervised learning, in which the algorithm is provided with a set of labeled examples to learn from, and unsupervised learning, in which the algorithm is not given any labeled examples and must find patterns and relationships in the data on its own. Machine learning has numerous applications, including in database mining, autonomous systems, handwriting recognition, natural language processing, and self-customizing programs.
+
 ## Learning Objectives
 * Deep learning’s rise is being driven by several major factors.
 * Deep learning in supervised learning.
