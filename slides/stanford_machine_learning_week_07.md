@@ -1,3 +1,6 @@
+## Regularization
+Overfitting is a common problem in machine learning, where a model performs well on the training data but poorly on new, unseen data. One way to prevent overfitting is through regularization, which involves adding a penalty term to the cost function to reduce the complexity of the model. In linear regression, this can be done by adding a term that penalizes large coefficients. In logistic regression, the cost function can be regularized by adding a term that penalizes large coefficients. This helps to keep the model simple and improve its generalization to new data. The strength of the regularization term is controlled by the parameter lambda. Automated methods can be used to select an appropriate value for lambda. In both linear and logistic regression, the gradient descent algorithm can be modified to include the regularization term. The normal equation can also be used to solve for the optimal coefficients in regularized linear regression.
+
 ## Overfitting with linear regression
 
 * The same thing may happen with logistic regression.
