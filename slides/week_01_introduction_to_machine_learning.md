@@ -1,109 +1,84 @@
-## Introduction to machine learning
-Machine learning is a field of artificial intelligence that enables computers to learn and make decisions based on data and experience, without being explicitly programmed. It involves training algorithms on a set of labeled data, allowing the algorithm to make predictions or take actions based on new input. There are several types of machine learning, including supervised learning, in which the algorithm is provided with a set of labeled examples to learn from, and unsupervised learning, in which the algorithm is not given any labeled examples and must find patterns and relationships in the data on its own. Machine learning has numerous applications, including in database mining, autonomous systems, handwriting recognition, natural language processing, and self-customizing programs.
+# Introduction to Machine Learning
+Machine Learning (ML), a subset of artificial intelligence, is the scientific study of algorithms and statistical models that computer systems use to effectively perform a specific task without using explicit instructions. It relies on patterns and inference instead. ML algorithms build a mathematical model based on sample data, known as "training data," to make predictions or decisions without being explicitly programmed to perform the task. 
 
-## Learning Objectives
-* Deep learning’s rise is being driven by several major factors.
-* Deep learning in supervised learning.
-* The major types of models (such as CNNs and RNNs) and when they should be used.
-* When is deep learning appropriate to use?
+## Types of Machine Learning
+1. **Supervised Learning**: This involves learning a function that maps an input to an output based on example input-output pairs. It infers a function from labeled training data consisting of a set of training examples.
 
-## Why is ML so prevalent?
-* It is a branch in artificial intelligence.
-* We aim to build a machine that can ”think.”
-* Machines may be programmed to do mathematical tasks.
-* It is impossible (for us) to create AI based on set of rules.
-* We want robots to discover such rules on their own, to learn from the data.
+2. **Unsupervised Learning**: Here, the algorithm learns from plain data without any corresponding output variables to guide the learning process.
 
-## Examples
-Machine learning has exploded in popularity as a result of the huge amount of data generated and colected in recent years.
+3. **Reinforcement Learning**: This type involves algorithms that learn optimal actions through trial and error. This type of learning is concerned with how software agents ought to take actions in an environment so as to maximize some notion of cumulative reward.
 
-### Database mining sources
-* Data from the internet (click-stream or click through data). Mine to better understand users. This is common in Silicon Valley.
-* Medical records. More and more data is being saved electronically.
-* Biological data. Gene sequences, ML algorithms improve our understanding of the human genome.
-* Engineering info. Data from sensors, log reports, photos etc. 
+## Deep Learning in Machine Learning
+Deep learning, a subset of ML, uses layered neural networks to simulate human decision-making. Key aspects include:
+- **Convolutional Neural Networks (CNNs)**: Used primarily for processing data with a grid-like topology, e.g., images.
+- **Recurrent Neural Networks (RNNs)**: Suitable for processing sequential data, e.g., time series or text.
 
-### Applications that we cannot program by hand
-* Autonomous helicopter.
-* Handwriting recognition.
-* Natural language processing (NLP).
-* Computer vision.
+### Applications and Suitability
+Deep learning is particularly useful in areas such as image and speech recognition, where the volume and complexity of data surpass the capabilities of traditional algorithms.
 
-### Self customizing programs
-* Netflix
-* Amazon
-* iTunes genius
+## Prevalence of Machine Learning
+ML's growing importance is attributed to its ability to leverage large amounts of data, enabling machines to recognize patterns and make informed decisions. It's considered a key to building systems that can simulate human intelligence.
 
-## What is machine learning?
+## Practical Applications of Machine Learning
+- **Database Mining**: Utilized in areas like internet search, understanding user behavior, medical diagnosis, and genomics.
+- **Autonomous Systems**: Self-driving cars, drones, and other systems that make decisions based on data.
+- **Recognition Tasks**: Such as handwriting, speech, and facial recognition.
+- **Natural Language Processing**: Enables machines to understand and respond to human language.
+- **Self-Customizing Programs**: Used in personalized recommendation systems like those on Netflix, Amazon, and iTunes.
 
-### Arthur Samuel (1959)
-* ”Field of study that gives computers the ability to learn without being explicitly programmed”.
-* Samuels created a checkers software and had it play 10,000 games against itself. Work out which board positions were good and bad depending on wins/losses.
+## Foundational Concepts and Definitions
+- **Arthur Samuel (1959)**: Defined ML as a field of study that enables computers to learn without being explicitly programmed.
+- **Tom Mitchell (1997)**: Proposed a formal definition - a computer program is said to learn from experience E concerning task T and performance measure P if its performance on T, as measured by P, improves with experience E.
 
-### Tom Michel (1999)
-* ”A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E”.
-* The checkers example: E = 10000s games, T is playing checkers, P if you win or not.
+## Supervised Learning
+Supervised learning, a dominant approach in machine learning, focuses on using labeled datasets to train algorithms. These algorithms are then applied to classify data or predict outcomes with a high level of accuracy.
 
-### Several types of learning algorithms
-* Supervised learning: Teach the computer how to do something, then let it use it’s new found knowledge to do it.
-* Unsupervised learning: Let the computer learn how to do something, and use this to determine structure and patterns in data.
-* Reinforcement learning.
-* Recommender systems.
+### House Price Prediction - Regression Example
+Consider a typical problem: predicting house prices based on their size. For instance, estimating the price of a 750 square feet house. This problem can be approached using different models:
 
-## Supervised learning - introduction
-
-* Probably the most prevalent form of machine learning type.
-* Example: How can we predict housing prices? Ans: Collect house pricing data and examine how it relates to size in feet.
-
-### Example problem
+- Linear Regression: Using a straight line to fit the data.
+- Polynomial Regression: Fitting a curved line (e.g., second-order polynomial).
 
 ![house_price_prediction](https://user-images.githubusercontent.com/37275728/201469371-44d7837e-be00-4328-a978-0a63783e08c1.png)
 
-”Given this data, a friend has a house 750 square feet how much can they be expected to get?”
-
-What approaches can we use to solve this?
-* Straight line through data. Maybe $150,000.
-* Second order polynomial. Maybe $200,000.
-* One point we’ll go over later is whether to use a straight or curved line.
-* Each of these techniques is a method of carrying out supervised learning.
-
-We also call this a regression problem
-* Predict continuous valued output (price).
-* No real discrete delineation.
+### Tumor Size and Prognosis - Classification Example
+In a classification problem, the aim is to categorize data into discrete groups. For example, determining if a tumor is malignant based on its size is a classic classification problem.
 
 ![malignant_cancer](https://user-images.githubusercontent.com/37275728/201469417-2f5449d2-62b4-4f36-8eb2-77abc4cb0adf.png)
 
-* Can you estimate the prognosis based on the tumor’s size?
-* This is an example of a classification problem.
-* Classify data into one of two categories - malignant or not - with no in- betweens.
-* In classification problems, the output can only have a discrete number of potential values.
-You may have many attributes to consider.
+### Combining Multiple Attributes
+When considering multiple attributes, such as age and tumor size, classification becomes more intricate. We can use algorithms to draw boundaries between different classes in this multidimensional feature space.
 
-We also call this a regression problem
-* Predict continuous valued output (price).
-* No real discrete delineation.
-* 
 ![age_vs_tumor](https://user-images.githubusercontent.com/37275728/201469444-d574fbc0-8ed9-4378-a8a4-9c8f44062199.png)
 
-* You can try to establish different classes based on that data by drawing a straight line between the two groups.
-* Defining the two groups with a more sophisticated function (which we’ll go over later)
-* Then, when you have someone with a certain tumor size and age, you can ideally utilize that information to assign them to one of your classes.
+## Unsupervised Learning
+Unsupervised learning, in contrast to supervised learning, uses datasets without predefined labels. The goal here is to identify patterns or structures within the data.
 
-## Unsupervised learning - introduction
-* Second major type.
-* We use labeled datasets (as opposed to unlabeled).
+### Clustering Algorithm Examples
+- **Google News**: Clustering similar news stories.
+- **Genomics**: Classifying types of genetic expressions.
+- **Microarray Data**: Grouping individuals based on gene expression.
+- **Computer Clusters**: Organizing clusters to optimize performance or identify faults.
+- **Social Network Analysis**: Analyzing customer data in social networks.
+- **Astronomical Data**: Classifying celestial objects based on their properties.
 
-### Clustering algorithm
-* Google news. Groups news stories into cohesive groups.
-* Genomics.
-* Microarray data. Have a group of individuals. On each measure expression of a gene. Run algorithm to cluster individuals into types of people.
-* Organize computer clusters. Identify potential weak spots or distribute workload effectively.
-* Social network analysis. Customer data.
-* Astronomical data analysis. Algorithms give amazing results.
+### The Cocktail Party Problem
 
-### Cocktail party problem
-* Depending on where your microphone is, record slightly different versions of the conversation.
-* Give the recordings to the algorithm.
-* It should be able to figure out that there are two audio sources.
+The Cocktail Party Problem is an audio processing challenge where the goal is to separate individual audio sources from a mixture of sounds. This scenario is common in environments like parties, where multiple people are talking simultaneously, and you want to isolate the speech of a single person from a recording that captures all the speakers.
 
-$$[W,s,v] = svd((repmat(sum(x.*x,1), size(x,1),1).*x)*x');$$
+- The objective in the Cocktail Party Problem is to extract distinct audio signals from a complex mixture. This mixture can be influenced by factors such as room acoustics and overlapping speech, making it a challenging task.
+
+- A common approach to solve this problem is Blind Source Separation (BSS). The goal of BSS is to recover original audio signals (the sources) from mixed signals without knowledge about the mixing process.
+
+- Singular Value Decomposition (SVD) is a crucial technique for tackling this issue. SVD decomposes a matrix, representing audio data, into three matrices that expose the fundamental structure of the data. The mathematical representation of SVD applied to a matrix \(X\) (representing mixed audio signals) is:
+
+$$
+X = U \Sigma V^*
+$$
+
+Where:
+- $X$ is the matrix of mixed signals.
+- $U$ and $V$ are orthogonal matrices.
+- $S$ is a diagonal matrix with singular values.
+
+SVD is particularly useful here because it provides a robust way to deconstruct the mixed signals into components that are easier to separate and analyze. The orthogonal matrices $U$ and $V$ represent the bases in the original and transformed spaces, respectively, while the singular values in $S$ represent the strength of each component in the data. By filtering or modifying these components, we can work towards isolating individual audio sources from the mix.
