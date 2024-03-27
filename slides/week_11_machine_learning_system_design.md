@@ -4,13 +4,55 @@ These notes outline the key strategies and considerations for developing a spam 
 
 ### Prioritizing Work in Spam Classification
 
-1. **Feature Selection:** Select a set of words that are indicative of spam or non-spam emails. For instance:
-   - Words like "buy", "discount", and "deal" might suggest spam.
-   - Words like "Andrew" and "now" might indicate non-spam.
-2. **Vector Representation:** Each chosen word forms a feature in a long vector representing an email. A value of 1 is assigned if the word appears in the email, and 0 otherwise.
-3. **Word Occurrences:** Analyze which category of words (spam or non-spam) occurs more frequently.
+When building a spam classifier, a critical step is to select and utilize features effectively. Let's break down the process and include an example of how inputs might look.
 
 ![Spam Classifier Visualization](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/spam.png)
+
+#### Feature Selection
+
+The first step involves choosing words that are strongly indicative of whether an email is spam. This is based on the assumption that certain words appear more frequently in spam emails than in non-spam emails.
+
+- **Spam Indicators:** Words like "buy", "discount", and "deal" are often used in promotional or spam emails.
+- **Non-Spam Indicators:** Words like "Andrew" (a common name) or "now" might be more frequent in regular, non-spam emails.
+
+#### Vector Representation of Emails
+
+Each email is represented as a vector, where each element corresponds to one of the selected features (words).
+
+- **Binary Encoding:** For each word in our feature set, if the word is present in the email, that feature is marked with a 1; if it's absent, it's marked with a 0.
+  
+#### Example of Input Representation
+
+Consider an example where our feature set consists of words: `["buy", "discount", "deal", "Andrew", "now"]`. An email's content will be transformed into a vector based on the presence or absence of these words.
+
+| Email Content                | buy | discount | deal | Andrew | now |
+|------------------------------|-----|----------|------|--------|-----|
+| "Buy now at a great discount"| 1   | 1        | 0    | 0      | 1   |
+| "Meeting Andrew now"         | 0   | 0        | 0    | 1      | 1   |
+| "Deal of the century"        | 0   | 0        | 1    | 0      | 0   |
+
+#### Word Occurrences Analysis
+
+The next step involves analyzing the frequency of each category of words (spam or non-spam) in your training dataset. This analysis can reveal:
+
+- **Commonalities in Spam:** If certain words are predominantly present in spam emails.
+- **Differentiators for Non-Spam:** Words that are usually absent in spam but present in non-spam emails.
+
+#### Model Selection
+
+Based on this vector representation, a classification model like logistic regression or a naive Bayes classifier can be employed. The choice of model might depend on:
+
+- **Dataset Size:** Larger datasets might benefit from more complex models.
+- **Feature Interpretability:** If understanding why an email is classified as spam is important, a model that offers interpretability (like decision trees) might be preferable.
+- **Performance Metrics:** Based on the desired balance between precision and recall (as spam classification often deals with imbalanced datasets).
+
+#### Why This Approach?
+
+This method of feature selection and vector representation is effective for several reasons:
+
+- **Simplicity:** It’s straightforward to implement and understand.
+- **Scalability:** Can easily handle large volumes of data typical for email.
+- **Adaptability:** The model can be updated as new spam trends emerge by adjusting the feature set.
 
 ### Improving System Accuracy
 
