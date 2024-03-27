@@ -1,134 +1,157 @@
-## Linear Regression
-Linear regression is a type of supervised learning that is used to predict a continuous output variable given a set of input variables or features. It is a useful tool for understanding the relationship between different variables and can be used to make predictions about future values of the output variable. In linear regression, the output variable is modeled as a linear function of the input variables, using coefficients or parameters called theta. To fit the best straight line to the data, we can use a cost function that expresses how frustrated we are with the model's current prediction of the output variable given the input variables. The optimization objective is to find the values of theta that minimize the cost function. One way to do this is to use the gradient descent algorithm, which involves iteratively updating the values of theta to minimize the cost function. To understand the behavior of the cost function, we can create surface or contour plots that show how the cost function changes with different values of theta. By understanding the cost function and using optimization techniques like gradient descent, we can improve the performance of our linear regression model.
+# Linear Regression in Depth
 
-### Notation (used throughout the course)
-* m = number of training examples.
-* $x$ = input variables / features.
-* $y$ = output variable ”target” variables.
-* $(x, y)$ - single training example.
-* $(x^i, y^i)$ - specific example (ith training example).
+Linear Regression is a fundamental type of supervised learning algorithm in statistics and machine learning. It's utilized for modeling and analyzing the relationship between a dependent variable and one or more independent variables. The goal is to predict continuous output values based on the input variables.
+
+- **Purpose**: To predict a continuous outcome based on one or more predictor variables.
+- **Model**: The output variable (y) is assumed to be a linear combination of the input variables (x), with coefficients (θ) representing weights.
+
+### Mathematical Model
+The hypothesis function in linear regression is given by:
+
+$$
+h_{\theta}(x) = \theta_0 + \theta_1x
+$$
+
+where:
+
+- $h_{\theta}(x)$ is the predicted value,
+- $\theta_0$ is the y-intercept (bias term),
+- $\theta_1$ is the slope (weight for the feature x).
+
+### Cost Function (Mean Squared Error)
+The cost function in linear regression measures how far off the predictions are from the actual outcomes. It's commonly represented as:
+
+$$
+J(\theta_0, \theta_1) = \frac{1}{2m} \sum_{i=1}^{m}(h_{\theta}(x^{(i)}) - y^{(i)})^2
+$$
+
+This is the mean squared error (MSE) cost function, where:
+
+- $m$ is the number of training examples,
+- $x^{(i)}$ and $y^{(i)}$ are the input and output of the $i^{th}$ training example.
+
+### Optimization: Gradient Descent
+To find the optimal parameters ($\theta_0$ and $\theta_1$), we use gradient descent to minimize the cost function. The gradient descent algorithm iteratively adjusts the parameters to reduce the cost.
+
+### Notation
+
+- $m$: Number of training examples.
+- $x$: Input variables/features.
+- $y$: Output variable (target variable).
+- $(x, y)$: Single training example.
+- $(x^{i}, y^{i})$: $i^{th}$ training example.
+
+### Training Process
+
+1. **Input**: Training set.
+2. **Algorithm**: The learning algorithm processes this data.
+3. **Output**: Hypothesis function $h$ which estimates the value of $y$ for a new input $x$.
+
+### Example: House Price Prediction
+Using linear regression, we can predict house prices based on house size.
 
 ![house price table](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/house_price_table.png)
 
-### With our training set defined - how do we use it?
-* Take training set.
-* Pass into a learning algorithm.
-* Algorithm outputs a function (h = hypothesis).
-* This function takes an input (e.g. size of new house).
-* Tries to output the estimated value of Y.
+### Analyzing the Cost Function
+Different values of $\theta_1$ yield different cost (J) values:
 
-$$h_{\theta}(x) = \theta_0 + \theta_1x$$
+- For $\theta_1 = 1$, $J(\theta_1) = 0$ (Ideal scenario).
+- For $\theta_1 = 0.5$, $J(\theta_1) = 0.58$ (Higher error).
+- For $\theta_1 = 0$, $J(\theta_1) = 2.3$ (Maximum error).
 
-* Y is a linear function of x!
-* $\theta_0$ is zero condition.
-* $\theta_1$ is gradient.
-
-### Cost function
-* A cost function expresses how dissatisfied we are with the model's present coefficients in the prediction of output y from input x. 
-* We may use the cost function to determine how to fit the best straight line to our data.
-* We want to want to solve a minimization problem. Minimize $(h_{\theta}(x) - y)^2$.
-* Sum this over the training set.
-
-$$J(\theta_0, \theta_1) = \frac{1}{2m} \sum_{m}^{i=1}(h_{\theta}(x^{(i)}) - y^{(i)})^2$$
-
-For $\theta_0 = 0$ we have:
-
-$$h_{\theta}(x) = \theta_1x\quad and \quad J(\theta_1) = \frac{1}{2m} \sum_{m}^{i=1}(h_{\theta}(x^{(i)}) - y^{(i)})^2$$
-
-Data:
-* $\theta_1 = 1$ and $J(\theta_1)= 0$.
-* $\theta_1 = 0.5$ and $J(\theta_1)= 0.58$.
-* $\theta_1 = 0$ and $J(\theta_1)= 2.3$.
+Optimization aims to find the value of $\theta_1$ that minimizes $J(\theta_1)$.
 
 ![cost_function](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/cost_function.png)
 
-The optimization objective for the learning algorithm is find the value of θ1
-which minimizes J(θ1 ). So, here θ1 = 1 is the best value for θ1 .
+### A Deeper Insight into the Cost Function - Simplified Cost Function
 
-### A deeper insight into the cost function - simplified cost function
+In linear regression, the cost function $J(\theta_0, \theta_1)$ is a critical component, involving two parameters: $\theta_0$ and $\theta_1$. Visualization of this function can be achieved through different plots.
 
-The real cost function takes two variables as parameters! $J(\theta_0, \theta_1)$.
-We can now generates a 3D surface plot where axis are:
+#### 3D Surface Plot
 
-* $X = \theta_1$.
-* $Z = \theta_0$.
-* $Y = J(\theta_0,\theta_1)$.
-  
+The 3D surface plot illustrates the cost function where:
+- $X$-axis represents $\theta_1$.
+- $Z$-axis represents $\theta_0$.
+- $Y$-axis represents $J(\theta_0, \theta_1)$.
+
 ![surface_cost_function](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/surface_cost_function.png)
 
-The best hypothesis is at the bottom of the bowl.
-Instead of a surface plot we can use a contour figures/plots.
-* Set of ellipses in different colors.
-* Each colour is the same value of $J(\theta_0,\theta_1)$, but obviously plot to different
-locations because θ1 and θ0 will vary.
-* Imagine a bowl shape function coming out of the screen so the middle is
-the concentric circles.
+#### Contour Plots
+
+Contour plots offer a 2D perspective:
+
+- Each color or level represents the same value of $J(\theta_0, \theta_1)$.
+- The center of concentric circles indicates the minimum of the cost function.
 
 ![contour_cost_function](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/contour_cost_function.png)
 
+## Gradient Descent Algorithm
 
-The best hypothesis is located in the center of the contour plot.
+The gradient descent algorithm iteratively adjusts $\theta_0$ and $\theta_1$ to minimize the cost function. The algorithm proceeds as follows:
 
-## Gradient descent algorithm
+```plaintext
+θ = [0, 0]
+while not converged:
+    for j in [0, 1]:
+        θ_j := θ_j - α ∂/∂θ_j J(θ_0, θ_1)
+```
 
-    \theta = [0, 0]
-    while not converged:
-      for j in [0, 1]:
-          \theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j} J(\theta_0, \theta_1)
-      
-
-* Begin with initial guesses, could be (0,0) or any other value.
-* Repeatedly change values of $\theta_0$ and $\theta_1$ to try to reduce  $J(\theta_0, \theta_1)$.
-* Continue until you reach a local minimum.
-* Reached minimum is determined by the starting point.
+- Begin with initial guesses (e.g., [0,0]).
+- Continuously adjust $\theta_0$ and $\theta_1$ to reduce $J(\theta_0, \theta_1)$.
+- Proceed until a local minimum is reached.
 
 ![gradient_descent](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/gradient_descent.png)
 
-![gradient_descent](https://user-images.githubusercontent.com/37275728/201476896-555ad8c4-8422-428b-937f-12cdf70d75bd.png)
+### Key Elements of Gradient Descent
 
-Two key terms in the algorithm:
-* $\alpha$ term.
-* Derivative term.
+- **Learning Rate ($\alpha$)**: Determines the step size during each iteration.
+- **Partial Derivative**: Indicates the direction to move in the parameter space.
+- A negative derivative suggests a decrease in $\theta_1$ to move towards a minimum.
+- Conversely, a positive derivative suggests an increase in $\theta_1$.
 
-### Partial derivative vs. derivative
-* Use partial derivative when we have multiple variables but only derive with respect to one.
-* Use derivative when we are deriving with respect to all the variables.
+### Partial Derivative vs. Derivative
 
-Derivative says:
-* Let’s look at the slope of the line by taking the tangent at the point.
-* As a result, going towards the minimum (down) will result in a negative derivative; nevertheless, alpha is always positive, thus $J(\theta_1)$ will be updated to a lower value.
-* Similarly, as we progress up a slope, we increase the value of $J(\theta_1)$.
+- **Partial Derivative**: Applied when focusing on a single variable among several.
+- **Derivative**: Utilized when considering all variables.
 
-$\alpha$ term
-* If it’s too small, it takes too long to converge.
-* If it is too large, it may exceed the minimum and fail to converge.
+### At a Local Minimum
+At this point, the derivative equals zero, implying no further changes in $\theta_1$:
 
-When you get to a local minimum
-* Gradient of tangent/derivative is 0.
-* So derivative term = 0.
-* $\alpha \cdot 0 = 0$.
-* So $\theta_1 = \theta_1 - 0$.
-* So $\theta_1$ remains the same.
-  
-## Linear regression with gradient descent
-Apply gradient descent to minimize the squared error cost function $J(\theta_0, \theta_1)$.
+$$
+\alpha \times 0 = 0 \Rightarrow \theta_1 = \theta_1 - 0
+$$
+
+![local_minimum](https://user-images.githubusercontent.com/37275728/201476896-555ad8c4-8422-428b-937f-12cdf70d75bd.png)
+
+Through gradient descent, the optimal $\theta_0$ and $\theta_1$ values are identified, minimizing the cost function and enhancing the linear regression model's performance.
+
+## Linear Regression with Gradient Descent
+
+In linear regression, gradient descent is applied to minimize the squared error cost function $J(\theta_0, \theta_1)$. The process involves calculating the partial derivatives of the cost function with respect to each parameter $\theta_0$ and $\theta_1$.
+
+### Partial Derivatives of the Cost Function
+The gradient of the cost function is computed as follows:
+
+- For the squared error cost function:
 
 $$\frac{\partial}{\partial \theta_j} J(\theta_0, \theta_1) = \frac{\partial}{\partial \theta_j} \frac{1}{2m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)})^2$$
 
 $$= \frac{\partial}{\partial \theta_j} \frac{1}{2m} \sum_{i=1}^{m} (\theta_0 + \theta_1x^{(i)} - y^{(i)})^2$$
 
-For each case, we must determine the partial derivative:
+The partial derivatives for each $\theta_j$ are:
 
-$$j=0:\frac{\partial}{\partial \theta_0} J(\theta_0, \theta_1)=\frac{\partial}{\partial \theta_0} \frac{1}{m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)})$$
+- For $j=0$:
 
-$$j=1:\frac{\partial}{\partial \theta_1} J(\theta_0, \theta_1)=\frac{\partial}{\partial \theta_1} \frac{1}{m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)})x^{(i)}$$
+$$\frac{\partial}{\partial \theta_0} J(\theta_0, \theta_1)=\frac{\partial}{\partial \theta_0} \frac{1}{m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)})$$
 
-## Normal equations method
-* To solve the minimization problem we can solve it $[ min J(\theta_0, \theta_1) ]$ exactly using a numerical method which avoids the iterative approach used by gradient descent.
-* Can be much faster for some problems, but it is much more complicated (will be covered in detail later).
+- For $j=1$:
+  
+$$\frac{\partial}{\partial \theta_1} J(\theta_0, \theta_1)=\frac{\partial}{\partial \theta_1} \frac{1}{m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)})x^{(i)}$$
 
-## Extension of the current model
-We could learn with a larger number of features.
-* e.g. with houses: Size, Age, Number bedrooms, Number floors...
-* The disadvantage is that we can't plot in more than three dimensions.
-* Best way to get around with this is the notation of linear algebra (matrices and vectors).
+## Normal Equations Method
+
+For solving the minimization problem $\min J(\theta_0, \theta_1)$, the normal equations method offers an alternative to gradient descent. This numerical method provides an exact solution, avoiding the iterative approach of gradient descent. It can be faster for certain problems but is more complex and will be covered in detail later.
+
+## Extension of the Current Model
+
+The linear regression model can be extended to include multiple features. For example, in a housing model, features could include size, age, number of bedrooms, and number of floors. However, a challenge arises when dealing with more than three dimensions, as visualization becomes difficult. To effectively manage multiple features, linear algebra concepts like matrices and vectors are employed, facilitating calculations and interpretations in higher-dimensional spaces.
