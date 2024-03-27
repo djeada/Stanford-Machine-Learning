@@ -1,76 +1,77 @@
-## Application Example - Photo OCR.
-Optical character recognition, or OCR, is the process of teaching computers to interpret text in images. A machine learning pipeline is a series of steps that helps to solve a problem, such as detecting pedestrians or text in an image. One way to do this is to create a training set of positive and negative examples, train a classifier using this data, and then apply the classifier to an image using a sliding window method. The final stage of the process, character recognition, involves using a training set of character images to teach the system to recognize characters based on image patches. This training data can be enhanced through techniques such as data synthesis, which involves adding distortion to existing data. The goal of these pipelines is to allow computers to better understand and interpret digital images.
+## Application Example - Photo OCR
 
-## Problem description and pipeline
+Optical Character Recognition (OCR) enables computers to interpret text within images. This process involves a machine learning pipeline comprising several steps, each focused on a specific aspect of OCR, like pedestrian or text detection. The pipeline integrates various techniques, including data synthesis, to enhance the accuracy and reliability of character recognition.
 
-* Consider how a complex system may be built.
-* The idea of a machine learning pipeline.
-* Machine learning applied to real-world issues and artificial data synthesis.
+### Detailed Mathematical and Technical Aspects
 
-What is the photo OCR problem?
+I. **Machine Learning Pipeline in OCR:**
 
-* Photo OCR = photo optical character recognition.
-* Getting computers to interpret digital images is one notion that has piqued the curiosity of many people.
-* The idea behind picture OCR is to teach computers to interpret text in images.
+- A machine learning pipeline is a systematic approach, involving sequential steps for solving complex problems.
+- In OCR, this pipeline includes the generation of training datasets, classifier training, and the application of these classifiers to new data.
+   
+II. **Training Data and Classifier Development:**
 
-Pipeline - a sequence of separate modules, each of which may be a machine learning or data processing component.
+- Develop a training dataset comprising positive (text) and negative (non-text) image examples.
+- Train a classifier using this dataset. The classifier learns to differentiate between text and non-text image patches.
+
+III. **Sliding Window Technique:**
+
+- Implement a sliding window technique to apply the classifier across different sections of an image.
+- This technique involves moving a window across the image, classifying each patch as text or non-text.
+
+IV. **Character Recognition:**
+
+- Focus on recognizing individual characters.
+- Use a specialized training set of character images.
+- Employ data synthesis, such as introducing distortions to character images, to enhance training data variability.
+
+### Problem Description and Pipeline
+
+- **Understanding the Photo OCR Problem:** The challenge is in teaching computers to interpret text in digital images efficiently and accurately.
+
+- **The Pipeline Structure:** Photo OCR involves a sequence of distinct modules, each handling a part of the process. These may include machine learning algorithms and data processing steps.
 
 ![ocr_pipeline](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/ocr_pipeline.png)
 
-## Pedestrian detection
+### Pedestrian Detection (Analogous Example)
 
-
-* We're looking for pedestrians in the picture.
-* A common aspect ratio for a standing human is 82 x 36.
-* Obtain a training set of both positive and negative examples (1000 - 10 000).
-
+- **Training Data Collection:** Collect a set of images containing pedestrians (positive examples) and images without them (negative examples).
 
 ![pedestrians_training_set](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/pedestrians_training_set.png)
 
-* Now that we have a new image, how do we identify pedestrians within it?
-* Start by taking a rectangular 82 x 36 patch in the image.
-* Run patch through classifier (returns 1 or 0).
-* After that, move the rectangle slightly to the right and re-run the program.
-* Repeat until you've covered the whole image.
-* Hopefully, by varying the patch size and rastering over the image frequently, you will finally recognize all of the pedestrians in the image.
-
+- **Classifier Application:** Apply the trained classifier on a new image using a standard human aspect ratio patch (e.g., 82 x 36 pixels).
+- Iterate this process across the entire image, adjusting the patch position and size to detect pedestrians.
 
 ![pedestrians](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/pedestrians.png)
 
-## Text detection example
+### Text Detection in Images
 
-
-* We generate a labeled training set with positive examples (some type of text) and negative examples (not text), similar to pedestrian detection.
-* After training the classifier, we apply it to an image using a sliding window classifier with a set rectangle size.
-* Obtain a training set of both positive and negative examples (1000 - 10 000).
-* The white region indicates where the text recognition algorithm believes text exists, while the varying shades of gray correlate to the likelihood associated with how certain the classifier is that the section includes text
+- **Training and Classifier Deployment:** Similar to pedestrian detection, prepare a training set with examples of text and non-text.
+-  Apply a trained classifier to an image using a predefined rectangular window.
 
 ![text_detection](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/text_detection.png)
 
-* Take the classifier output and apply an expansion algorithm that extends each of the white areas.
-* Examine the linked white patches in the picture above. Draw rectangles around those that make sense as text (tall narrow boxes don't).
-* This example misses a piece of text on the door because the aspect ratio is wrong.
-
+- **Region Identification:** The classifier outputs varying confidence levels, represented by shades of gray, indicating the likelihood of text presence.
+- Use an expansion algorithm to identify and enlarge potential text regions, eliminating improbable ones based on size or aspect ratio.
+    
 ![expansion_algorithm](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/expansion_algorithm.png)
 
-### Stage two is character segmentation
+### Character Segmentation
 
+1D Sliding Window Approach:
 
-* To navigate along text areas, use a 1-dimensional sliding window.
-* Does each window snapshot resemble the separation of two characters?
-* Insert a split if yes.
-* If not, proceed.
-
+- Slide a one-dimensional window along identified text areas.
+- Determine if each window segment represents a potential character separation.
+- Insert divisions between characters when appropriate.
+  
 ![character_segmentation](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/character_segmentation.png)
 
-## Character recognition as an example of data synthesis
+### Character Recognition through Data Synthesis
 
-
-* The goal is for the system to recognize a character based on an image patch.
-* Consider the photos to be grayscale (makes it a bit easer).
-* Where can I find training data?
-* Modern computers frequently include a large font library, and there are several free font libraries available on the internet.
-* Take characters from different fonts and place them on random backgrounds to get more training data.
-* Another approach is to add distortion into existing data, such as warping a character.
-
+Training Data Enhancement:
+  
+- To recognize characters from image patches, consider using grayscale images for simplicity.
+- Generate a vast training set by using characters from various fonts and placing them on random backgrounds.
+- Introduce distortions to existing data for a more robust training process.
+  
 ![characters](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/characters.png)
