@@ -1,124 +1,126 @@
 ## Logistic Regression
-In machine learning, classification is the task of predicting a discrete value for a given input. An example of this is determining whether an email is spam or not spam. Logistic regression is a popular method for classification, which uses the sigmoid function to predict the probability that a given input belongs to a specific class. The decision boundary is the line that separates the different classes and can be either linear or non-linear. By adding polynomial features to the input data, we can create a non-linear decision boundary that is better able to fit and classify complex data sets.
 
-## Classification
-* Y can only have discrete values.
-* For example: 0 = negative class (absence of something) and 1 = positive
-class (presence of something).
-* Email − > spam/not spam?
-* Online transactions − > fraudulent?
-* Tumor − > Malignant/benign?
+Logistic regression is a statistical method used for classification in machine learning. Unlike linear regression, which predicts continuous values, logistic regression predicts discrete outcomes, like classifying an email as spam or not spam.
 
-Let’s go back to the cancer example from the Week 1 and try to apply linear regression:
+### Classification 
+Yields discrete values (e.g., 0 or 1, representing classes).
+
+Examples:
+
+- Email: Spam (1) or Not Spam (0).
+- Online Transaction: Fraudulent (1) or Not Fraudulent (0).
+- Tumor Diagnosis: Malignant (1) or Benign (0).
+
+### Logistic Regression vs Linear Regression
+Applying linear regression to classification tasks, like cancer diagnosis, may not yield effective results, especially when the data doesn't fit well into a linear model.
 
 ![cancer_classification](https://user-images.githubusercontent.com/37275728/201496614-36ec47d4-437e-4d25-82bf-27289489a5a7.png)
 
-We see that it wasn’t the best idea. Of course, we could attempt another approach to find a straight line that would better separate the points, but a straight line isn’t our sole choice. There are more appropriate models for that job.
+### Hypothesis Representation
 
-## Hypothesis representation
-* We want our classifier to output values between 0 and 1.
-* For classification hypothesis representation we have: $h_{\theta}(x) = g((\theta^Tx))$.
-* $g(z)$ is called the sigmoid function, or the logistic function.
-        $$g(z) = \frac{1}{1 + e^{-z}}$$
-* If we combine these equations we can write out the hypothesis as:
+- Classifier output should be between 0 and 1 (probability).
+- Hypothesis $h_{\theta}(x) = g(\theta^Tx)$.
+- $g(z)$ is the sigmoid or logistic function:
 
-$$h_{\theta}(x) = \frac{1}{1+e^{-\theta^Tx}}$$
+$$
+g(z) = \frac{1}{1 + e^{-z}}
+$$
 
+Hypothesis Equation:
+
+$$
+h_{\theta}(x) = \frac{1}{1+e^{-\theta^Tx}}
+$$
+
+- The output of $h_{\theta}(x)$ is interpreted as the probability of the positive class given the input $x$.
+  $$ h_{\theta}(x) = P(y=1|x\ ;\ \theta) $$
+- **Example**: If $h_{\theta}(x) = 0.7$ for a tumor, it implies a 70% chance of the tumor being malignant.
+
+### Sigmoid Function
+Visualizes how $h_{\theta}(x)$ translates a linear combination of inputs into a probability:
+  
 ![sigmoid](https://user-images.githubusercontent.com/37275728/201496643-38a45685-61a5-4af4-bf24-2acaa22ef1ff.png)
 
-When our hypothesis $(h_{\theta}(x))$ outputs a number, we treat that value as the estimated probability that $y=1$ on input $x$.
+### Decision Boundary in Logistic Regression
 
-$$h_{\theta}(x) = P(y=1|x\ ;\ \theta)$$
+The decision boundary in logistic regression is critical for classification tasks. It separates the different classes based on the probability calculated using the sigmoid function.
 
-Example:
+#### Linear Decision Boundary
 
-$h_{\theta}(x) = 0.7$ and
+- **Principle**: Predict $y = 1$ if the probability is greater than 0.5, else predict $y = 0$.
+- **Hypothesis**: $h_{\theta}(x) = g(\theta^T x)$, where $g$ is the sigmoid function.
+- **Predicting $y = 1$**: Occurs when $\theta^T x \geq 0$.
+- **Predicting $y = 0$**: Occurs when $\theta^T x \leq 0$.
 
-$$
-  X = \begin{bmatrix}
-    1          \\
-    tumourSize
-  \end{bmatrix}
-$$
+#### Example of a Linear Decision Boundary
 
-Informs a patient that a tumor has a $70\%$ likelihood of being malignant.
-
-### Decision boundary
-One way of using the sigmoid function is:
-
-* When the probability of y being 1 is greater than 0.5 then we can predict y = 1.
-* Else we predict y = 0.
-
-![decision_boundary](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/decision_boundary.png)
-
-* The hypothesis predicts $y = 1$ when $\theta^T  x >= 0$.
-* When $\theta^T x <= 0$ then the hypothesis predicts y = 0.
-
-Example
-
-$$h_{\theta}(x) = g(\theta_0 + \theta_1x_1 + \theta_2x_2)$$
+Hypothesis: 
 
 $$
-  \theta = \begin{bmatrix}
-    -3 \\
-    1  \\
-    1
-  \end{bmatrix}
+h_{\theta}(x) = g(\theta_0 + \theta_1x_1 + \theta_2x_2)
 $$
 
-We predict $y = 1$ if:
+Theta Vector:
 
-$$-3x_0 + 1x_1 + 1x_2 \geq 0$$
-$$-3 + x_1 + x_2 \geq 0$$
+$$
+\theta = \begin{bmatrix}
+-3 \\
+1  \\
+1
+\end{bmatrix}
 
-As a result, the straight line equation is as follows:
+Condition for $y = 1$:
 
-$$x_2 = -x_1 + 3$$
+$$
+-3 + x_1 + x_2 \geq 0
+$$
+
+Hence, the decision boundary is a straight line: $x_2 = -x_1 + 3$.
 
 ![linear_decision_boundary](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/linear_decision_boundary.png)
 
-* Blue = false
-* Magenta = true
-* Line = decision boundary
+#### Non-linear Decision Boundaries
+- **Purpose**: To fit more complex, non-linear datasets.
+- **Approach**: Introduce polynomial terms in the hypothesis.
 
-## Non-linear decision boundaries
-Get logistic regression to fit a complex non-linear data set.
-
-Example
-
-$$h_{\theta}(x) = g(\theta_0 + \theta_1x_1 + \theta_3x_1^2 + \theta_4x_2^2)$$
+#### Example of a Non-linear Decision Boundary
+Hypothesis: 
 
 $$
-  \theta = \begin{bmatrix}
-    -1 \\
-    0  \\
-    0  \\
-    1  \\
-    1
-  \end{bmatrix}
+h_{\theta}(x) = g(\theta_0 + \theta_1x_1 + \theta_2x_1^2 + \theta_3x_2^2)
 $$
 
-We predict $y = 1$ if:
+Theta Vector:
 
-$$-1 + x_1^2 + x_2^2 \geq 0$$
+$$
+\theta = \begin{bmatrix}
+-1 \\
+0  \\
+1  \\
+1
+\end{bmatrix}
+$$
 
-$$x_1^2 + x_2^2 \geq 1$$
+Condition for $y = 1$:
 
-As a result, the circle equation is as follows:
+$$
+x_1^2 + x_2^2 \geq 1
+$$
 
-$$x_1^2 + x_2^2 = 1$$
-
-This gives us a circle with a radius of 1 around 0.
+This forms a circular decision boundary with radius 1 around the origin: $x_1^2 + x_2^2 = 1$.
 
 ![non_linear_decision_boundary](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/non_linear_decision_boundary.png)
 
-## Cost function for logistic regression
-* Fit $\theta$ parameters.
-* Define the optimization object for the cost function we use the fit the parameters.
+### Cost Function for Logistic Regression
 
-Training set of m training examples:
+Logistic regression uses a different cost function compared to linear regression, tailored to the classification setting.
 
-$$\{(x^{(1)}, y^{(1)}), (x^{(1)}, y^{(1)}), ..., (x^{(m)}, y^{(m)})\}$$
+#### Training Set Representation
+Consider a training set of $m$ examples:
+
+$$ \{(x^{(1)}, y^{(1)}), ..., (x^{(m)}, y^{(m)})\} $$
+
+where
 
 $$  
 x = \begin{bmatrix}
@@ -126,54 +128,73 @@ x = \begin{bmatrix}
     x_1 \\
     ... \\
     x_n
-  \end{bmatrix}
+\end{bmatrix}
 $$
 
-$$x_0 =1,\quad y \in \{0,1\}$$
+with $x_0 = 1$ and $y$ being either 0 or 1.
 
-Linear regression uses the following function to determine $\theta$:
+#### Linear Regression Cost Function
+In linear regression, the cost function $J(\theta)$ is defined as:
 
-$$J(\theta) = \frac{1}{2m} \sum_{i=1}^{m}(h_{\theta}(x^{(i)}) - y^{(i)})^2$$
+$$ J(\theta) = \frac{1}{2m} \sum_{i=1}^{m}(h_{\theta}(x^{(i)}) - y^{(i)})^2 $$
 
-We define "cost()" as:
+#### Defining Cost for Logistic Regression
+For logistic regression, we define a different "cost" function:
 
-$$cost(h_{\theta}(x^{(i)}), y^{(i)}) = \frac{1}{2} (h_{\theta}(x^{(i)}) - y^{(i)})^2$$
+$$ cost(h_{\theta}(x^{(i)}), y^{(i)}) = \frac{1}{2} (h_{\theta}(x^{(i)}) - y^{(i)})^2 $$
 
-We can now redefine $J(\theta)$ as:
+Redefining $J(\theta)$:
 
-$$J(\theta) = \frac{1}{m} \sum_{i=1}^{m}cost(h_{\theta}(x^{(i)}), y^{(i)})$$
+$$ J(\theta) = \frac{1}{m} \sum_{i=1}^{m}cost(h_{\theta}(x^{(i)}), y^{(i)}) $$
 
-* This is the cost you want the learning algorithm to pay if the outcome is $h_{\theta}(x)$ but the actual outcome is y.
-* This function is a non-convex function for parameter optimization when used for logistic regression.
-* If you take $h_{\theta}(x)$ and plug it into the Cost() function, and them plug the Cost() function into $J(\theta)$ and plot $J(\theta)$ we find many local optimum.
+This cost function for logistic regression is not convex, leading to potential issues with local optima.
+
+#### Logistic Regression Cost Function
+The logistic regression cost function is defined as:
 
 $$
-\[ cost(h_{\theta}(x), y) = \begin{cases}
-    -log(h_{\theta}(x))     & if\ y=1 \\
-    -log(1 - h_{\theta}(x)) & if\ y=0
-  \end{cases}
-\]
+cost(h_{\theta}(x), y) = \begin{cases}
+    -\log(h_{\theta}(x))     & \text{if } y=1 \\
+    -\log(1 - h_{\theta}(x)) & \text{if } y=0
+\end{cases}
 $$
 
-Finally:
+Then, the overall cost function $J(\theta)$ becomes:
 
-$$J(\theta) = \frac{1}{m} \sum_{i=1}^{m}[-y^{(i)}log(h_{\theta}(x^{(i)})) - (1-y^{(i)})log(1 - h_{\theta}(x^{(i)}))]$$
+$$J(\theta) = \frac{1}{m} \sum_{i=1}^{m}[-y^{(i)}\log(h_{\theta}(x^{(i)})) - (1-y^{(i)})\log(1 - h_{\theta}(x^{(i)}))]
+$$
 
-$$\frac{\partial}{\partial \theta_j} J(\theta) = \frac{1}{m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)})x_j^{(i)}$$
+#### Gradient of the Cost Function
+The gradient of $J(\theta)$ for logistic regression is:
 
-Note that while this gradient looks identical to the linear regression gra-
-dient, the formula is actually different because linear and logistic regression
-have different definitions of hθ (x).
+$$
+\frac{\partial}{\partial \theta_j} J(\theta) = \frac{1}{m} \sum_{i=1}^{m} (h_{\theta}(x^{(i)}) - y^{(i)})x_j^{(i)}
+$$
 
-## Multiclass classification problems
-Getting logistic regression for multiclass classification using one vs. all.
+Note: While this gradient looks identical to that of linear regression, the formulae differ due to the different definitions of $h_{\theta}(x)$ in linear and logistic regression.
+
+### Multiclass Classification Problems
+
+Logistic regression can be extended to handle multiclass classification problems through the "one-vs-all" (or "one-vs-rest") method.
+
+#### One-vs-All Approach
+The one-vs-all strategy involves training multiple binary classifiers, each focused on distinguishing one class from all other classes.
+
+#### Visualization of Multiclass Classification
+Consider a dataset with three classes: triangles, crosses, and squares.
 
 ![multiclass_classification](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/multiclass_classification.png)
 
-Split the training set into three separate binary classification problems.
+#### Implementing One-vs-All
+The process involves splitting the training set into separate binary classification problems:
 
-* Triangle (1) vs crosses and squares (0) $h_{\theta}^{(1)}(x)$.
-* Crosses (1) vs triangle and square (0) $h_{\theta}^{(2)}(x)$.
-* Square (1) vs crosses and square (0) $h_{\theta}^{(3)}(x)$.
+1. **Triangle vs Others**: Train a classifier $h_{\theta}^{(1)}(x)$ to distinguish triangles (1) from crosses and squares (0).
+2. **Crosses vs Others**: Train another classifier $h_{\theta}^{(2)}(x)$ to distinguish crosses (1) from triangles and squares (0).
+3. **Squares vs Others**: Lastly, train a classifier $h_{\theta}^{(3)}(x)$ to distinguish squares (1) from crosses and triangles (0).
 
 ![one_vs_all](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/one_vs_all.png)
+
+#### Classification Decision
+
+- When classifying a new example, compute the probability that it belongs to each class using the respective classifiers.
+- The class with the highest probability is chosen as the prediction.
