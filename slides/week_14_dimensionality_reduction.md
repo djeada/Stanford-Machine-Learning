@@ -10,13 +10,12 @@ Principal Component Analysis (PCA) is a widely used technique in machine learnin
 
 ### Compression with PCA
 
-- **Benefits**:
-  - Speeds up learning algorithms.
-  - Saves storage space.
-  - Focuses on the most relevant features, discarding less important ones.
+- Speeds up learning algorithms.
+- Saves storage space.
+- Focuses on the most relevant features, discarding less important ones.
 - **Example**: Different units of the same attribute can be reduced to a single, more representative dimension.
 
-  ![Example of Dimension Reduction](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/compression_units.png)
+![Example of Dimension Reduction](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/compression_units.png)
 
 ### Visualization through PCA
 
@@ -31,11 +30,12 @@ Principal Component Analysis (PCA) is a widely used technique in machine learnin
 1. **Goal**: To find a lower-dimensional representation that minimizes the projection error (distance between original and projected points).
 2. **Projection Error**: PCA aims to minimize the sum of the squares of these distances.
 
-   ![Visualizing PCA Projection](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/pca.png)
+ ![Visualizing PCA Projection](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/pca.png)
 
 3. **PCA vs. Linear Regression**:
-   - Linear Regression: Minimizes the vertical distances between data points and the fitted line (predictive model).
-   - PCA: Minimizes the orthogonal distances to the line (data representation model), without distinguishing between dependent and independent variables.
+   
+- Linear Regression: Minimizes the vertical distances between data points and the fitted line (predictive model).
+- PCA: Minimizes the orthogonal distances to the line (data representation model), without distinguishing between dependent and independent variables.
 
 ### Selecting Principal Components
 
@@ -46,31 +46,23 @@ Principal Component Analysis (PCA) is a widely used technique in machine learnin
 
 Principal Component Analysis (PCA) is a systematic process for reducing the dimensionality of data. Here's a breakdown of the PCA algorithm:
 
-1. **Covariance Matrix Computation**:
-   
-   Calculate the covariance matrix $\Sigma$:
+1. **Covariance Matrix Computation**: Calculate the covariance matrix $\Sigma$:
 
 $$\Sigma = \frac{1}{m} \sum_{i=1}^{n} (x^{(i)})(x^{(i)})^T$$
    
-   Here, $\Sigma$ is an $[n \times n]$ matrix, with each $x^{(i)}$ being an $[n \times 1]$ matrix.
+Here, $\Sigma$ is an $[n \times n]$ matrix, with each $x^{(i)}$ being an $[n \times 1]$ matrix.
 
-2. **Eigenvector Calculation**:
-   
-   Compute the eigenvectors of the covariance matrix $\Sigma$:
+2. **Eigenvector Calculation**: Compute the eigenvectors of the covariance matrix $\Sigma$:
 
 $$
 [U,S,V] = \text{svd}(\Sigma)
 $$
    
-   The matrix $U$ will also be an $[n \times n]$ matrix, with its columns being the eigenvectors we seek.
+The matrix $U$ will also be an $[n \times n]$ matrix, with its columns being the eigenvectors we seek.
 
-3. **Choosing Principal Components**:
-   
-   Select the first $k$ eigenvectors from $U$, this is $U_{\text{reduce}}$.
+3. **Choosing Principal Components**: Select the first $k$ eigenvectors from $U$, this is $U_{\text{reduce}}$.
 
-4. **Calculating Compressed Representation**:
-   
-   For each data point $x$, compute its new representation $z$:
+4. **Calculating Compressed Representation**: For each data point $x$, compute its new representation $z$:
  
 $$z = (U_{\text{reduce}})^T \cdot x$$
 
