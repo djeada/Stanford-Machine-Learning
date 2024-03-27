@@ -70,6 +70,7 @@ In linear regression, the cost function $J(\theta_0, \theta_1)$ is a critical co
 #### 3D Surface Plot
 
 The 3D surface plot illustrates the cost function where:
+
 - $X$-axis represents $\theta_1$.
 - $Z$-axis represents $\theta_0$.
 - $Y$-axis represents $J(\theta_0, \theta_1)$.
