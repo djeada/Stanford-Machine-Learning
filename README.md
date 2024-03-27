@@ -7,168 +7,62 @@
 
 # Stanford-Machine-Learning
 
-Welcome to the Stanford Machine Learning course! This course, taught by Professor Andrew Ng, provides a comprehensive introduction to the field of machine learning. Through a combination of lectures, exercises, and projects, you will learn the fundamental concepts and techniques needed to build and apply machine learning models to real-world problems.
+Welcome to the Stanford Machine Learning course repository! This course, expertly led by Professor Andrew Ng, is your comprehensive guide to mastering machine learning. Through engaging lectures, hands-on exercises, and insightful projects, you'll acquire the essential skills and knowledge to apply machine learning techniques effectively to real-world challenges.
 
-These notes are intended to give you an overview of the course and its content. For more detailed information, including lecture slides and video lectures, please visit the course page on the  <a href="https://www.coursera.org/learn/machine-learning">Coursera platform</a>. We hope that you find this course valuable and that it helps you to develop a strong foundation in machine learning.
+In this repository, you'll find a collection of resources that complement the course material. For a more immersive experience, including access to lecture slides and video lectures, make sure to visit the [Coursera course page](https://www.coursera.org/learn/machine-learning). Dive in and start your journey towards becoming proficient in machine learning!
 
 ![Capture](https://user-images.githubusercontent.com/37275728/186025613-538378ce-2cc9-4db7-9829-d513dc34a344.PNG)
 
-## Notes
+## Course Outline and Resources
 
-I recommend that you visit this <a href="http://www.holehouse.org/mlclass/">website</a> for more detailed notes.
+For an enhanced learning experience, I highly recommend visiting this [complementary notes website](http://www.holehouse.org/mlclass/).
 
-<table>
-    <thead>
-        <tr>
-            <th>Week #</th>
-            <th>Description</th>
-            <th>Notes</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Week 1</td>
-            <td>Introduction to machine learning.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_01.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 2</td>
-            <td>Linear Regression with One Variable.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_02.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 3</td>
-            <td>Linear Algebra - review.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_03.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 4</td>
-            <td>Linear Regression with Multiple Variables.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_04.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 5</td>
-            <td>Octave</td>
-            <td><a>-</a></td>
-        </tr>
-        <tr>
-            <td>Week 6</td>
-            <td>Logistic Regression.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_06.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 7</td>
-            <td>Regularization.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_07.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 8</td>
-            <td>Neural Networks - Representation.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_08.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 9</td>
-            <td>Neural Networks - Learning.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_09.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 10</td>
-            <td>Advice for applying machine learning techniques.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_10.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 11</td>
-            <td>Machine Learning System Design.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_11.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 12</td>
-            <td>Support Vector Machines.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_12.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 13</td>
-            <td>Clustering.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_13.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 14</td>
-            <td>Dimensionality Reduction.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_14.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 15</td>
-            <td>Anomaly Detection.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_15.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 16</td>
-            <td>Recommendation Systems.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_16.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 17</td>
-            <td>Large Scale Machine Learning.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_17.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-        <tr>
-            <td>Week 18</td>
-            <td>Application Example - Photo OCR.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/stanford_machine_learning_week_18.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a> </td>
-        </tr>
-    </tbody>
-</table>
+| Week # | Description                             | Notes                                                                                                                 |
+|--------|-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| Week 1 | Introduction to machine learning.       | [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_01_introduction_to_machine_learning.md) |
+| Week 2 | Linear Regression with One Variable.    | [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_02_linear_regression.md) |
+| Week 3 | Linear Algebra - review.                | [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_03_review_of_linear_algebra.md) |
+| Week 4 | Linear Regression with Multiple Variables.| [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_04_linear_regression_multiple_variables.md) |
+| Week 5 | Octave                                  | -                                                                                                                     |
+| Week 6 | Logistic Regression.                    | [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_06_logistic_regression.md) |
+| Week 7 | Regularization.                        | [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_07_regularization.md) |
+| Week 8 | Neural Networks - Representation.       | [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_08_neural_networks_representation.md) |
+| Week 9 | Neural Networks - Learning.             | [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_09_neural_networks_learning.md) |
+| Week 10| Advice for applying machine learning techniques.| [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_10_applying_machine_learning_advice.md) |
+| Week 11| Machine Learning System Design.         | [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_11_machine_learning_system_design.md) |
+| Week 12| Support Vector Machines.                | [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_12_support_vector_machines.md) |
+| Week 13| Clustering.                             | [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_13_clustering.md) |
+| Week 14| Dimensionality Reduction.               | [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_14_dimensionality_reduction.md) |
+| Week 15| Anomaly Detection.                      | [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_15_anomaly_detection.md) |
+| Week 16| Recommendation Systems.                 | [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_16_recommendation_systems.md) |
+| Week 17| Large Scale Machine Learning.           | [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_17_large_scale_machine_learning.md) |
+| Week 18| Application Example - Photo OCR.        | [![Markdown](https://img.icons8.com/color/344/markdown.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/week_18_photo_ocr.md) |
 
-## Programming exercises
+## Programming Exercises
 
-<table>
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Solution</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>Linear Regression.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_1/src/main.ipynb"><img src="https://img.icons8.com/fluency/344/jupyter.png" height="50" /> </a></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Logistic Regression.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_2/src/main.ipynb"><img src="https://img.icons8.com/fluency/344/jupyter.png" height="50" /> </a></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Multi-class Classification and Neural Networks.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_3/src/main.ipynb"><img src="https://img.icons8.com/fluency/344/jupyter.png" height="50" /> </a></td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Neural Network Learning.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_4/src/main.ipynb"><img src="https://img.icons8.com/fluency/344/jupyter.png" height="50" /> </a></td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Regularized Linear Regression and Bias vs Variance.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_5/src/main.ipynb"><img src="https://img.icons8.com/fluency/344/jupyter.png" height="50" /> </a></td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>Support Vector Machines.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_6/src/main.ipynb"><img src="https://img.icons8.com/fluency/344/jupyter.png" height="50" /> </a></td>
-        </tr>
-        <tr>
-            <td>7</td>
-            <td>K-means Clustering and Principal Component Analysis.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_7/src/main.ipynb"><img src="https://img.icons8.com/fluency/344/jupyter.png" height="50" /> </a></td>
-        </tr>
-        <tr>
-            <td>8</td>
-            <td>Anomaly Detection and Recommendation Systems.</td>
-            <td><a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_8/src/main.ipynb"><img src="https://img.icons8.com/fluency/344/jupyter.png" height="50" /> </a></td>
-        </tr>
-    </tbody>
-</table>
+Explore my solutions to hands-on programming exercises to solidify your understanding of the concepts taught in the course.
+
+| # | Title                                             | Solution                                                                                                          |
+|---|---------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| 1 | Linear Regression.                                | [![Jupyter](https://img.icons8.com/fluency/344/jupyter.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_1/src/main.ipynb) |
+| 2 | Logistic Regression.                              | [![Jupyter](https://img.icons8.com/fluency/344/jupyter.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_2/src/main.ipynb) |
+| 3 | Multi-class Classification and Neural Networks.    | [![Jupyter](https://img.icons8.com/fluency/344/jupyter.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_3/src/main.ipynb) |
+| 4 | Neural Network Learning.                          | [![Jupyter](https://img.icons8.com/fluency/344/jupyter.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_4/src/main.ipynb) |
+| 5 | Regularized Linear Regression and Bias vs Variance.| [![Jupyter](https://img.icons8.com/fluency/344/jupyter.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_5/src/main.ipynb) |
+| 6 | Support Vector Machines.                          | [![Jupyter](https://img.icons8.com/fluency/344/jupyter.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_6/src/main.ipynb) |
+| 7 | K-means Clustering and Principal Component Analysis.| [![Jupyter](https://img.icons8.com/fluency/344/jupyter.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_7/src/main.ipynb) |
+| 8 | Anomaly Detection and Recommendation Systems.     | [![Jupyter](https://img.icons8.com/fluency/344/jupyter.png)](https://github.com/djeada/Stanford-Machine-Learning/blob/main/src/exercise_8/src/main.ipynb) |
+
+## How to Contribute
+
+We encourage contributions that enhance the repository's value. To contribute:
+
+1. Fork the repository.
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the branch (`git push origin feature/AmazingFeature`).
+5. Open a Pull Request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE) - see the LICENSE file for details.
