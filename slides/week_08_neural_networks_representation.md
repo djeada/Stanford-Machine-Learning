@@ -1,182 +1,196 @@
-## Neural Networks - Representation
+## Neural Networks Introduction
 
-Neural networks are a type of machine learning model that is designed to mimic the way the brain works. They are particularly useful for handling large and complex data sets that may have many features. Logistic regression, a common method for analyzing such data, can become computationally expensive when dealing with a large number of features. To avoid this issue, a subset of the features must be used, which can reduce the accuracy of the analysis. Neural networks have become more popular in recent years due to the increasing computational power of computers, which has made it possible to build large-scale neural networks. These networks are made up of neurons, which are connected by input and output wires and communicate through electric spikes. In an artificial neural network, input is fed through input wires and processed before being sent out through output wires. The input layer is the first layer, the output layer is the last, and any layers in between are called hidden layers. The weights of the model are represented by the $\theta$ vector, and the bias unit is represented by $x_0$. Neural networks are particularly useful in fields such as computer vision, where the data sets can be very large.
+Neural networks represent a cornerstone in the field of machine learning, drawing inspiration from neurological processes within the human brain. These networks excel in processing complex datasets with numerous features, transcending traditional methods like logistic regression in both scalability and efficiency. Particularly, logistic regression can become computationally intensive and less practical with a high-dimensional feature space, often necessitating the selection of a feature subset, which might compromise the model's accuracy.
 
-### Why do we need neural networks?
+A neural network comprises an intricate architecture of neurons, analogous to the brain's neural cells, linked through synaptic connections. These connections facilitate the transmission and processing of information across the network. The basic structure of a neural network includes:
 
-* We can have complex data sets with many (1000's) important features.
-* Using logistic regression becomes expensive really fast.
-* The only way to get around this is to use a subset of features. This, however, may result in less accuracy.
+- **Input Layer:** Serves as the entry point for data into the network.
+- **Hidden Layers:** Intermediate layers that perform computations and feature transformations.
+- **Output Layer:** Produces the final output of the network.
 
-![many_features_classifier](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/many_features_classifier.png)
+Each neuron in these layers applies a weighted sum to its inputs, followed by a nonlinear activation function. The weights of these connections are represented by the matrix $\theta$, while the bias term is denoted as $x_0$. These parameters are learned during the training process, enabling the network to capture complex patterns and relationships within the data.
 
-## Problems where n is large - computer vision
+### Mathematical Representation
 
-* Computer vision sees a matrix of pixel intensity values.
-* To build a car detector: Build a training set of cars and not cars. Then test against a car.
-* Plot two pixels (two pixel locations) and car or not car on the graph.
+Consider a neural network with $L$ layers, each layer $l$ having $s_l$ units (excluding the bias unit). The activation of unit $i$ in layer $l$ is denoted as $a_i^{(l)}$. The activation function applied at each neuron is usually a nonlinear function like the sigmoid or ReLU function. The cost function for a neural network, often a function like cross-entropy or mean squared error, is minimized during the training process to adjust the weights $\theta$.
 
-![cars](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/cars.png)
+### Significance in Computer Vision
 
+Neural networks particularly shine in domains like computer vision, where data often involves high-dimensional input spaces. For instance, an image with a resolution of 50x50 pixels, considering only grayscale values, translates to 2,500 features. If we incorporate color channels (RGB), the feature space expands to 7,500 dimensions. Such high-dimensional data is unmanageable for traditional algorithms but is aptly handled by neural networks through feature learning and dimensionality reduction techniques.
 
-Feature space
-## Problems where n is large - computer vision
+### Neuroscience Inspiration
 
-* If we used 50 x 50 pixels $-->$ 2500 pixels, so n = 2500.
-* If RGB then 7500.
-* If 100 x 100 RB then $-->$ 50 000 000 features.
-* Way too big.
+The inception of neural networks was heavily influenced by the desire to replicate the brain's learning mechanism. This fascination led to the development and evolution of various neural network architectures through the decades. A notable hypothesis in neuroscience suggests that the brain might utilize a universal learning algorithm, adaptable across different sensory inputs and functions. This adaptability is exemplified in experiments where rerouting sensory nerves (e.g., optic to auditory) results in the corresponding cortical area adapting to process the new form of input, a concept that echoes in the design of flexible and adaptive neural networks.
 
+### Model Representation I
 
-### Neurons and the brain
+#### Neuron Model in Biology
 
+In biological terms, a neuron consists of three main parts:
 
-* The desire to construct computers that mimicked brain activities drove the creation of neural networks (NNs).
-* Used a lot in the 80s. Popularity diminished in 90s.
-* Large-scale neural networks have just recently become computationally feasible due to the computational cost of NNs.
+- **Cell Body:** Central part of a neuron where inputs are aggregated.
+- **Dendrites:** Input wires which receive signals from other neurons.
+- **Axon:** Output wire that transmits signals to other neurons.
 
+Biological neurons process signals through a combination of electrical and chemical means, sending impulses (or spikes) along the axon as a response to input stimuli received through dendrites.
 
-## Brain
+![Biological Neuron Diagram](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/neuron.png)
 
+#### Artificial Neural Network: Neuron Representation
 
-* Hypothesis is that the brain has a single learning algorithm.
-* If the optic nerve is rerouted to the auditory cortex, the auditory cortex is learns to see.
-* If you rewrite the optic nerve to the somatosensory cortex then it learns to see.
+In artificial neural networks, the neuron or 'node' functions similarly to its biological counterpart but in a simplified and abstracted manner:
 
+- **Inputs:** Received through 'input wires', akin to dendrites.
+- **Computation:** Performed by a logistic unit within the neuron.
+- **Output:** Sent down 'output wires', similar to the axon.
 
-### Model representation I
+Each neuron in an artificial neural network processes its inputs using a weighted sum and an activation function. The result is then passed on to subsequent neurons or to the output layer.
 
-Neuron:
+![Artificial Neuron Diagram](https://user-images.githubusercontent.com/37275728/201517992-cdc14304-2af9-4821-bcae-71caa1a62663.png)
 
-* Cell body
-* Number of input wires (dendrites)
-* Output wire (axon)
+#### Mathematical Model of a Neuron
 
-![neuron](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/neuron.png)
-
-* Neurone gets one or more inputs through dendrites.
-* Does processing.
-* The output is sent along the axon.
-* Neurons communicate through electric spikes.
-
-
-## Artificial neural network - representation of a neurone
-
-
-* Feed input via input wires.
-* Logistic unit does computation.
-* Sends output down output wires.
-
-![neuron](https://user-images.githubusercontent.com/37275728/201517992-cdc14304-2af9-4821-bcae-71caa1a62663.png)
-
+Consider a neuron with inputs represented as a vector $x$, where $x_0$ is the bias unit:
 
 $$
 x = \begin{bmatrix}
-      x_{0} \\
-      x_{1} \\
-      x_2   \\
-      x_3
-    \end{bmatrix}
+x_{0} \\
+x_{1} \\
+x_2   \\
+x_3
+\end{bmatrix}
 $$
 
+And the corresponding weights of the neuron are denoted by $\theta$:
 
 $$
-    \theta  = \begin{bmatrix}
-      \theta_{0} \\
-      \theta_{1} \\
-      \theta_2   \\
-      \theta_3
-    \end{bmatrix}
+\theta  = \begin{bmatrix}
+\theta_{0} \\
+\theta_{1} \\
+\theta_2   \\
+\theta_3
+\end{bmatrix}
 $$
 
-* The diagram above represents a single neurone.
-* $x_0$ is called the bias unit.
-* $\theta$ vector is called the weights of a model.
+In this representation, $x_0$ is the bias unit that helps in shifting the activation function, and $\theta$ represents the weights of the model.
 
-![hidden_layer](https://user-images.githubusercontent.com/37275728/201517995-ff2af22c-ea22-4be9-9bfc-b7e6c771d69c.png)
+#### Layers in a Neural Network
 
-* First layer is the input layer.
-* Final layer is the output layer - produces value computed by a hypothesis.
-* Middle layer(s) are called the hidden layers.
-* You don't observe the values processed in the hidden layer.
-* Every input/activation goes to every node in following layer.
+- **Input Layer:** The initial layer that receives input data.
+- **Hidden Layers:** Intermediate layers where data transformations occur. The activations within these layers are not directly observable.
+- **Output Layer:** Produces the final output based on the computations performed by the network.
 
+The connectivity pattern in a neural network typically involves each neuron in one layer being connected to all neurons in the subsequent layer.
 
-$$a^{(2)}_1 = g(\Theta^{(1)}_{10}x_0+\Theta^{(1)}_{11}x_1+\Theta^{(1)}_{12}x_2+\Theta^{(1)}_{13}x_3)$$
-$$a^{(2)}_2 = g(\Theta^{(1)}_{20}x_0+\Theta^{(1)}_{21}x_1+\Theta^{(1)}_{22}x_2+\Theta^{(1)}_{23}x_3)$$
-$$a^{(2)}_1 = g(\Theta^{(1)}_{30}x_0+\Theta^{(1)}_{31}x_1+\Theta^{(1)}_{32}x_2+\Theta^{(1)}_{33}x_3)$$
-$$h_{\Theta}(x) = g(\Theta^{(2)}_{10}a^{(2)}_0+\Theta^{(2)}_{11}a^{(2)}_1+\Theta^{(2)}_{12}a^{(2)}_2+\Theta^{(2)}_{13}a^{(2)}_3)$$
+![Hidden Layer Representation](https://user-images.githubusercontent.com/37275728/201517995-ff2af22c-ea22-4be9-9bfc-b7e6c771d69c.png)
 
-### Model representation II
-In this section, we'll look at how to do the computation efficiently using a vectorized approach. We'll also look at why NNs are useful and how we can use them to learn complicated nonlinear things.
+#### Activation and Output Computation
 
-
-Let's define a few more terms:
-
-$$z^{(2)}_1 = \Theta^{(1)}_{10}x_0+\Theta^{(1)}_{11}x_1+\Theta^{(1)}_{12}x_2+\Theta^{(1)}_{13}x_3$$
-
-
-We can now write:
-$$a^{(2)}_1 = g(z^{(2)}_1)$$
+The activation $a^{(2)}_i$ of the $i^{th}$ neuron in the 2nd layer is calculated as a function $g$ (such as the sigmoid function) of a weighted sum of inputs:
 
 $$
-  x = \begin{bmatrix}
-    x_{0} \\
-    x_{1} \\
-    x_2   \\
-    x_3
-  \end{bmatrix}
+a^{(2)}_1 = g(\Theta^{(1)}_{10}x_0+\Theta^{(1)}_{11}x_1+\Theta^{(1)}_{12}x_2+\Theta^{(1)}_{13}x_3)
 $$
 
 $$
-  z^{(2)} = \begin{bmatrix}
-    z^{(2)}_1 \\
-    z^{(2)}_2 \\
-    z^{(2)}_3
-  \end{bmatrix}
+a^{(2)}_2 = g(\Theta^{(1)}_{20}x_0+\Theta^{(1)}_{21}x_1+\Theta^{(1)}_{22}x_2+\Theta^{(1)}_{23}x_3)
 $$
 
-* $z^{(2)}$ is a $3x1$ vector.
-* $a^{(2)}$ ia also a $3x1$ vector.
-* Middle layer(s) are called the hidden layers.
-* $g()$ applies the sigmoid (logistic) function element wise to each member of the $z^{(2)}$ vector.
-* Obviously the "activation" for the input layer is just the input!
-* $a^{(1)}$ is the vector of inputs.
-* $a^{(2)}$ is the vector of values calculated by the $g(z^{(2)})$ function.
-* We send our input values to the hidden layers and let them learn which values produce the best final result to feed into the final output layer.
-* This process is also called forward propagation.
-
-Other architectural designs are also possible:
-
-* More/less nodes per layer.
-* More layers.
-
-
-![multi_layer](https://user-images.githubusercontent.com/37275728/201517998-e5f9f245-a6f1-4aed-8a58-fcb0178f38c4.png)
-
-
-Layer 2 has three hidden units (plus bias), layer 3 has two hidden units (plus bias), and by the time you get to the output layer, you have a really intriguing non-linear hypothesis.
-
-### AND function
-
-![and_function](https://user-images.githubusercontent.com/37275728/201518002-72b41fb7-ca3f-4612-aa65-c34f58138737.png)
-
-Let $x_0 = 1$ and theta vector be:
-
 $$
-  \Theta^{(1)}_1 = \begin{bmatrix}
-    -30 \\
-    20  \\
-    20
-  \end{bmatrix}
+a^{(2)}_3 = g(\Theta^{(1)}_{30}x_0+\Theta^{(1)}_{31}x_1+\Theta^{(1)}_{32}x_2+\Theta^{(1)}_{33}x_3)
 $$
 
-Then hypothesis is:
+The hypothesis function $h_{\Theta}(x)$ for a neural network is the output of the network, which in turn is the activation of the output layer's neurons:
 
-$$h_{\Theta}(x) = g(-30 \cdot 1 + 20 \cdot x_1 + 20 \cdot x_2)$$
+$$
+h_{\Theta}(x) = g(\Theta^{(2)}_{10}a^{(2)}_0+\Theta^{(2)}_{11}a^{(2)}_1+\Theta^{(2)}_{12}a^{(2)}_2+\Theta^{(2)}_{13}a^{(2)}_3)
+$$
 
-![sigmoid](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/sigmoid.png)
+### Model Representation in Neural Networks II
 
-### XNOR function
+Neural networks process large amounts of data, necessitating efficient computation methods. Vectorization is a key technique used to achieve this efficiency. It allows for the simultaneous computation of multiple operations, significantly speeding up the training and inference processes in neural networks.
 
-![xnor](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/xnor.png)
+#### Defining Vectorized Terms
+
+To illustrate vectorization, consider the computation of the activation for neurons in a layer. The activation of the $i^{th}$ neuron in layer 2, $a^{(2)}_i$, is based on a linear combination of inputs followed by a nonlinear activation function $g$ (e.g., sigmoid function). This can be represented as:
+
+$$z^{(2)}_i = \Theta^{(1)}_{i0}x_0+\Theta^{(1)}_{i1}x_1+\Theta^{(1)}_{i2}x_2+\Theta^{(1)}_{i3}x_3$$
+
+Hence, the activation $a^{(2)}_i$ is given by:
+
+$$a^{(2)}_i = g(z^{(2)}_i)$$
+
+#### Vector Representation
+
+Inputs and activations can be represented as vectors:
+
+$$
+x = \begin{bmatrix}
+x_{0} \\
+x_{1} \\
+x_2   \\
+x_3
+\end{bmatrix}
+$$
+
+$$
+z^{(2)} = \begin{bmatrix}
+z^{(2)}_1 \\
+z^{(2)}_2 \\
+z^{(2)}_3
+\end{bmatrix}
+$$
+
+- **$z^{(2)}$:** Vector representing the linear combinations for each neuron in layer 2.
+- **$a^{(2)}$:** Vector representing the activations for each neuron in layer 2, calculated by applying $g()$ to each element of $z^{(2)}$.
+- **Hidden Layers:** Middle layers in the network, which transform the inputs in a non-linear way.
+- **Forward Propagation:** The process where input values are fed forward through the network, from input to output layer, producing the final result.
+
+#### Architectural Flexibility
+
+Neural network architectures can vary in complexity:
+
+- **Variation in Node Count:** The number of neurons in each layer can be adjusted based on the complexity of the task.
+- **Number of Layers:** Additional layers can be added to create deeper networks, which are capable of learning more complex patterns.
+
+![Multi-Layer Neural Network](https://user-images.githubusercontent.com/37275728/201517998-e5f9f245-a6f1-4aed-8a58-fcb0178f38c4.png)
+
+In the above example, layer 2 has three hidden units, and layer 3 has two hidden units. By adjusting the number of layers and nodes, neural networks can model complex nonlinear hypotheses, enabling them to tackle a wide range of problems from simple linear classification to complex tasks in computer vision and natural language processing.
+
+### Neural Networks for Logical Functions: AND and XNOR
+
+#### The AND Function
+
+The AND function is a fundamental logical operation that outputs true only if both inputs are true. In neural networks, this can be modeled using a single neuron with appropriate weights and a bias.
+
+![AND Function Graphical Representation](https://user-images.githubusercontent.com/37275728/201518002-72b41fb7-ca3f-4612-aa65-c34f58138737.png)
+
+Let's define the bias unit as $x_0 = 1$. We can represent the weights for the AND function in the vector $\Theta^{(1)}_1$:
+
+$$
+\Theta^{(1)}_1 = \begin{bmatrix}
+-30 \\
+20  \\
+20
+\end{bmatrix}
+$$
+
+The hypothesis for the AND function, using a sigmoid activation function $g$, is then:
+
+$$
+h_{\Theta}(x) = g(-30 \cdot 1 + 20 \cdot x_1 + 20 \cdot x_2)
+$$
+
+The sigmoid function $g(z)$ maps any real number to the $(0, 1)$ interval, effectively acting as an activation function for the neuron.
+
+![Sigmoid Function Graph](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/sigmoid.png)
+
+#### The XNOR Function
+
+The XNOR (exclusive-NOR) function is another logical operation that outputs true if both inputs are either true or false.
+
+![XNOR Function Graphical Representation](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/xnor.png)
+
+Unlike the AND function, constructing an XNOR function requires more than one neuron because it is a non-linear function. A neural network with at least one hidden layer containing multiple neurons is necessary to model the XNOR function. The network would typically combine basic logical functions like AND, OR, and NOT in its layers to replicate the XNOR behavior.
+
+In these examples, the neural network uses a weighted combination of inputs to activate a neuron. The weights (in $\Theta$) and bias terms determine how the neuron responds to different input combinations. For binary classification tasks like AND and XNOR, the sigmoid function works well because it outputs values close to 0 or 1, analogous to the binary nature of these logical operations.
