@@ -1,90 +1,111 @@
-## Dimensionality Reduction
+## Dimensionality Reduction with Principal Component Analysis (PCA)
 
-Principle Component Analysis (PCA) is a technique used in machine learning to reduce the dimensionality of data and improve the performance of algorithms. It works by finding a lower dimensional surface that minimizes the projection error, or the distance between each point and the projected version of the point. PCA can be used for tasks such as compression, visualization, and noise reduction. It is also useful for feature selection and can be used to improve the performance of machine learning algorithms. To use PCA, you need to compute the covariance matrix and find the eigenvectors of this matrix, then choose the first k eigenvectors and use them to calculate a new feature representation. You can choose the number of principle components by comparing the projection error to the total data variation.
+Principal Component Analysis (PCA) is a widely used technique in machine learning for dimensionality reduction. It simplifies the complexity in high-dimensional data while retaining trends and patterns.
 
-## Compression
+### Understanding PCA
 
-* Speeds up algorithms.
-* Saves space.
-* Dimension reduction: not all features are needed.
-* Example: different units for same attribute.
+- **Objective**: PCA seeks to find a lower-dimensional surface onto which data points can be projected with minimal loss of information.
+- **Methodology**: It involves computing the covariance matrix of the data, finding its eigenvectors (principal components), and projecting the data onto a space spanned by these eigenvectors.
+- **Applications**: PCA is used for tasks such as data compression, noise reduction, visualization, feature selection, and enhancing the performance of machine learning algorithms.
 
-![compression_units](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/compression_units.png)
+### Compression with PCA
 
-Now we can represent x1 as a 1D number (Z dimension).
+- **Benefits**:
+  - Speeds up learning algorithms.
+  - Saves storage space.
+  - Focuses on the most relevant features, discarding less important ones.
+- **Example**: Different units of the same attribute can be reduced to a single, more representative dimension.
 
-## Visualization
+  ![Example of Dimension Reduction](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/compression_units.png)
 
+### Visualization through PCA
 
-* It is difficult to visualize higher dimensional data.
-* Dimensionality reduction can help us show information in a more readable fashion for human consumption.
-* Collect a huge data set including numerous facts about a country from around the world.
+- **Challenge**: High-dimensional data is difficult to visualize.
+- **Solution**: PCA can reduce dimensions to make data visualization more feasible and interpretable.
+- **Example**: Representing 50 features of a dataset as a 2D plot, simplifying analysis and interpretation.
 
-![table](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/table.png)
+  ![Example of Data Table](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/table.png)
 
-* Assume each country has 50 characteristics.
-* How can we better comprehend this data?
-* Plotting 50-dimensional data is quite difficult.
-* Create a new feature representation (2 z values) that summarizes these features.
-* Reduce $50D\ ->\ 2D$ (now possible to plot).
+### PCA Problem Formulation
 
-## Principle Component Analysis (PCA): problem formulation
+1. **Goal**: To find a lower-dimensional representation that minimizes the projection error (distance between original and projected points).
+2. **Projection Error**: PCA aims to minimize the sum of the squares of these distances.
 
-* Assume we have a 2D data collection that we want to reduce to 1D.
-* How can we choose a single line that best fits our data?
-* The distance between each point and the projected version should be as little as possible (blue lines below are short).
-* PCA tries to find a lower dimensional surface so the sum of squares onto that surface is minimized.
-* PCA tries to find the surface (a straight line in this case) which has the minimum projection error.
+   ![Visualizing PCA Projection](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/pca.png)
 
-![pca](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/pca.png)
+3. **PCA vs. Linear Regression**:
+   - Linear Regression: Minimizes the vertical distances between data points and the fitted line (predictive model).
+   - PCA: Minimizes the orthogonal distances to the line (data representation model), without distinguishing between dependent and independent variables.
 
-* PCA is not linear regression.
-* For linear regression, fitting a straight line to minimize the straight line between a point and a squared line. VERTICAL distance between point.
-* For PCA minimizing the magnitude of the shortest orthogonal distance.
-* With PCA there is no $y$ - instead we have a list of features and all features are treated equally.
+### Selecting Principal Components
 
-## PCA algorithm
+- **Number of Components**: The choice of how many principal components to retain depends on the trade-off between minimizing projection error and reducing dimensionality.
+- **Variance Retained**: Ideally, the selected components should retain most of the variance of the original data.
 
-* Compute the covariance matrix.
+### Principal Component Analysis (PCA) Algorithm
 
- $$\Sigma = \frac{1}{m} \sum_{i=1}^{n} (x^{(i)})(x^{(i)})^T$$
+Principal Component Analysis (PCA) is a systematic process for reducing the dimensionality of data. Here's a breakdown of the PCA algorithm:
 
-* This is an $[n x n]$ matrix (Remember than $x^i$ is a $[n \times 1]$ matrix).
-* Next, compute eigenvectors of matrix $\Sigma$.
-* [U,S,V] = svd(sigma)
-* $U$ matrix is also an $[n \times n]$ matrix. Turns out the columns of $U$ are the u vectors we want!
-* Just take the first k-vectors from U.
-* Next, calculate $z$.  $$z = (U_{reduce})^T \cdot x$$
+1. **Covariance Matrix Computation**:
+   
+   Calculate the covariance matrix $\Sigma$:
 
-## Reconstruction from compressed representation
+$$\Sigma = \frac{1}{m} \sum_{i=1}^{n} (x^{(i)})(x^{(i)})^T$$
+   
+   Here, $\Sigma$ is an $[n \times n]$ matrix, with each $x^{(i)}$ being an $[n \times 1]$ matrix.
 
-* Is it possible to decompress data from a low dimensionality format to a higher dimensionality format?
+2. **Eigenvector Calculation**:
+   
+   Compute the eigenvectors of the covariance matrix $\Sigma$:
 
- $$x_{approx} = U_{reduce} \cdot z$$
+$$
+[U,S,V] = \text{svd}(\Sigma)
+$$
+   
+   The matrix $U$ will also be an $[n \times n]$ matrix, with its columns being the eigenvectors we seek.
 
-* We lose some information (everything is now precisely aligned on that line), but it is now projected into 2D space.
+3. **Choosing Principal Components**:
+   
+   Select the first $k$ eigenvectors from $U$, this is $U_{\text{reduce}}$.
 
-## Choosing the number of principle components
+4. **Calculating Compressed Representation**:
+   
+   For each data point $x$, compute its new representation $z$:
+ 
+$$z = (U_{\text{reduce}})^T \cdot x$$
 
-* PCA attempts to minimize the averaged squared projection error.
+### Reconstruction from Compressed Representation
 
- $$\frac{1}{m} \sum_{i=1}^{m} ||x^{(i)} - x_{approx}^{(i)}||^2$$
+Is it possible to go back from a lower dimension to a higher one? While exact reconstruction is not possible (since some information is lost), an approximation can be obtained:
 
-* Total data variation may be defined as the average over data indicating how distant the training instances are from the origin.
+$$x_{\text{approx}} = U_{\text{reduce}} \cdot z$$
 
- $$\frac{1}{m} \sum_{i=1}^{m} ||x^{(i)}||^2$$
+This approximates the original data in the higher-dimensional space but aligned along the principal components.
 
-* To determine k, we may use the following formula:
+### Choosing the Number of Principal Components
 
- $$
- \frac{\frac{1}{m} \sum_{i=1}^{m} ||x^{(i)} - x_{approx}^{(i)}||^2}
- {\frac{1}{m} \sum_{i=1}^{m} ||x^{(i)}||^2} 
- \leq 0.01
- $$
+The number of principal components ($k$) is a crucial choice in PCA. The objective is to minimize the average squared projection error while retaining most of the variance in the data:
 
-## Applications of PCA
+- **Average Squared Projection Error**:
 
-* Compression: Reduce the amount of memory/disk space required to hold data.
-* Visualization: k=2 or k=3 for plotting.
-* A poor application of PCA is to avoid over-fitting. PCA discards certain data without understanding what values it is discarding.
-* Examine how a system works without PCA first, and then apply PCA only if you have reason to believe it will help.
+$$\frac{1}{m} \sum_{i=1}^{m} ||x^{(i)} - x_{\text{approx}}^{(i)}||^2$$
+
+- **Total Data Variation**:
+
+$$\frac{1}{m} \sum_{i=1}^{m} ||x^{(i)}||^2$$
+
+- **Choosing $k$**:
+  The fraction of variance retained is often set as a threshold (e.g., 99%):
+
+$$
+\frac{\frac{1}{m} \sum_{i=1}^{m} ||x^{(i)} - x_{\text{approx}}^{(i)}||^2}
+{\frac{1}{m} \sum_{i=1}^{m} ||x^{(i)}||^2} 
+\leq 0.01
+$$
+
+### Applications of PCA
+
+1. **Compression**: Reducing data size for storage or faster processing.
+2. **Visualization**: With $k=2$ or $k=3$, data can be visualized in 2D or 3D space.
+3. **Limitation**: PCA should not be used indiscriminately to prevent overfitting. It removes data dimensions without understanding their importance.
+4. **Usage Advice**: It's recommended to try understanding the data without PCA first and apply PCA if it is believed to aid in achieving specific objectives.
