@@ -10,6 +10,7 @@ Machine Learning (ML), a subset of artificial intelligence, is the scientific st
 
 ## Deep Learning in Machine Learning
 Deep learning, a subset of ML, uses layered neural networks to simulate human decision-making. Key aspects include:
+
 - **Convolutional Neural Networks (CNNs)**: Used primarily for processing data with a grid-like topology, e.g., images.
 - **Recurrent Neural Networks (RNNs)**: Suitable for processing sequential data, e.g., time series or text.
 
@@ -20,6 +21,7 @@ Deep learning is particularly useful in areas such as image and speech recogniti
 ML's growing importance is attributed to its ability to leverage large amounts of data, enabling machines to recognize patterns and make informed decisions. It's considered a key to building systems that can simulate human intelligence.
 
 ## Practical Applications of Machine Learning
+
 - **Database Mining**: Utilized in areas like internet search, understanding user behavior, medical diagnosis, and genomics.
 - **Autonomous Systems**: Self-driving cars, drones, and other systems that make decisions based on data.
 - **Recognition Tasks**: Such as handwriting, speech, and facial recognition.
@@ -27,6 +29,7 @@ ML's growing importance is attributed to its ability to leverage large amounts o
 - **Self-Customizing Programs**: Used in personalized recommendation systems like those on Netflix, Amazon, and iTunes.
 
 ## Foundational Concepts and Definitions
+
 - **Arthur Samuel (1959)**: Defined ML as a field of study that enables computers to learn without being explicitly programmed.
 - **Tom Mitchell (1997)**: Proposed a formal definition - a computer program is said to learn from experience E concerning task T and performance measure P if its performance on T, as measured by P, improves with experience E.
 
@@ -55,6 +58,7 @@ When considering multiple attributes, such as age and tumor size, classification
 Unsupervised learning, in contrast to supervised learning, uses datasets without predefined labels. The goal here is to identify patterns or structures within the data.
 
 ### Clustering Algorithm Examples
+
 - **Google News**: Clustering similar news stories.
 - **Genomics**: Classifying types of genetic expressions.
 - **Microarray Data**: Grouping individuals based on gene expression.
@@ -77,6 +81,7 @@ X = U \Sigma V^*
 $$
 
 Where:
+
 - $X$ is the matrix of mixed signals.
 - $U$ and $V$ are orthogonal matrices.
 - $S$ is a diagonal matrix with singular values.
