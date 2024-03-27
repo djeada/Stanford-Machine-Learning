@@ -1,82 +1,81 @@
-## Machine Learning System Design.
-These notes provide a summary of various strategies and considerations for building a spam classification system. The process of building such a system involves selecting features to include in a vector representation of an email, improving the accuracy of the system through various means such as collecting more data and developing sophisticated features, and analyzing errors made by the system through error analysis and metrics such as precision, recall, and the F-score. The notes also mention the importance of considering the skewed nature of some datasets, such as when the number of negative samples (in this case, non-spam emails) is much larger than the number of positive samples (spam emails). The final section discusses the trade-off between precision and recall, and how the F-score can be used to select the threshold for the classification system based on the highest value on the cross validation set.
+## Machine Learning System Design: Building a Spam Classifier
 
-## Prioritizing what to work on - spam classification example
-* Building a spam classifier.
-* Misspelled word $=>$ Spam (1).
-* Real content $=>$ Not spam (0).
+These notes outline the key strategies and considerations for developing a spam classification system. This process involves several steps, from feature selection to error analysis, and addresses the challenges of working with skewed datasets.
 
-![spam](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/spam.png)
+### Prioritizing Work in Spam Classification
 
-### Select your own features
+1. **Feature Selection:** Select a set of words that are indicative of spam or non-spam emails. For instance:
+   - Words like "buy", "discount", and "deal" might suggest spam.
+   - Words like "Andrew" and "now" might indicate non-spam.
+2. **Vector Representation:** Each chosen word forms a feature in a long vector representing an email. A value of 1 is assigned if the word appears in the email, and 0 otherwise.
+3. **Word Occurrences:** Analyze which category of words (spam or non-spam) occurs more frequently.
 
-* Choose 100 words that indicate if an email is spam or not.
-* Buy, discount, and deal are examples of spam.
-* Andrew and now are examples of non-spam.
-* All these words go into one long vector.
-* If a matching word does not appear in the email, store 0 in the vector; otherwise, store 1.
-* Check which word category has the most occurrences.
+![Spam Classifier Visualization](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/spam.png)
 
-### How to improve system accuracy?
+### Improving System Accuracy
 
-* Collect more data.
-* Develop sophisticated features based on email routing data.
-* Create a powerful algorithm for detecting misspellings.
-* Plot learning curves to see whether extra data, features, and so on will help algorithmic optimization.
+- **Collect More Data:** More data can help the system better learn the distinction between spam and non-spam.
+- **Develop Sophisticated Features:** Include features based on email routing data or develop algorithms to detect common misspellings in spam.
+- **Learning Curves:** Plot learning curves to assess whether additional data or features will benefit the system.
 
-## Error analysis
+### Error Analysis
 
-* Examine the samples (in the cross validation set) on which your algorithm made errors manually.
-* Try to figure out why.
-* For example, you may find out that the most prevalent types of spam emails are pharmaceutical emails and phishing emails.
-* What features would have helped classify them correctly?
+- **Manual Review of Errors:** Examine instances where the algorithm erred, particularly on the cross-validation set, to understand the nature of these errors.
+- **Feature Analysis:** Determine what additional features could have helped correctly classify the challenging cases.
 
-## Error metrics for skewed analysis
+### Error Metrics for Skewed Classes
 
-* Suppose we're attempting to categorize cancer patients.
-* We have 1\% error. Looks good?
-* But only 0.5\% of people have cancer.
-* Now, 1\% error looks very bad!
+In cases where one class (e.g., non-spam) significantly outnumbers the other (e.g., spam), standard error metrics can be misleading.
 
+#### Cancer Classification Example
 
-### Precision and recall
+- **Error Rate Deception:** An error rate of 1% might seem low, but if only 0.5% of the samples are cancer-positive, this error rate is not as impressive.
+- **Importance of Precision and Recall:** In skewed datasets, precision and recall become critical metrics for assessing performance.
 
-| Classification | Guessed | Real |
-| -------------- | ------- | ---- |
-| True positive  | 1       | 1    |
-| False positive | 1       | 0    |
-| True negative  | 0       | 0    |
-| False negative | 0       | 1    |
+#### F-Score Computation
 
+The F-Score is a way to combine precision and recall into a single metric, often used to choose the threshold that maximizes this score in cross-validation.
 
-* Precision: How often does our algorithm cause a false alarm?
+### Understanding Precision and Recall
 
-$$\frac{true\ positives}{ true\ positives\ +\ false\ positives}$$
+Precision and recall are two critical metrics in classification tasks, especially when dealing with imbalanced datasets.
 
-* Recall: How sensitive is our algorithm?
+#### Definition of Terms
 
-$$\frac{true\ positives}{ true\ positives\ +\ false\ negative}$$
+- **True Positive (TP):** Correctly identified positive.
+- **False Positive (FP):** Incorrectly identified positive.
+- **True Negative (TN):** Correctly identified negative.
+- **False Negative (FN):** Incorrectly identified negative.
 
+#### Precision
 
-### Trading off precision and recall
+Precision measures the accuracy of the positive predictions. It is defined as:
 
+$$\text{Precision} = \frac{\text{True Positives}}{\text{True Positives} + \text{False Positives}}$$
 
-* Trained a logistic regression classifier
-    * Predict 1 if $h_{\theta}(x) >= 0.5$
-    * Predict 0 if $h_{\theta}(x) < 0.5$
-        
-* We might change the prediction threshold such that we are more sure that a 1 is a true positive.
-    * Predict 1 if $h_{\theta}(x) >= 0.8$
-    * Predict 0 if $h_{\theta}(x) < 0.2$
-        
+#### Recall
 
-* But classifier has lower recall - predict y = 1 for a smaller number of patients.
+Recall measures how well the model identifies actual positives. It is defined as:
 
-![precission_recall](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/precission_recall.png)
+$$\text{Recall} = \frac{\text{True Positives}}{\text{True Positives} + \text{False Negatives}}$$
 
-$F_{score}$ is calculated by averaging precision and recall and assigning a larger weight to the lower number.
+### Trading off Precision and Recall
 
-$$F_{score} = 2 \frac{PR}{P + R}$$
+In many applications, there is a trade-off between precision and recall. Adjusting the threshold in a classifier can shift the balance between these two metrics.
 
-If you're attempting to establish the threshold automatically, one method is to test a variety of threshold values and assess them on your cross validation set.
-Then select the threshold that yields the highest $F_{score}$.
+#### Logistic Regression Classifier Example
+
+- **Standard Threshold ($h_{\theta}(x) \geq 0.5$):** The default threshold for binary classification.
+- **Modified Threshold ($h_{\theta}(x) \geq 0.8$):** Increases precision but may reduce recall, leading to fewer overall positive predictions.
+
+![Precision-Recall Trade-off](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/precission_recall.png)
+
+### Calculating the F-Score
+
+The $F_{score}$ is a metric that combines precision and recall into a single number, often used to find a balance between these two measures:
+
+$$F_{score} = 2 \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$$
+
+- **Balanced Measure:** It harmonizes the precision and recall, especially useful when one is significantly lower than the other.
+- **Threshold Selection:** One approach to finding the optimal threshold is to test various values and select the one that maximizes the $F_{score}$ on a cross-validation set.
+
