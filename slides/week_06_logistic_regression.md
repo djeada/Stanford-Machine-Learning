@@ -68,6 +68,7 @@ $$
 1  \\
 1
 \end{bmatrix}
+$$
 
 Condition for $y = 1$:
 
