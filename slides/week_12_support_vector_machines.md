@@ -1,173 +1,133 @@
-## Support Vector Machines
-In this article, we explore how to use logistic regression cost functions to create support vector machine (SVM) cost functions. We start by introducing logistic regression cost functions and how they can be used to make predictions about data. Then, we show how the SVM cost functions are derived from the logistic regression cost functions by replacing the logistic regression terms with $cost_1(\theta^Tx)$ and $cost_0(\theta^Tx)$. We also explain how adjusting the value of C in the SVM cost function can impact the bias and variance of the resulting hypothesis, with larger values of C leading to higher variance and lower bias, and smaller values leading to lower variance and higher bias. Finally, we discuss the concept of large margin classification, which involves trying to find a hypothesis that separates the classes as widely as possible.
+## Support Vector Machines: Mathematical Insights
 
-## An alternative view of logistic regression
+Support Vector Machines (SVMs) are powerful tools in machine learning, and their formulation can be derived from logistic regression cost functions. This article delves into the mathematical underpinnings of SVMs, starting with logistic regression and transitioning to the SVM framework.
 
-As previously stated, the logistic regression hypothesis is as follows:
+### Understanding Logistic Regression Cost Function
 
-$$h_{\theta}(x) = \frac{1}{1+e^{-\theta^Tx}}$$
+Logistic regression employs a hypothesis function defined as:
 
-We have an example in which $y = 1$. We expect that $h_{\theta}(x)$ is close to 1.
+$$h_{\theta}(x) = \frac{1}{1 + e^{-\theta^T x}}$$
+
+This function outputs the probability of $y = 1$ given $x$ and parameter $\theta$. 
 
 ![sigmoid](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/sigmoid2.png)
 
-When you look at the cost function, you'll see that each example contributes a term like the one below to the total cost function.
+For a given example where $y = 1$, ideally, $h_{\theta}(x)$ should be close to 1. The cost function for logistic regression is:
 
-$$-(ylogh_{\theta}(x)+(1-y)log(1-h_{\theta}(x)))$$
-
-
-After plugging in the hypothesis function $h_{\theta}(x)$, you obtain an enlarged cost function equation:
-
-$$-ylog\frac{1}{1+e^{-\theta^Tx}}-(1-y)log(1-\frac{1}{1+e^{-\theta^Tx}})$$
+$$\text{Cost}(h_{\theta}(x), y) = -y \log(h_{\theta}(x)) - (1 - y) \log(1 - h_{\theta}(x))$$
 
 ![log_function](https://user-images.githubusercontent.com/37275728/201519577-c93854b4-1270-4082-9d9b-da0d543b0375.png)
 
-* As a result, if z is large, the cost is small.
-* If z is 0 or negative, however, the cost contribution is large..
-* This is why, when logistic regression encounters a positive case, it attempts to make $\theta^Tx$ a very big term.
+When integrated over all samples, this becomes:
 
+$$J(\theta) = -\frac{1}{m} \sum_{i=1}^{m}[y^{(i)}\log(h_{\theta}(x^{(i)})) + (1 - y^{(i)})\log(1 - h_{\theta}(x^{(i)}))]$$
 
-## SVM cost functions from logistic regression cost functions
+This cost function penalizes incorrect predictions, with the penalty increasing exponentially as the prediction diverges from the true value.
 
-* Instead of a curved line, draw two straight lines (magenta) to approximate the logistic regression y = 1 function.
-* Flat when cost is 0.
-* Straight growing line after 1.
-* So this is the new y=1 cost function, which provides the SVM with a computational advantage and makes optimization easier.
+### Transitioning to SVM Cost Functions
 
+SVMs modify this logistic cost function to a piecewise linear form. The idea is to use two functions, $cost_1(\theta^T x)$ for $y=1$ and $cost_0(\theta^T x)$ for $y=0$. These functions are linear approximations of the logistic function's cost. The SVM cost function becomes:
+
+$$J(\theta) = C \sum_{i=1}^{m}[y^{(i)} cost_1(\theta^T x^{(i)}) + (1 - y^{(i)}) cost_0(\theta^T x^{(i)})] + \frac{1}{2} \sum_{j=1}^{m} \theta_j^2$$
+
+The parameter $C$ plays a crucial role in SVMs. It balances the trade-off between the smoothness of the decision boundary and classifying the training points correctly.
+
+- A large $C$ applies a higher penalty to misclassified examples, leading to a decision boundary that might have lower bias but higher variance, potentially causing overfitting.
+- A small $C$ makes the decision boundary smoother, possibly with higher bias but lower variance, risking underfitting.
 
 ![svm_cost](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/svm_cost.png)
 
+## Large Margin Intuition in SVMs
 
-Logistic regression cost function:
-
-$$J(\theta) = -\frac{1}{m} \sum_{i=1}^{m}[ y^{(i)} log h_{\theta}(x^{(i)}) + (1- y^{(i)})log(1 - h_{\theta}(x^{(i)}))] +  \frac{\lambda}{2m} \sum_{j=1}^{m} \theta_j^2$$
-
-
-For the SVM we take our two logistic regression $y=1$ and $y=0$ terms described previously and replace with $cost_1(\theta^Tx)$ and $cost_0(\theta^Tx)$.
-
-$$J(\theta) = -\frac{1}{m} \sum_{i=1}^{m}[ y^{(i)} cost_1(\theta^Tx^{(i)}) + (1- y^{(i)}) cost_0(\theta^Tx^{(i)})] +  \frac{\lambda}{2m} \sum_{j=1}^{m} \theta_j^2$$
-
-
-Which can be rewritten as:
-
-$$J(\theta) = C \sum_{i=1}^{m}[ y^{(i)} cost_1(\theta^Tx^{(i)}) + (1- y^{(i)}) cost_0(\theta^Tx^{(i)})] +  \frac{1}{2} \sum_{j=1}^{m} \theta_j^2$$
-
-
-* Large C gives a hypothesis of low bias high variance $->$ overfitting
-* Small C gives a hypothesis of high bias low variance $->$ underfitting
-
-
-## Large margin intuition
-
-* So, given that we're aiming to minimize CA + B.
-* Consider the following scenario: we set C to be really large.
-* If C is large, we will choose an A value such that A equals zero.
-* If y = 1, then we must find a value of $\theta$ so that $\theta^Tx$ is larger than or equal to 1 in order to make our "A" term 0.
-* If y = 0, then we must find a value of $\theta$ so that $\theta^Tx$ is equal to or less than -1 in order to make our "A" term 0.
-* So we're minimizing B, under the constraints shown below:
-
-
-$$min\ \frac{1}{2} \sum_{j=1}^{m} \theta_j^2$$
-
-$$\theta^Tx^{(i)} \geq 1 \quad if\ y^{(i)}=1$$
-$$\theta^Tx^{(i)} \leq 1 \quad if\ y^{(i)}=0$$
+Support Vector Machines (SVMs) are designed to find a decision boundary not just to separate the classes, but to do so with the largest possible margin. This large margin intuition is key to understanding SVMs.
 
 ![large_dist](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/large_dist.png)
 
-* The green and magenta lines represent functional decision limits that might be selected using logistic regression. However, they are unlikely to generalize effectively.
-* The black line, on the other hand, is the one picked by the SVM as a result of the optimization graph's safety net. Stronger separator.
-* That black line has a greater minimum distance (margin) than any of the training samples.
+### The Concept of Margin in SVMs
 
+When we talk about SVMs, we often refer to minimizing a function of the form `CA + B`. Let's break this down:
 
-## SVM decision boundary
+- **Minimizing A**: This part relates to minimizing the misclassification errors. If we set the parameter `C` to be very large, we prioritize minimizing these errors. In other words, if `C` is large, we aim to make `A` equal to zero. For this to happen:
+  - If `y = 1`, we need to find a $\theta$ such that $\theta^Tx \geq 1`.
+  - If `y = 0`, we need to find a $\theta$ such that $\theta^Tx \leq -1`.
+- **Minimizing B**: This part relates to maximizing the margin. The margin is the distance between the decision boundary and the nearest data point from either class. The optimization problem can be expressed as:
 
-Assume we only have two features and $\theta_0=0$. Then we can rewrite th expression for minimizing B as follows:
+$$
+\begin{aligned}
+\text{minimize}\ \frac{1}{2} \sum_{j=1}^{m} \theta_j^2 \\
+\text{subject to}\ \theta^Tx^{(i)} \geq 1\ \text{if}\ y^{(i)}=1 \\
+\theta^Tx^{(i)} \leq -1\ \text{if}\ y^{(i)}=0
+\end{aligned}
+$$
 
-$$\frac{1}{2}(\theta_1^2 + \theta_2^2) =\frac{1}{2}(\sqrt{\theta_1^2 + \theta_2^2})^2 = \frac{1}{2}||\theta||^2$$
+### Visualization of Large Margin Classification
 
+In the visualization, the green and magenta lines are potential decision boundaries that might be chosen by a method like logistic regression. However, these lines might not generalize well to new data. The black line, chosen by the SVM, represents a stronger separator. It is chosen because it maximizes the margin, the minimum distance to any of the training samples.
 
-* Given this, what are $\theta^Tx$ parameters doing?
-* Assume we have just one positive training example (red cross below).
-* Assume we have our parameter vector and plot it on the same axis.
-* The following question asks what the inner product of these two vectors is.
+### Understanding the Decision Boundary in SVMs
 
+Assuming we have only two features and $\theta_0 = 0$, we can rewrite the minimization of `B` as:
+
+$$\frac{1}{2}(\theta_1^2 + \theta_2^2) = \frac{1}{2}(\sqrt{\theta_1^2 + \theta_2^2})^2 = \frac{1}{2}||\theta||^2$$
+
+This is essentially minimizing the norm of the vector $\theta$. Now, consider what $\theta^Tx$ represents in this context. If we have a positive training example and we plot $\theta$ on the same axis, we are interested in the inner product of these two vectors, denoted as `p`.
+
+- `p` is actually `p^i`, representing the projection of the training example `i` on the vector $\theta$.
+- The conditions for the classification become:
+
+$$
+\begin{aligned}
+p^{(i)} \cdot ||\theta|| &\geq 1\ \text{if}\ y^{(i)}=1 \\
+p^{(i)} \cdot ||\theta|| &\leq -1\ \text{if}\ y^{(i)}=0
+\end{aligned}
+$$
 
 ![svm_vectors](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/svm_vectors.png)
 
+## Adapting SVM to Non-linear Classifiers
 
-$p$, is in fact $p^i$, because it's the length of $p$ for example $i$.
+Support Vector Machines (SVMs) can be adapted to find non-linear boundaries, which is crucial for handling datasets where the classes are not linearly separable. 
 
-$$\theta^Tx^{(i)} = p^i \cdot ||\theta||$$
+### Non-linear Classification
 
-$$min\ \frac{1}{2} \sum_{j=1}^{m} \theta_j^2 = \frac{1}{2} ||\theta||^2$$
+Consider a training set where a linear decision boundary is not sufficient. The goal is to find a non-linear boundary that can effectively separate the classes.
 
-$$p^{(i)} \cdot ||\theta|| \geq 1 \quad if\ y^{(i)}=1$$
-$$p^{(i)} \cdot ||\theta|| \leq 1 \quad if\ y^{(i)}=0$$
+![Example of a Non-linear Boundary](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/non_linear_boundary.png)
 
-## Adapting SVM to non-linear classifiers
+### Introducing Landmarks and Features
 
+1. **Defining Landmarks**: We start by defining landmarks in our feature space. Landmarks ($l^1$, $l^2$, and $l^3$) are specific points in the feature space, chosen either manually or by some heuristic.
 
-* We have a training set.
-* We want to find a non-linear boundary.
+    ![Landmarks in Feature Space](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/landmarks.png)
 
+2. **Kernel Functions**: A kernel is a function that computes the similarity between each feature $x$ and the landmarks. For example, the Gaussian kernel for a landmark $l^1$ is defined as:
 
-![non_linear_boundary](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/non_linear_boundary.png)
+   $$f_1 = k(x, l^1) = \exp\left(- \frac{||x - l^{(1)}||^2}{2\sigma^2}\right)$$
 
+    - A large $\sigma^2$ leads to smoother feature variation (higher bias, lower variance).
+    - A small $\sigma^2$ results in abrupt feature changes (low bias, high variance).
 
-* Define three features in this example (ignore $x_0$).
-* Have a graph of $x_1$ vs. $x_2$ (don't plot the values, just define the space).
-* Pick three points.
+3. **Prediction Example**: Consider predicting the class of a new point (e.g., the magenta dot in the figure). Using our kernel functions and a specific set of $\theta$ values, we can compute the classification.
 
+    ![Evaluating a New Point](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/landmarks_magneta.png)
 
-![landmarks](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/landmarks.png)
+    For a point close to $l^1$, $f_1$ will be close to 1, and others will be closer to 0. Hence, for $\theta_0 = -0.5, \theta_1 = 1, \theta_2 = 1, \theta_3 = 0$, the prediction will be 1.
 
+### Choosing Landmarks
 
-* These points $l^1$, $l^2$, and $l^3$, were chosen manually and are called landmarks.
-* Kernel is the name given to the similarity function between $(x, l^i)$.
+- Landmarks are often chosen to be the same as the training examples, resulting in `m` landmarks for `m` training examples.
+- Each example's feature set is evaluated based on its proximity to each landmark using the chosen kernel function.
 
+### Different Kernels
 
-$$f_1 = k(X, l^1) = exp(- \frac{||x-l^{(1)}||^2}{2\sigma^2})$$
+- **Linear Kernel**: Equivalent to no kernel, predicts $y = 1$ if $(\theta^T x) \geq 0$.
+- **Gaussian Kernel**: Useful for creating complex non-linear boundaries.
+- Other types of kernels include Polynomial, String, Chi-squared, and Histogram Intersection kernels.
 
+### Logistic Regression vs. SVM in Non-linear Classification
 
-* Large $\sigma^2$ - $f$ features vary more smoothly - higher bias, lower variance.
-* Small $\sigma^2$ - $f$ features vary abruptly - low bias, high variance.
-* With training examples x we predict "1" when: $\theta_0+\theta_1f_1+\theta_2f_2+\theta_3f_3 \geq 0$
-* Let's say that: $\theta_0 = -0.5,\ \theta_1=1,\ \theta_2=1,\ \theta_3=0$
-* Given our placement of three examples, what happens if we evaluate an example at the magenta dot below?
-
-![landmarks_magneta](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/landmarks_magneta.png)
-
-* We can see from our formula that f1 will be close to 1, whereas f2 and f3 will be close to 0.
-* We have: $-0.5+1\cdot1+0\cdot1+0\cdot0 \geq 0$.
-* The inequality holds. We predict 1.
-* If we had another point far away from all three. The inequality wouldn't hold. As a result, we would predict 0.
-
-
-## Choosing the landmarks
-
-
-* Take the training data. Vectors X and Y, both with m elements.
-* As a result, you'll wind up having m landmarks. Each training example has one landmark per location.
-* So we just cycle over each landmark, determining how close $x^i$ is to that landmark. Here we are using the kernel function.
-* Take these m features $(f_1, f_2 ... f_m)$ group them into an $[m +1 \times 1]$ dimensional vector called $f$.
-
-
-## Kernels
-
-
-* Linear kernel: no kernel, no $f$ vector. Predict $y=1$ if $(\theta^Tx) \geq 0$.
-* Not all similarity functions you develop are valid kernels. Must satisfy Merecer's Theorem.
-* Polynomial kernel.
-* String kernel.
-* Chi-squared kernel.
-* Histogram intersection kernel.
-
-
-## Logistic regression vs. SVM
-
-
-* Use logistic regression or SVM with a linear kernel if n (features) is much greater than m (training set).
-* If n is small and m is intermediate, the Gaussian kernel is suitable.
-* With a Gaussian kernel, SVM will be sluggish if n is small and m is large. Use logistic regression or SVM with a linear kernel.
-* A lot of SVM's power is using diferent kernels to learn complex non-linear functions.
-* Because SVM is a convex optimization problem, it gives a global minimum.
+- **High Feature Count (n) Compared to Examples (m)**: Use logistic regression or SVM with a linear kernel.
+- **Small n, Intermediate m**: Gaussian kernel with SVM is suitable.
+- **Small n, Large m**: SVM with Gaussian kernel may be slow; logistic regression or SVM with a linear kernel is preferred.
+- **SVM's Power**: The ability to use different kernels makes SVMs versatile for learning complex non-linear functions.
+- **Convex Optimization**: SVMs provide a global minimum, ensuring consistency in the solution.
