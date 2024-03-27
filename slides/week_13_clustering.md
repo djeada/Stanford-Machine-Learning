@@ -4,32 +4,30 @@ Unsupervised learning, a core component of machine learning, focuses on discerni
 
 ### Overview of Clustering
 
-1. **Objective**: To uncover hidden patterns and structures in unlabeled data.
-2. **Applications**:
-   - Market segmentation, categorizing clients based on varying characteristics.
-   - Social network analysis to understand relationship patterns.
-   - Organizing computer clusters and data centers based on network structure and location.
-   - Analyzing astronomical data for insights into galaxy formation.
+I. **Objective**: To uncover hidden patterns and structures in unlabeled data.
+
+II. **Applications**:
+
+- Market segmentation, categorizing clients based on varying characteristics.
+- Social network analysis to understand relationship patterns.
+- Organizing computer clusters and data centers based on network structure and location.
+- Analyzing astronomical data for insights into galaxy formation.
 
 ### The K-means Algorithm
 
 K-means is a widely-used algorithm for clustering, celebrated for its simplicity and efficacy. It works as follows:
 
-1. **Initialization**:
-   - Randomly select `k` points as initial centroids.
+1. **Initialization**: Randomly select `k` points as initial centroids.
 
-2. **Assignment Step**:
-   - Assign each data point to the nearest centroid, forming `k` clusters.
+2. **Assignment Step**: Assign each data point to the nearest centroid, forming `k` clusters.
 
-     ![Initial Clustering Step](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/kclusters_1.png)
+![Initial Clustering Step](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/kclusters_1.png)
 
-3. **Update Step**:
-   - Update each centroid to the average position of all points assigned to it.
+3. **Update Step**: Update each centroid to the average position of all points assigned to it.
 
-     ![Updating Centroids](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/kclusters_2.png)
+![Updating Centroids](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/kclusters_2.png)
 
-4. **Iteration**:
-   - Repeat the assignment and update steps until convergence is reached.
+4. **Iteration**: Repeat the assignment and update steps until convergence is reached.
 
 ### K-means for Non-separated Clusters
 
@@ -37,7 +35,7 @@ K-means isn't limited to datasets with well-defined clusters. It's also effectiv
 
 - **Example**: Segmenting t-shirt sizes (Small, Medium, Large) even when there aren't clear separations in a dataset. The algorithm creates clusters based on the distribution of data points.
 
-  ![T-shirt Size Clustering](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/t_shirt.png)
+![T-shirt Size Clustering](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/t_shirt.png)
 
 - **Market Segmentation**: This approach can be likened to market segmentation, where the goal is to tailor products to suit different subpopulations, even if clear divisions among these groups are not initially apparent.
 
@@ -91,4 +89,3 @@ Choosing the optimal number of clusters (K) is a challenge in K-means. The Elbow
 - The "elbow" point in the plot of K vs $J(...)$ is considered a good choice for K. This is where the rate of decrease sharply changes.
 
 ![Elbow Method Graph](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/elbow.png)
-
