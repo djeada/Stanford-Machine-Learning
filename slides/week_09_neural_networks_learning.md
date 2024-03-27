@@ -66,7 +66,7 @@ This function incorporates a sum over the $K$ output units for each training exa
 In order to optimize the cost function, we need to understand how changes in the weights $\Theta$ affect the cost. This is where the partial derivative terms come into play.
 
 - **$\Theta^{(1)}_{ji}$:** Represents the weight from the $i^{th}$ unit in layer 1 to the $j^{th}$ unit in layer 2.
-- **$\Theta^{(1)}_{10}$, $\Theta^{(1)}_{11}$, $\Theta^{(1)}_{21}$:** Specific weights that map from the input layer to the first and second units in the second layer, including the bias unit.
+- **$\Theta^{(1)}_{10}$ , $\Theta^{(1)}_{11}$ , $\Theta^{(1)}_{21}$:** Specific weights that map from the input layer to the first and second units in the second layer, including the bias unit.
 
 ### Gradient Computation
 
