@@ -1,127 +1,145 @@
-## Advice for applying machine learning techniques
+## Advice for Applying Machine Learning Techniques and Debugging Learning Algorithms
 
-If you're having trouble with your machine learning model producing high errors when tested on new data, there are several steps you can take to troubleshoot the problem. You can try adding more training data or features, or you can try changing the value of the regularization parameter. You can also split your data into a training set and a test set to evaluate the model's performance. Another option is to use a technique called "model selection" and create a training, validation, and test set to identify the best performing model. If your model is underperforming, it may be due to either high bias (underfitting) or high variance (overfitting). You can diagnose the issue by plotting the error for both the training and validation set as a function of the polynomial degree. If all else fails, you can try using an advanced optimization algorithm to minimize the cost function and improve the performance of your model.
+### Troubleshooting High Error Rates
 
-## Debugging a learning algorithm
+When facing high error rates with a machine learning model, especially when tested on new data, various strategies can be employed to diagnose and address the problem.
 
-Imagine you've used regularized linear regression to forecast home prices:
+#### Steps for Improvement
 
-$$J(\theta) = \frac{1}{2m} [ \sum_{i=1}^{m}(h_{\theta}(x^{(i)} + y^{(i)})^2 + \lambda \sum_{j=1}^{m} \theta_j^2] $$
+1. **Add More Training Data:** Sometimes, the model has not seen enough examples to generalize well.
+2. **Add or Remove Features:** The model might be missing key features that are important for predictions or might be overwhelmed by irrelevant or noisy features.
+3. **Adjust Regularization Parameter ($\lambda$):** If the model is overfitting, increasing the regularization parameter can help. If underfitting, decreasing it might be beneficial.
+4. **Data Splitting:** Divide your dataset into a training set and a test set to assess model performance on unseen data.
+5. **Model Selection with Validation Set:** Create a training, validation, and test set to tune and select the best model.
+6. **Polynomial Degree Analysis:** Plot errors for training and validation sets against polynomial degrees to diagnose high bias (underfitting) or high variance (overfitting).
+7. **Advanced Optimization Algorithms:** Employ sophisticated optimization techniques to minimize the cost function more effectively.
 
+### Debugging a Learning Algorithm
 
-* Trained it.
-* However, when tested on new data, it produces unacceptably high errors in its predictions.
-* What should your next step be? 
-    - Obtain additional training data.
-    - Try a smaller set of features.
-    - Consider getting more features.
-    - Add polynomial features.
-    - Change the value of $\lambda$.
-        
+Consider a scenario where you have used regularized linear regression to predict home prices, but the model yields high errors on new data.
 
-## Evaluating the hypothesis
+#### Cost Function
 
-* Split data into two portions: training set and test set.
-* Learn parameters $\theta$ from training data, minimizing $J(\theta)$ using 70\% of the training data.
-* Compute the test error.
+The cost function for the regularized linear regression:
 
- $$J_{test}(\theta) = \frac{1}{2m_{test}}  \sum_{i=1}^{m_{test}}(h_{\theta}(x^{(i)}_{test} + y^{(i)}_{test})^2$$
+$$J(\theta) = \frac{1}{2m} \left[ \sum_{i=1}^{m}(h_{\theta}(x^{(i)} - y^{(i)})^2 + \lambda \sum_{j=1}^{m} \theta_j^2 \right]$$
 
+#### Next Steps for Improvement
 
-## Model selection and training validation test sets
+1. **Obtain More Training Data:** Helps the algorithm to better generalize.
+2. **Reduce Feature Set:** Try using fewer features to avoid overfitting.
+3. **Incorporate More Features:** Add new features that might be relevant.
+4. **Add Polynomial Features:** Enables the model to capture more complex relationships.
+5. **Modify $\lambda$:** Adjust the regularization parameter to find the right balance between bias and variance.
 
+### Evaluating the Hypothesis
 
-* How should a regularization parameter or polynomial degree be chosen?
-* We've previously discussed the issue of overfitting.
-* This is why, in general, training set error is a poor predictor of hypothesis accuracy for new data (generalization).
-* Try to determine the degree of polynomial that will fit data.
+Evaluating the model’s performance involves splitting the data and computing errors:
 
-    1. $h_{\theta}(x) = \theta_0 + \theta_1x$
+#### Data Split
 
-    2. $h_{\theta}(x) = \theta_0 + \theta_1x + \theta_2x^2$
+- **Training Set:** Used to learn the parameters, $\theta$.
+- **Test Set:** Used to compute the test error.
 
-    3. $h_{\theta}(x) = \theta_0 + ... + \theta_3x^3$
+#### Test Error Calculation
 
-    $$\vdots$$
+Compute the test error using the learned parameters:
 
-    10. $h_{\theta}(x) = \theta_0 + ... + \theta_{10}x^{10}$
+$$J_{test}(\theta) = \frac{1}{2m_{test}} \sum_{i=1}^{m_{test}}(h_{\theta}(x^{(i)}_{test} - y^{(i)}_{test})^2$$
 
-* Introduce a new parameter d, which represents the degree of polynomial you want to use.
-* Model 1 is minimized using training data, resulting in a parameter vector $\theta^1$ (where d =1).
-* Same goes for other models up to $n$.
-* Using the previous formula, examine the test set error for each computed parameter $J_{test}(\theta^k)$.
-* Minimize cost function for each of the models as before.
-* Test these hypothesis on the cross validation set to generate the cross validation error.
-* Pick the hypothesis with the lowest cross validation error.
+This step helps to evaluate how well the model generalizes to new, unseen data.
 
-Training error:
+### Model Selection Process
 
-$$J_{train}(\theta) = \frac{1}{2m}  \sum_{i=1}^{m}(h_{\theta}(x^{(i)} + y^{(i)})^2$$
+When applying machine learning algorithms, selecting the right model and parameters is crucial. This includes choosing the regularization parameter or the polynomial degree for regression models. The challenge is to balance between underfitting (high bias) and overfitting (high variance).
 
-Cross Validation error:
+1. **Determine Polynomial Degree (`d`):** You may want to choose between different degrees of polynomial models, ranging from linear ($d=1$) to higher-degree polynomials.
+   
+For example, models can range from $h_{\theta}(x) = \theta_0 + \theta_1x$ to $h_{\theta}(x) = \theta_0 + ... + \theta_{10}x^{10}$.
 
-$$J_{cv}(\theta) = \frac{1}{2m_{cv}}  \sum_{i=1}^{m_{cv}}(h_{\theta}(x^{(i)}_{cv} + y^{(i)}_{cv})^2$$
+2. **Train Models:** Train each model on the training dataset to obtain the parameter vector $\theta^d$ for each degree $d$.
 
-Test error:
+3. **Compute Test Set Error:** Use $J_{test}(\theta^d)$ to evaluate the error on the test set for each model.
 
-$$J_{test}(\theta) = \frac{1}{2m_{test}}  \sum_{i=1}^{m_{test}}(h_{\theta}(x^{(i)}_{test} + y^{(i)}_{test})^2$$
+4. **Cross-Validation:** Test the models on a separate cross-validation set and compute the cross-validation error for each.
 
-## Model selection and training validation test sets
+5. **Model Selection:** Select the model with the lowest cross-validation error.
 
-Bad results are generally the consequence of one of the following:
+### Error Metrics
 
+I. Training Error:
 
-* High bias - under fitting problem.
-* High variance - over fitting problem.
+$$J_{train}(\theta) = \frac{1}{2m}  \sum_{i=1}^{m}(h_{\theta}(x^{(i)} - y^{(i)})^2$$
 
-![diagnosis](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/diagnosis.png)
+II. Cross-Validation Error:
 
-Now plot
+$$J_{cv}(\theta) = \frac{1}{2m_{cv}}  \sum_{i=1}^{m_{cv}}(h_{\theta}(x^{(i)}_{cv} - y^{(i)}_{cv})^2$$
 
+III. Test Error:
 
-* $x$ = degree of polynomial d
-* $y$ = error for both training and cross validation (two lines)
+$$J_{test}(\theta) = \frac{1}{2m_{test}}  \sum_{i=1}^{m_{test}}(h_{\theta}(x^{(i)}_{test} - y^{(i)}_{test})^2$$
 
-![error_vs_d](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/error_vs_d.png)
+### Diagnosing Bias vs. Variance
 
-* For the high bias case, we find both cross validation and training error are high
-* For high variance, we find the cross validation error is high but training error is low
+Diagnosing the nature of the error (high bias or high variance) can guide you in improving your model.
 
+#### Visual Representation
 
-## Regularization and bias/variance
+![Bias vs Variance Diagnosis](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/diagnosis.png)
 
-Linear regression with regularization:
+#### Plotting Error vs. Polynomial Degree
+
+By plotting the training and cross-validation errors against the degree of the polynomial, you can visually assess the nature of the problem:
+
+![Error vs Polynomial Degree](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/error_vs_d.png)
+
+- **High Bias (Underfitting):** Both training and cross-validation errors are high. The model is too simple and does not capture the underlying trend in the data well.
+  
+- **High Variance (Overfitting):** Low training error but high cross-validation error. The model is too complex and captures noise in the training data, failing to generalize well.
+
+### Regularized Linear Regression Model
+
+Consider a high-order polynomial linear regression model:
 
 $$h_{\theta}(x) = \theta_0 + \theta_1x + \theta_2x^2 + \theta_3x^3 + \theta_4x^4$$
 
-$$J(\theta) = \frac{1}{2m} [ \sum_{i=1}^{m}(h_{\theta}(x^{(i)} + y^{(i)})^2 + \lambda \sum_{j=1}^{m} \theta_j^2]$$
+The regularized cost function for this model is:
 
-The above equation describes the fitting of a high order polynomial with regularization (used to keep parameter values small).
+$$J(\theta) = \frac{1}{2m} \left[ \sum_{i=1}^{m}(h_{\theta}(x^{(i)} - y^{(i)})^2 + \lambda \sum_{j=1}^{n} \theta_j^2 \right]$$
 
+- **$\lambda$:** Regularization parameter controlling the degree of regularization.
+- **$\theta_j$:** Coefficients of the polynomial terms.
+- **$m$:** Number of training examples.
+- **$n$:** Number of features (polynomial terms in this case).
 
-* $\lambda$ is large (high bias $->$ under fitting data)
-* $\lambda$ is intermediate (good)
-* $\lambda$ is small (high variance $->$ overfitting)
+### Impact of the Regularization Parameter ($\lambda$)
 
-![lambda](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/lambda.png)
+The choice of $\lambda$ has a significant impact on the model's performance:
 
-* Have a set or range of values to use (for example from 0 to 15).
-* For each $\lambda_i$ minimize the cost function. Result is  $\theta^{(i)}$.
-* For each $\theta^{(i)}$ measure average squared error on cross validation set.
-* Pick the model which gives the lowest error.
+- **High $\lambda$ (High Bias):** Leads to underfitting as it overly penalizes the coefficients, resulting in a too simple model.
+- **Intermediate $\lambda$:** Balances between bias and variance, often yielding a well-performing model.
+- **Small $\lambda$ (High Variance):** Leads to overfitting as it does not sufficiently penalize the coefficients, allowing the model to fit too closely to the training data.
 
+![Effect of Lambda on Regularization](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/lambda.png)
 
-## Learning curves
+Try a range of $\lambda$ values, for each value minimize $J(\theta)$ to find $\theta^{(i)}$, and then compute the average squared error on the cross-validation set. Choose the $\lambda$ that results in the lowest error.
 
-Plot $J_{train}$ (average squared error on training set) and $J_{cv}$ (average squared error on cross validation set) against m (number of training examples).
+### Learning Curves
 
+Learning curves plot the training error and cross-validation error against the number of training examples. They help diagnose bias and variance issues.
 
-*  $J_{train}$ on smaller sample sizes is smaller (as less variance to accommodate).
-*  As training set grows your hypothesis generalize better and $J_{cv}$ gets smaller.
+Plotting Learning Curves:
 
-![learning_curve](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/learning_curve.png)
+- **$J_{train}$ (Training Error):** Average squared error on the training set.
+- **$J_{cv}$ (Cross-Validation Error):** Average squared error on the cross-validation set.
+- **$m$:** Number of training examples.
 
-*  A small gap between training error and cross validation error might indicate high bias. Here, more data will not help.
-*  A large gap between training error and cross validation error might indicate high variance. Here, more data will probably help.
+![Learning Curve Visualization](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/learning_curve.png)
 
+- **Small Training Sets:** $J_{train}$ tends to be lower because the model can fit small datasets well.
+- **As $m$ Increases:** The model generalizes better, so $J_{cv}$ decreases.
 
+#### Diagnosing Bias vs. Variance from Learning Curves
+
+- **High Bias (Underfitting):** Both $J_{train}$ and $J_{cv}$ are high, and adding more training data does not significantly improve performance.
+- **High Variance (Overfitting):** $J_{train}$ is low, but $J_{cv}$ is much higher. Increasing the training set size can help the model generalize better.
