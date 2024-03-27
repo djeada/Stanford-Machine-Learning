@@ -1,129 +1,127 @@
-## Anomaly Detection
-Anomaly detection is the process of identifying unusual or unexpected data points within a dataset. This can be done by using the dataset as a baseline and flagging data points as anomalous if they fall below a certain probability threshold, called Epsilon. Anomaly detection has a variety of applications, including fraud detection, manufacturing, and monitoring computers in data centers. One common method for detecting anomalies is to use the Gaussian distribution, which is characterized by a mean and variance. The probability of a given data point can be calculated using these parameters. When developing and evaluating an anomaly detection system, it is important to split the data into a training set, cross-validation set, and test set, and to use metrics such as precision and recall to measure the performance of the system.
+## Anomaly Detection in Machine Learning
 
-## The main idea
-* We can assess whether data points are anomalous by using the dataset as a baseline.
-* if $p(x_{test}) < \epsilon \quad$, then flag this as an anomaly
-* if $p(x_{test}) \geq \epsilon \quad$, then this is OK
-* $\epsilon$ is a threshold probability number that we determine based on how certain we need/want to be.
+Anomaly detection involves identifying data points that significantly differ from the majority of the data, often signaling unusual or suspicious activities. This technique is widely used across various domains, such as fraud detection, manufacturing, and system monitoring.
 
-![anomaly](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/anomaly.png)
+### Concept of Anomaly Detection
 
-## Applications
+- **Baseline Establishment**: The first step in anomaly detection is to establish a normal pattern or baseline from the dataset.
+- **Probability Threshold (Epsilon)**: Data points are flagged as anomalies if their probability, according to the established model, falls below a threshold $\epsilon$.
+- If $p(x_{\text{test}}) < \epsilon$, the data point is considered an anomaly.
+- If $p(x_{\text{test}}) \geq \epsilon$, the data point is considered normal.
+- **Threshold Selection**: The value of $\epsilon$ is critical and is chosen based on the desired confidence level and the specific context of the application.
 
-* Fraud detection
-    * Users have activities connected with them, such as the amount of time spent online, the location of login, and the frequency with which they spend money.
-    * Using this information, we can create a model of what regular users do.
-    * What is the probability of "normal" behavior?
-    * Send atypical users' data through the model to identify them. Make a note of everything that appears unusual. Block cards/transactions automatically.
+![Illustration of Anomaly Detection](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/anomaly.png)
 
-* Manufacturing
-    * Aircraft engine example.
+### Applications of Anomaly Detection
 
-* Monitoring computers in data center
-    * If you have many machines in a cluster (x1 = memory use, x2 = number of disk accesses/sec, x3 = CPU load).
-    * When you notice an anomalous machine, it is likely that it is soon to fail.
-    * Consider replacing parts of it.
-        
-## The Gaussian distribution
+I. Fraud Detection:
 
-* $\mu$ is mean.
-* $\sigma^2$ is variance and $\sigma$ is a standard deviation.
-* probability of x, parameterized by the mean and variance:
+- User behavior metrics (online time, login location, spending patterns) are analyzed.
+- A model of typical user behavior is created, and deviations are flagged as potential fraud.
 
+II. Manufacturing: In scenarios like aircraft engine production, anomalies can indicate defects or potential failures.
 
-$$p(x; \mu; \sigma^2) = \frac{1}{\sqrt{2\pi\sigma}}exp(-\frac{(x-\mu)^2}{2\sigma^2})$$
+III. Data Center Monitoring: Monitoring metrics (memory usage, disk accesses, CPU load) to identify machines that are likely to fail.
 
-![gaussian](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/gaussian.png)
+### Utilizing the Gaussian Distribution
 
-* Assume we have a data collection of m examples.
-* Given that each example is a real number, we plot the data on the x axis.
-* Given the dataset can you estimate the distribution?
+- **Mean ($\mu$) and Variance ($\sigma^2$)**: The Gaussian distribution is characterized by these parameters.
+- **Probability Calculation**:
+  
+$$
+p(x; \mu; \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
+$$
+  
+![Gaussian Distribution](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/gaussian.png)
 
-![data_fit](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/data_fit.png)
+- **Data Fitting**: Estimating the Gaussian distribution from the dataset to represent the normal behavior.
 
-Seems like a good fit - data suggests a higher likelihood of being in the center and a lower likelihood of being further out.
+![Data Fitting with Gaussian](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/data_fit.png)
 
+### Evaluating Anomaly Detection Systems
 
-## Anomaly detection
+- **Data Split**: Divide the data into training, cross-validation, and test sets.
+- **Performance Metrics**: Precision and recall are often used to evaluate the effectiveness of the anomaly detection system.
+- **Fine-Tuning**: Adjust the model and $\epsilon$ based on the performance metrics to improve accuracy.
 
-1. Choose features $x_i$ that you think might be indicative of anomalous examples.
-2. Fit parameters $\mu_1, ..., \mu_n, \sigma_1^2, ..., \sigma^n$
+### Algorithm Steps
 
-$$\mu_j = \frac{1}{m} \sum_{i=1}^mx_j^{(i)}$$
+1. **Feature Selection**: Choose features $x_i$ that might be indicators of anomalous behavior.
 
-$$\sigma_j^2 = \frac{1}{m} \sum_{i=1}^m(x_j^{(i)}-\mu_j)^2$$
+2. **Parameter Fitting**: Calculate the mean ($\mu_j$) and variance ($\sigma_j^2$) for each feature
+     
+$$
+\mu_j = \frac{1}{m} \sum_{i=1}^m x_j^{(i)}
+$$
 
-3. Given new example x, compute p(x):
+$$
+\sigma_j^2 = \frac{1}{m} \sum_{i=1}^m (x_j^{(i)} - \mu_j)^2
+$$
 
-$$p(x)= \prod_{j=1}^n \frac{1}{\sqrt{2\pi\sigma_j}}exp(-\frac{(x_j-\mu_j)^2}{2\sigma_j^2})$$
+3. **Probability Computation for New Example**: For a new example $x$, compute the probability $p(x)$:
 
-## Developing and evaluating and anomaly detection system
+$$
+p(x) = \prod_{j=1}^n \frac{1}{\sqrt{2\pi\sigma_j^2}} \exp\left(-\frac{(x_j - \mu_j)^2}{2\sigma_j^2}\right)
+$$
 
-* You have some labeled data.        
-    * $y=0$ for engines which were non-anomalous.
-    * $y=1$ for engines which were anomalous.
-        
-* Training set is the collection of normal examples.
-* Next define:
-    * Cross validation set.
-    * Test set.
-    * For both assume you can include a few examples which have anomalous examples.
-        
+### Developing and Evaluating an Anomaly Detection System
 
-* In our example we have:
-    * 10000 good engines.
-    * 50 flawed engines.
-        
-* Split into:
-    * Training set: 6000 good engines (y = 0).
-    * CV set: 2000 good engines, 10 anomalous.
-    * Test set: 2000 good engines, 10 anomalous.
+I. **Labeled Data**: Have a dataset where $y=0$ indicates normal (non-anomalous) examples, and $y=1$ represents anomalous examples.
 
-What's a good metric to use for evaluation?
+II. **Data Division**: Separate the dataset into a training set (normal examples), a cross-validation (CV) set, and a test set, with both the CV and test sets including some anomalous examples.
 
+III. **Example Case**:
 
-* Compute fraction of true positives/false positive/false negative/true negative.
-* Compute precision/recall.
-* Compute F1-score.
+- Imagine a dataset with 10,000 normal (good) engines and 50 flawed (anomalous) engines.
+- Training set: 6,000 good engines.
+- CV set: 2,000 good engines, 10 anomalous.
+- Test set: 2,000 good engines, 10 anomalous.
 
-## Multivariate Gaussian distribution
-It is a somewhat different approach that can occasionally discover anomalies that normal Gaussian distribution anomaly detection fails to detect.
+IV. **Evaluation Metrics**:
 
+- True positives (TP), false positives (FP), false negatives (FN), and true negatives (TN).
+- Precision (the proportion of true positives among all positives identified by the model).
+- Recall (the proportion of true positives identified out of all actual positives).
+- F1-score (a harmonic mean of precision and recall, providing a balance between them).
 
-* Assume you can fit a Gaussian distribution to CPU load and memory use.
-* Assume we have an example in the test set that appears to be an anomaly (e.g. x1 = 0.4, x2 = 1.5).
-* Here memory use is high and CPU load is low (if we plot x1 vs. x2 our green example looks miles away from the others).
-* The problem is that if we look at each characteristic individually, they may fall inside acceptable bounds - the difficulty is that we know we shouldn't obtain those types of numbers together, but they're both okay individually.
+### Selecting a Good Evaluation Metric
 
-![mult_gauss](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/mult_gauss.png)
+- **F1-Score**: This is particularly useful in the context of anomaly detection where the class distribution is highly imbalanced (many more normal than anomalous examples).
+- **Precision and Recall**: These metrics provide a more nuanced understanding of the system’s performance, especially when the cost of false positives and false negatives varies.
 
-What are the parameters for this new model?
+### Concept of Multivariate Gaussian Distribution
 
-* $\mu$ which is an n dimensional vector (where n is number of features)
-* $\Sigma$ which is an [n x n] matrix - the covariance matrix
+- **Scenario**: Imagine fitting a Gaussian distribution to two features, such as CPU load and memory usage.
+- **Example**: In a test set, consider an example with a high memory use (x1 = 1.5) but low CPU load (x2 = 0.4). Individually, these values might fall within normal ranges, but their combination could be anomalous.
 
+![Example of Multivariate Gaussian Distribution](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/mult_gauss.png)
 
-$$p(x; \mu; \Sigma) = \frac{1}{(2\pi)^{n/2}|\Sigma|^{1/2}}exp(-\frac{1}{2}(x-\mu)^T \Sigma^{-1}(x-\mu))$$
+### Parameters of the Multivariate Gaussian Model
 
-![cov_matrix_sigma](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/cov_matrix_sigma.png)
+- **Mean Vector ($\mu$)**: An n-dimensional vector representing the mean of each feature.
+- **Covariance Matrix ($\Sigma$)**: An $[n \times n]$ matrix, capturing how each pair of features varies together.
+- **Probability Density Function**:
 
-Very tall thin distribution, shows a strong positive correlation.
+$$
+p(x; \mu; \Sigma) = \frac{1}{(2\pi)^{n/2}|\Sigma|^{1/2}} \exp\left(-\frac{1}{2}(x - \mu)^T \Sigma^{-1}(x - \mu)\right)
+$$
+  
+![Covariance Matrix](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/cov_matrix_sigma.png)
 
-### Gaussian model - summary
+### Gaussian Model vs. Multivariate Gaussian Model
 
-* Probably used more often.
-* There is a need to manually create features to capture anomalies where x1 and x2 take unusual combinations of values.
-* So need to make extra features and might not be obvious what they should be.
-* Much cheaper computationally.
-* Scales much better to very large feature vectors.
-* Works well even with a small training set e.g. 50, 100.
+#### Gaussian Model
 
+- **Usage**: More commonly used in anomaly detection.
+- **Feature Creation**: Requires manual creation of features to capture unusual combinations in values.
+- **Computational Efficiency**: Generally more computationally efficient.
+- **Scalability**: Scales well to large feature vectors.
+- **Training Set Size**: Works effectively even with small training sets.
 
-### Multivariate gaussian model - summary
+#### Multivariate Gaussian Model
 
-* Used less frequently.
-* Can capture feature correlation.
-* So no need to create extra values.
-* Less computationally efficient.
-* Needs for m > n  i.e. number of examples must be greater than number of features.  
+- **Usage**: Used less frequently.
+- **Feature Correlations**: Directly captures correlations between features without needing extra feature engineering.
+- **Computational Cost**: Less efficient computationally.
+- **Data Requirements**: Requires more examples than the number of features (m > n).
+- **Advantage**: Can detect anomalies that occur due to unusual combinations of normal-appearing individual features.
