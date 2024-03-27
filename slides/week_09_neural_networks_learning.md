@@ -1,109 +1,134 @@
-## Neural Networks - Learning
+## Neural Networks: Learning and Classification
 
-Neural networks are a type of machine learning algorithm that are inspired by the structure and function of the human brain. They consist of layers of interconnected nodes, where each node represents a unit that performs a specific task. There are different types of classification problems that can be solved using neural networks, including binary classification, where the goal is to predict a single output that can take on only two values, and multi-class classification, where the goal is to predict one of multiple possible classes. The cost function is used to measure the difference between the predicted values and the actual values and is used to adjust the parameters of the neural network to improve its performance. For neural networks, the cost function is a generalization of the logistic regression cost function and involves summing over all the output units for each of the possible classes. The gradient computation involves using the chain rule to calculate the partial derivative of the cost function with respect to each parameter in the neural network. The backpropagation algorithm is then used to calculate these partial derivatives and update the parameters of the network in order to minimize the cost function.
+Neural networks, a core algorithm in machine learning, draw inspiration from the human brain's structure and function. They consist of layers containing interconnected nodes (neurons), each designed to perform specific computational tasks. Neural networks can tackle various classification problems, such as binary and multi-class classifications. The efficacy of these networks is enhanced through the adjustment of their parameters, guided by a cost function that quantifies the deviation between predictions and actual values.
 
-## Types of classification problems with NNs
+### Classification Problems in Neural Networks
 
-* Training set is ${(x^1, y^1), (x^2, y^2), ..., (x^n, y^n)}$.
-* $L$ = number of layers in the network.
-* $s_l$ = number of units (not counting bias unit) in layer $l$.
+- **Training Set Representation:** Typically represented as $\{(x^1, y^1), (x^2, y^2), ..., (x^n, y^n)\}$, where $x^i$ is the $i^{th}$ input and $y^i$ is the corresponding target output.
+- $L$: Total number of layers in the network.
+- $s_l$: Number of units (excluding the bias unit) in layer $l$.
 
-![big_multi_layer](https://user-images.githubusercontent.com/37275728/201518449-ec13fac4-0716-4131-8e5e-f0405ce075a5.png)
+#### Example Network Architecture
 
-So here we have:
+![Example of Multi-Layer Neural Network](https://user-images.githubusercontent.com/37275728/201518449-ec13fac4-0716-4131-8e5e-f0405ce075a5.png)
 
-* $L=4$.
-* $s_1 = 3$.
-* $s_2 = 5$.
-* $s_3 = 5$.
-* $s_4 = 4$.
+In the illustrated network:
 
+- There are 4 layers ($L=4$).
+- The first layer ($s_1$) has 3 units.
+- The second and third layers ($s_2$, $s_3$) each have 5 units.
+- The fourth layer ($s_4$) has 4 units.
 
-### Binary classification
+### Binary Classification
 
-* 1 output (0 or 1).
-* So single output node - value is going to be a real number.
-* $k = 1$.
-* $s_l = 1$
+In binary classification, the neural network predicts a single output which can take one of two possible values (often represented as 0 or 1). Characteristics of binary classification in neural networks include:
 
+- **Single Output Node:** The final layer produces a real number value, interpreted as a probability or classification decision.
+- **Output Representation:** $k = 1$ (one output class) and $s_L = 1$ (one unit in the output layer).
 
-### Multi-class classification
+### Multi-class Classification
 
-* $k$ distinct classifications.
-* $y$ is a $k$-dimensional vector of real numbers.
-* $s_l = k$
+Multi-class classification extends the network's capability to differentiate between multiple classes. Here, the target output $y$ is a vector representing the probability of each class. Characteristics include:
 
-## Cost function
+- **Multiple Output Classes:** $k$ distinct classifications are represented.
+- **Output Vector:** The output $y$ is a $k$-dimensional vector of real numbers, where each element corresponds to a class.
+- **Layer Configuration:** The output layer has $s_L = k$ units, each corresponding to one of the $k$ classes.
 
-Logistic regression cost function is as follows:
+### Learning Process
 
-$$J(\theta) = -\frac{1}{m} \sum_{i=1}^{m} [y^{(i)} log h_{\theta}(x^{(i)}) + (1- y^{(i)})log(1 - h_{\theta}(x^{(i)}))] +  \frac{\lambda}{2m} \sum_{j=1}^{m} \theta_j^2$$
+The learning process in neural networks involves:
 
+1. **Cost Function:** A generalization of the logistic regression cost function, which sums the error over all output units and classes. This function quantifies the difference between predicted and actual values.
+2. **Gradient Computation:** Employing the chain rule to calculate the partial derivatives of the cost function with respect to each network parameter.
+3. **Backpropagation Algorithm:** Used for efficiently computing these partial derivatives. The algorithm propagates the error signal backwards through the network, adjusting the parameters (weights and biases) to minimize the cost function.
 
-For neural networks our cost function is a generalization of this equation above, so instead of one output we generate $k$ outputs:
+### Neural Network Cost Function
 
-$$J(\Theta) = -\frac{1}{m} \sum_{i=1}^{m} \sum_{k=1}^{K}[ y_k^{(i)} \log{(h_{\theta}(x^{(i)}))}_k + (1- y_k^{(i)}) \log(1 - {(h_{\theta} (x^{(i)}))}_k)] +  \frac{\lambda}{2m} \sum_{l=1}^{L-1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_l+1} (\Theta^{(l)}_{ji})^2$$
+The cost function for neural networks is an extension of the logistic regression cost function, adapted for multiple outputs. This function evaluates the performance of a neural network by measuring the difference between the predicted outputs and the actual values across all output units.
 
-* Our cost function now outputs a $k$ dimensional vector.
-* Costfunction $J(\Theta)$ is $-1/m$ times a sum of a similar term to which we had for logic regression.
-* But now this is also a sum from $k = 1$ through to $K$ ($K$ is number of output nodes).
-* Summation is a sum over the $k$ output units - i.e. for each of the possible classes.
-* We don't sum over the bias terms (hence starting at 1 for the summation).
+The cost function for a neural network with multiple outputs (where $K$ is the number of output units) is defined as:
 
-### Partial derivative terms
+$$J(\Theta) = -\frac{1}{m} \sum_{i=1}^{m} \sum_{k=1}^{K}[ y_k^{(i)} \log{(h_{\Theta}(x^{(i)}))}_k + (1- y_k^{(i)}) \log(1 - {(h_{\Theta} (x^{(i)}))}_k)] +  \frac{\lambda}{2m} \sum_{l=1}^{L-1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_{l+1}} (\Theta^{(l)}_{ji})^2$$
 
+- **$m$:** Number of training examples.
+- **$K$:** Number of output units.
+- **$L$:** Total number of layers in the network.
+- **$s_l$:** Number of units in layer $l$.
+- **$y_k^{(i)}$:** Actual value of the $k^{th}$ output unit for the $i^{th}$ training example.
+- **$h_{\Theta}(x^{(i)})$:** Hypothesis function applied to the $i^{th}$ training example.
+- **$\lambda$:** Regularization parameter to avoid overfitting.
+- **$\Theta^{(l)}_{ji}$:** Weight from unit $i$ in layer $l$ to unit $j$ in layer $l+1$.
 
-* $\Theta^{(1)}$ is the matrix of weights which define the function mapping from layer 1 to layer 2.
-* $\Theta^{(1)}_{10}$  is the real number parameter which you multiply the bias unit (i.e. 1) with for the bias unit input into the first unit in the second layer.
-* $\Theta^{(1)}_{11}$ is the real number parameter which you multiply the first (real) unit with for the first input into the first unit in the second layer.
-* $\Theta^{(1)}_{21}$  is the real number parameter which you multiply the first (real) unit with for the first input into the second unit in the second layer.
+This function incorporates a sum over the $K$ output units for each training example, and also includes a regularization term to penalize large weights and prevent overfitting.
 
+### Partial Derivative Terms
 
-### Gradient computation
+In order to optimize the cost function, we need to understand how changes in the weights $\Theta$ affect the cost. This is where the partial derivative terms come into play.
 
+- **$\Theta^{(1)}_{ji}$:** Represents the weight from the $i^{th}$ unit in layer 1 to the $j^{th}$ unit in layer 2.
+- **$\Theta^{(1)}_{10}$, $\Theta^{(1)}_{11}$, $\Theta^{(1)}_{21}$:** Specific weights that map from the input layer to the first and second units in the second layer, including the bias unit.
 
-* One training example.
-* Imagine we just have a single pair (x,y) - entire training set.
-* The following is how the forward propagation method works:
-* Layer 1: $a^{(1)} = x$ and $z^{(2)} = \Theta^{(1)}a^{(1)}$.
-* Layer 2: $a^{(2)} = g(z^{(2)}) + a^{(2)}_0$ and $z^{(3)} = \Theta^{(2)}a^{(2)}$.
-* Layer 3: $a^{(3)} = g(z^{(3)}) + a^{(3)}_0$ and $z^{(4)} = \Theta^{(3)}a^{(3)}$.
-* Ouptut: $a^{(4)} = h_{\Theta}(x) = g(z^{(4)})$.
+### Gradient Computation
 
-![gradient_computing](https://user-images.githubusercontent.com/37275728/201518441-7740e76d-9a6b-426f-98ad-85a5ff207a89.png)
+Gradient computation in neural networks is achieved through a process known as backpropagation, which calculates the gradient of the cost function with respect to each weight in the network.
 
-### Calculate backpropagation
+#### Forward Propagation Example
 
-* $\delta_j$ is $Lx1$ vector.
-* First we compute the LAST element: $\delta^{(L)}_j = a^{(L)}_j - y_j$.
-* Value of each element is based on the value of the next element:
+Consider a neural network with one training example $(x,y)$:
 
-  $$\delta^{(l)}_j = (\Theta^{(l)}_j)^T\delta^{(l+1)}_j \cdot g'(z^{(l)}_j)$$
+- **Layer 1 (Input Layer):** $a^{(1)} = x$ and $z^{(2)} = \Theta^{(1)}a^{(1)}$.
+- **Layer 2 (Hidden Layer):** $a^{(2)} = g(z^{(2)})$, append $a^{(2)}_0$, and then $z^{(3)} = \Theta^{(2)}a^{(2)}$.
+- **Layer 3 (Another Hidden Layer):** $a^{(3)} = g(z^{(3)})$, append $a^{(3)}_0$, and then $z^{(4)} = \Theta^{(3)}a^{(3)}$.
+- **Output Layer:** $a^{(4)} = h_{\Theta}(x) = g(z^{(4)})$.
 
-* Finally, use $\Delta$ to accumulate the partial derivative terms:
+![Gradient Computation in Neural Networks](https://user-images.githubusercontent.com/37275728/201518441-7740e76d-9a6b-426f-98ad-85a5ff207a89.png)
 
-$$\Delta^{(l)}_{ij} := \Delta^{(l)}_{ij} + a^{(l)}_j\delta^{(l+1)}_i$$
+Each layer's output ($a^{(l)}$) becomes the input for the next layer, with the activation function $g$ (typically a sigmoid or ReLU function) applied to the weighted sums. The final output $a^{(4)}$ is the hypothesis of the network for the given input $x$. The backpropagation algorithm then computes the gradient by propagating the error backwards from the output layer to the input layer, adjusting the weights $\Theta$ to minimize the cost function $J(\Theta)$.
 
-* $l$ = layer.
-* $j$ = node in that layer.
-* $i$ = the error of the affected node in the target layer
+### Backpropagation Algorithm
+
+Backpropagation is a key algorithm in training neural networks, used for calculating the gradient of the cost function with respect to each parameter in the network. It involves propagating errors backward through the network, from the output layer to the input layer.
+
+#### Calculating Error Terms (Deltas)
+
+- **$\delta_j$ Vector:** Represents the error for each node $j$ in layer $l$. It is an $L \times 1$ vector, where $L$ is the total number of layers.
+- **Last Layer Error ($\delta^{(L)}$):** For the last layer, the error is calculated as the difference between the network's output ($a^{(L)}$) and the actual value ($y$):
+
+$$\delta^{(L)}_j = a^{(L)}_j - y_j$$
+
+- **Error for Other Layers:** The error terms for the other layers are computed recursively using the errors from the subsequent layer:
+
+$$\delta^{(l)}_j = (\Theta^{(l)}_j)^T \delta^{(l+1)} \cdot g'(z^{(l)}_j)$$
+
+#### Accumulating Gradient ($\Delta$)
+
+- **Partial Derivative Accumulation:** $\Delta^{(l)}_{ij}$ accumulates the partial derivatives of the cost function with respect to the weights $\Theta^{(l)}_{ij}$:
+
+$$\Delta^{(l)}_{ij} := \Delta^{(l)}_{ij} + a^{(l)}_j \delta^{(l+1)}_i$$
+
+- **Layer Notation:** $l$ denotes the layer, $j$ the node in layer $l$, and $i$ the error of the affected node in the subsequent layer $l+1$.
+
+#### Calculating the Gradient
+
+The gradient of the cost function $J(\Theta)$ with respect to the weights is given by:
 
 $$
 \frac{\partial}{\partial \Theta^{(l)}_{ij}}J(\Theta) = \begin{cases}
-          \frac{1}{m} \Delta^{(l)}_{ij} + \lambda \Theta ^{(l)}_{ij} \quad &\text{if} \, j \neq 0 \\
-          \frac{1}{m} \Delta^{(l)}_{ij} \quad &\text{if} \, j=0 \\
-     \end{cases}
+        \frac{1}{m} \Delta^{(l)}_{ij} + \lambda \Theta ^{(l)}_{ij} \quad &\text{if} \, j \neq 0 \\
+        \frac{1}{m} \Delta^{(l)}_{ij} \quad &\text{if} \, j=0 \\
+   \end{cases}
 $$
 
-### Gradient checking
+### Gradient Checking
 
-Backpropagation contains a lot of details, and tiny flaws can break it.
-As a result, employing a numerical approach to verify the gradient can aid in the quick diagnosis of a problem.
+Due to the complexity of backpropagation, implementing it correctly is crucial. Gradient checking is a technique to validate the correctness of the computed gradients.
 
-* Have a function $J(\Theta)$.
-* Compute $\Theta + \epsilon$.
-* Compute $\Theta - \epsilon$.
-* Join them by a straight line.
-* Use the slope of that line as an approximation to the derivative.
+Steps in Gradient Checking:
 
-![gradient_checking](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/gradient_checking.png)
+1. **Function $J(\Theta)$:** Start with a function representing the cost.
+2. **Compute Perturbed Weights:** Calculate $J(\Theta + \epsilon)$ and $J(\Theta - \epsilon)$, where $\epsilon$ is a small value.
+3. **Slope Estimation:** The derivative is approximated by the slope of the straight line joining these two points.
+
+![Gradient Checking Visualization](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/gradient_checking.png)
+
+Gradient checking serves as a diagnostic tool to ensure that the backpropagation implementation is correct. However, it's computationally expensive and typically used only for debugging and not during regular training.
