@@ -194,3 +194,8 @@ The XNOR (exclusive-NOR) function is another logical operation that outputs true
 Unlike the AND function, constructing an XNOR function requires more than one neuron because it is a non-linear function. A neural network with at least one hidden layer containing multiple neurons is necessary to model the XNOR function. The network would typically combine basic logical functions like AND, OR, and NOT in its layers to replicate the XNOR behavior.
 
 In these examples, the neural network uses a weighted combination of inputs to activate a neuron. The weights (in $\Theta$) and bias terms determine how the neuron responds to different input combinations. For binary classification tasks like AND and XNOR, the sigmoid function works well because it outputs values close to 0 or 1, analogous to the binary nature of these logical operations.
+
+## Reference
+
+These notes are based on the free video lectures offered by Stanford University, led by Professor Andrew Ng. These lectures are part of the renowned Machine Learning course available on Coursera. For more information and to access the full course, visit the [Coursera course page](https://www.coursera.org/learn/machine-learning).
+

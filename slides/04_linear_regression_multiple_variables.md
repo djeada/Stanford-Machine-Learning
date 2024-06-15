@@ -117,3 +117,7 @@ Comparing these two methods helps understand their practical applications:
 | Use Case | Preferred for very large feature sets | Ideal for smaller feature sets |
 
 Understanding when to use polynomial regression, and choosing between gradient descent and the normal equation, is crucial in developing efficient and effective linear regression models.
+
+## Reference
+
+These notes are based on the free video lectures offered by Stanford University, led by Professor Andrew Ng. These lectures are part of the renowned Machine Learning course available on Coursera. For more information and to access the full course, visit the [Coursera course page](https://www.coursera.org/learn/machine-learning).

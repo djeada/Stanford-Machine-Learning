@@ -87,3 +87,8 @@ Where:
 - $S$ is a diagonal matrix with singular values.
 
 SVD is particularly useful here because it provides a robust way to deconstruct the mixed signals into components that are easier to separate and analyze. The orthogonal matrices $U$ and $V$ represent the bases in the original and transformed spaces, respectively, while the singular values in $S$ represent the strength of each component in the data. By filtering or modifying these components, we can work towards isolating individual audio sources from the mix.
+
+## Reference
+
+These notes are based on the free video lectures offered by Stanford University, led by Professor Andrew Ng. These lectures are part of the renowned Machine Learning course available on Coursera. For more information and to access the full course, visit the [Coursera course page](https://www.coursera.org/learn/machine-learning).
+

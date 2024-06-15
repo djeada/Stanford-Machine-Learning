@@ -25,19 +25,33 @@ Principal Component Analysis (PCA) is a widely used technique in machine learnin
 
   ![Example of Data Table](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/table.png)
 
-### PCA Problem Formulation
+### PCA Problem Formulationfrom itertools import accumulate
+
+def move(position, speed, time):
+    return position + speed * time
+
+def get_positions(position, speed, time_list):
+    positions = accumulate(time_list, lambda pos, time: move(pos, speed, time), initial=position)
+    return list(positions)[1:]  # Pomijamy pierwszą pozycję, która jest początkową pozycją
+
+def get_path(position, speed, time_list):
+    return get_positions(position, speed, time_list)
+
+print(get_path(0, 10, [1, 0.5]))  # [10, 15]
+
 
 1. **Goal**: The primary goal of Principal Component Analysis (PCA) is to identify a lower-dimensional representation of a dataset that retains as much variability (information) as possible. This is achieved by minimizing the projection error, which is the distance between the original data points and their projections onto the lower-dimensional subspace.
 
 2. **Projection Error**: In PCA, the projection error is defined as the sum of the squared distances between each data point and its projection onto the lower-dimensional subspace. PCA seeks to minimize this error, thereby ensuring that the chosen subspace captures the maximum variance in the data.
 
 3. **Mathematical Formulation**:
-   - Let \( X \) be an \( m \times n \) matrix representing the dataset, where \( m \) is the number of samples and \( n \) is the number of features.
+   
+   - Let $X$ be an $m \times n$ matrix representing the dataset, where $m$ is the number of samples and $n$ is the number of features.
    - The goal is to find a set of orthogonal vectors (principal components) that form a basis for the lower-dimensional subspace.
-   - These principal components are the eigenvectors of the covariance matrix \( \Sigma = \frac{1}{m} X^T X \), corresponding to the largest eigenvalues.
-   - If \( k \) is the desired lower dimension (\( k < n \)), PCA seeks the top \( k \) eigenvectors of \( \Sigma \).
+   - These principal components are the eigenvectors of the covariance matrix $\Sigma = \frac{1}{m} X^T X$, corresponding to the largest eigenvalues.
+   - If $k$ is the desired lower dimension ($k < n$), PCA seeks the top $k$ eigenvectors of $\Sigma$.
 
-4. **Variance Maximization**: An equivalent formulation of PCA is to maximize the variance of the projections of the data points onto the principal components. By maximizing the variance, PCA ensures that the selected components capture the most significant patterns in the data.
+5. **Variance Maximization**: An equivalent formulation of PCA is to maximize the variance of the projections of the data points onto the principal components. By maximizing the variance, PCA ensures that the selected components capture the most significant patterns in the data.
 
  ![Visualizing PCA Projection](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/pca.png)
 
@@ -110,3 +124,8 @@ $$
 2. **Visualization**: With $k=2$ or $k=3$, data can be visualized in 2D or 3D space.
 3. **Limitation**: PCA should not be used indiscriminately to prevent overfitting. It removes data dimensions without understanding their importance.
 4. **Usage Advice**: It's recommended to try understanding the data without PCA first and apply PCA if it is believed to aid in achieving specific objectives.
+
+## Reference
+
+These notes are based on the free video lectures offered by Stanford University, led by Professor Andrew Ng. These lectures are part of the renowned Machine Learning course available on Coursera. For more information and to access the full course, visit the [Coursera course page](https://www.coursera.org/learn/machine-learning).
+

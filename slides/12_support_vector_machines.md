@@ -131,3 +131,7 @@ Consider a training set where a linear decision boundary is not sufficient. The 
 - **Small n, Large m**: SVM with Gaussian kernel may be slow; logistic regression or SVM with a linear kernel is preferred.
 - **SVM's Power**: The ability to use different kernels makes SVMs versatile for learning complex non-linear functions.
 - **Convex Optimization**: SVMs provide a global minimum, ensuring consistency in the solution.
+
+## Reference
+
+These notes are based on the free video lectures offered by Stanford University, led by Professor Andrew Ng. These lectures are part of the renowned Machine Learning course available on Coursera. For more information and to access the full course, visit the [Coursera course page](https://www.coursera.org/learn/machine-learning).

@@ -125,3 +125,7 @@ $$
 - **Computational Cost**: Less efficient computationally.
 - **Data Requirements**: Requires more examples than the number of features (m > n).
 - **Advantage**: Can detect anomalies that occur due to unusual combinations of normal-appearing individual features.
+
+## Reference
+
+These notes are based on the free video lectures offered by Stanford University, led by Professor Andrew Ng. These lectures are part of the renowned Machine Learning course available on Coursera. For more information and to access the full course, visit the [Coursera course page](https://www.coursera.org/learn/machine-learning).

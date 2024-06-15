@@ -89,3 +89,7 @@ Choosing the optimal number of clusters (K) is a challenge in K-means. The Elbow
 - The "elbow" point in the plot of K vs $J(...)$ is considered a good choice for K. This is where the rate of decrease sharply changes.
 
 ![Elbow Method Graph](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/elbow.png)
+
+## Reference
+
+These notes are based on the free video lectures offered by Stanford University, led by Professor Andrew Ng. These lectures are part of the renowned Machine Learning course available on Coursera. For more information and to access the full course, visit the [Coursera course page](https://www.coursera.org/learn/machine-learning).

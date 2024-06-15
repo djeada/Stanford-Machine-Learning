@@ -199,3 +199,7 @@ The process involves splitting the training set into separate binary classificat
 
 - When classifying a new example, compute the probability that it belongs to each class using the respective classifiers.
 - The class with the highest probability is chosen as the prediction.
+
+## Reference
+
+These notes are based on the free video lectures offered by Stanford University, led by Professor Andrew Ng. These lectures are part of the renowned Machine Learning course available on Coursera. For more information and to access the full course, visit the [Coursera course page](https://www.coursera.org/learn/machine-learning).

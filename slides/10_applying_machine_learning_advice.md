@@ -143,3 +143,8 @@ Plotting Learning Curves:
 
 - **High Bias (Underfitting):** Both $J_{train}$ and $J_{cv}$ are high, and adding more training data does not significantly improve performance.
 - **High Variance (Overfitting):** $J_{train}$ is low, but $J_{cv}$ is much higher. Increasing the training set size can help the model generalize better.
+
+## Reference
+
+These notes are based on the free video lectures offered by Stanford University, led by Professor Andrew Ng. These lectures are part of the renowned Machine Learning course available on Coursera. For more information and to access the full course, visit the [Coursera course page](https://www.coursera.org/learn/machine-learning).
+

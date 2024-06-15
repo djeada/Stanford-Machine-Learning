@@ -185,3 +185,7 @@ $$
 - **Handling New Users**: Provides a starting point for recommendations for users who have not yet provided any ratings.
 - **Rating Sparsity**: Mitigates issues arising from sparse data, which is common in many real-world recommendation systems.
 - **Balancing the Dataset**: Normalization helps in balancing the dataset, especially when there are variations in the number of ratings per movie.
+
+## Reference
+
+These notes are based on the free video lectures offered by Stanford University, led by Professor Andrew Ng. These lectures are part of the renowned Machine Learning course available on Coursera. For more information and to access the full course, visit the [Coursera course page](https://www.coursera.org/learn/machine-learning).

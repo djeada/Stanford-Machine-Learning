@@ -121,3 +121,6 @@ $$F_{score} = 2 \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + 
 - **Balanced Measure:** It harmonizes the precision and recall, especially useful when one is significantly lower than the other.
 - **Threshold Selection:** One approach to finding the optimal threshold is to test various values and select the one that maximizes the $F_{score}$ on a cross-validation set.
 
+## Reference
+
+These notes are based on the free video lectures offered by Stanford University, led by Professor Andrew Ng. These lectures are part of the renowned Machine Learning course available on Coursera. For more information and to access the full course, visit the [Coursera course page](https://www.coursera.org/learn/machine-learning).

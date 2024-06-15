@@ -156,3 +156,7 @@ For solving the minimization problem $\min J(\theta_0, \theta_1)$, the normal eq
 ### Extension of the Current Model
 
 The linear regression model can be extended to include multiple features. For example, in a housing model, features could include size, age, number of bedrooms, and number of floors. However, a challenge arises when dealing with more than three dimensions, as visualization becomes difficult. To effectively manage multiple features, linear algebra concepts like matrices and vectors are employed, facilitating calculations and interpretations in higher-dimensional spaces.
+
+## Reference
+
+These notes are based on the free video lectures offered by Stanford University, led by Professor Andrew Ng. These lectures are part of the renowned Machine Learning course available on Coursera. For more information and to access the full course, visit the [Coursera course page](https://www.coursera.org/learn/machine-learning).

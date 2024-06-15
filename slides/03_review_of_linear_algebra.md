@@ -147,3 +147,7 @@ For four houses and three different hypotheses:
 This approach demonstrates how matrix multiplication can streamline the application of multiple hypotheses to a dataset, enhancing efficiency and scalability.
 
 ![matrix_mult_use](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/matrix_mult_use.png)
+
+## Reference
+
+These notes are based on the free video lectures offered by Stanford University, led by Professor Andrew Ng. These lectures are part of the renowned Machine Learning course available on Coursera. For more information and to access the full course, visit the [Coursera course page](https://www.coursera.org/learn/machine-learning).

@@ -123,3 +123,7 @@ Process Flow:
 - **Numerical Linear Algebra Libraries**: Some libraries can automatically parallelize computations across multiple cores.
 - **Vectorization**: With an efficient vectorization implementation, local libraries might handle much of the optimization, reducing the need for manual parallelization.
 - **Distributed Systems**: For data that's too large for a single system, distributed computing frameworks like Hadoop are used. These frameworks apply the Map Reduce paradigm to process data across multiple machines.
+
+## Reference
+
+These notes are based on the free video lectures offered by Stanford University, led by Professor Andrew Ng. These lectures are part of the renowned Machine Learning course available on Coursera. For more information and to access the full course, visit the [Coursera course page](https://www.coursera.org/learn/machine-learning).
