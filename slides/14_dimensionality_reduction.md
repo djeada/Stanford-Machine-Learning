@@ -25,20 +25,7 @@ Principal Component Analysis (PCA) is a widely used technique in machine learnin
 
   ![Example of Data Table](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/table.png)
 
-### PCA Problem Formulationfrom itertools import accumulate
-
-def move(position, speed, time):
-    return position + speed * time
-
-def get_positions(position, speed, time_list):
-    positions = accumulate(time_list, lambda pos, time: move(pos, speed, time), initial=position)
-    return list(positions)[1:]  # Pomijamy pierwszą pozycję, która jest początkową pozycją
-
-def get_path(position, speed, time_list):
-    return get_positions(position, speed, time_list)
-
-print(get_path(0, 10, [1, 0.5]))  # [10, 15]
-
+### PCA Problem Formulationfrom 
 
 1. **Goal**: The primary goal of Principal Component Analysis (PCA) is to identify a lower-dimensional representation of a dataset that retains as much variability (information) as possible. This is achieved by minimizing the projection error, which is the distance between the original data points and their projections onto the lower-dimensional subspace.
 
@@ -89,6 +76,62 @@ The matrix $U$ will also be an $[n \times n]$ matrix, with its columns being the
  
 $$z = (U_{\text{reduce}})^T \cdot x$$
 
+Here is the implementation of the Principal Component Analysis (PCA) algorithm in Python:
+
+```python
+import numpy as np
+
+def pca(X, k):
+    """
+    Perform PCA on the dataset X and reduce its dimensionality to k dimensions.
+    
+    Parameters:
+    X (numpy.ndarray): The input data matrix of shape (m, n) where m is the number of samples and n is the number of features.
+    k (int): The number of principal components to retain.
+    
+    Returns:
+    Z (numpy.ndarray): The reduced representation of the input data matrix with shape (m, k).
+    U_reduce (numpy.ndarray): The matrix of top k eigenvectors with shape (n, k).
+    """
+    
+    # Step 1: Compute the covariance matrix
+    m, n = X.shape
+    Sigma = (1 / m) * np.dot(X.T, X)
+    
+    # Step 2: Compute the eigenvectors using Singular Value Decomposition (SVD)
+    U, S, V = np.linalg.svd(Sigma)
+    
+    # Step 3: Select the first k eigenvectors (principal components)
+    U_reduce = U[:, :k]
+    
+    # Step 4: Project the data onto the reduced feature space
+    Z = np.dot(X, U_reduce)
+    
+    return Z, U_reduce
+
+# Example usage
+if __name__ == "__main__":
+    # Create a sample dataset
+    X = np.array([[2.5, 2.4],
+                  [0.5, 0.7],
+                  [2.2, 2.9],
+                  [1.9, 2.2],
+                  [3.1, 3.0],
+                  [2.3, 2.7],
+                  [2, 1.6],
+                  [1, 1.1],
+                  [1.5, 1.6],
+                  [1.1, 0.9]])
+    
+    # Perform PCA to reduce the data to 1 dimension
+    Z, U_reduce = pca(X, k=1)
+    
+    print("Reduced representation (Z):")
+    print(Z)
+    print("\nTop k eigenvectors (U_reduce):")
+    print(U_reduce)
+```
+
 ### Reconstruction from Compressed Representation
 
 Is it possible to go back from a lower dimension to a higher one? While exact reconstruction is not possible (since some information is lost), an approximation can be obtained:
@@ -96,6 +139,29 @@ Is it possible to go back from a lower dimension to a higher one? While exact re
 $$x_{\text{approx}} = U_{\text{reduce}} \cdot z$$
 
 This approximates the original data in the higher-dimensional space but aligned along the principal components.
+
+Here is the implementation of reconstructing the original data from its compressed representation in Python:
+
+```python
+import numpy as np
+
+def reconstruct(U_reduce, Z):
+    """
+    Reconstruct the original data from the compressed representation.
+    
+    Parameters:
+    U_reduce (numpy.ndarray): The matrix of top k eigenvectors with shape (n, k).
+    Z (numpy.ndarray): The compressed representation of the data with shape (m, k).
+    
+    Returns:
+    X_approx (numpy.ndarray): The approximated reconstruction of the original data with shape (m, n).
+    """
+    
+    # Reconstruct the data from the compressed representation
+    X_approx = np.dot(Z, U_reduce.T)
+    
+    return X_approx
+```
 
 ### Choosing the Number of Principal Components
 
