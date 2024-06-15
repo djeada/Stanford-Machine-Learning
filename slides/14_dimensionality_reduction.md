@@ -184,6 +184,171 @@ $$
 \leq 0.01
 $$
 
+Let's implement the selection of the number of principal components \( k \) using the three methods mentioned:
+
+```python
+import numpy as np
+
+def compute_covariance_matrix(X):
+    """
+    Compute the covariance matrix of the dataset X.
+    
+    Parameters:
+    X (numpy.ndarray): The input data matrix of shape (m, n).
+    
+    Returns:
+    Sigma (numpy.ndarray): The covariance matrix of shape (n, n).
+    """
+    m, n = X.shape
+    Sigma = (1 / m) * np.dot(X.T, X)
+    return Sigma
+
+def compute_svd(Sigma):
+    """
+    Perform Singular Value Decomposition (SVD) on the covariance matrix.
+    
+    Parameters:
+    Sigma (numpy.ndarray): The covariance matrix of shape (n, n).
+    
+    Returns:
+    U (numpy.ndarray): The matrix of eigenvectors of shape (n, n).
+    S (numpy.ndarray): The vector of singular values of length n.
+    V (numpy.ndarray): The matrix of eigenvectors of shape (n, n).
+    """
+    U, S, V = np.linalg.svd(Sigma)
+    return U, S, V
+
+def average_squared_projection_error(X, U_reduce):
+    """
+    Compute the average squared projection error.
+    
+    Parameters:
+    X (numpy.ndarray): The original data matrix of shape (m, n).
+    U_reduce (numpy.ndarray): The reduced matrix of top k eigenvectors of shape (n, k).
+    
+    Returns:
+    error (float): The average squared projection error.
+    """
+    X_approx = np.dot(np.dot(X, U_reduce), U_reduce.T)
+    error = np.mean(np.linalg.norm(X - X_approx, axis=1) ** 2)
+    return error
+
+def total_data_variation(X):
+    """
+    Compute the total data variation.
+    
+    Parameters:
+    X (numpy.ndarray): The original data matrix of shape (m, n).
+    
+    Returns:
+    total_variation (float): The total data variation.
+    """
+    total_variation = np.mean(np.linalg.norm(X, axis=1) ** 2)
+    return total_variation
+
+def choose_k_average_squared_projection_error(X, U, threshold):
+    """
+    Choose the number of principal components based on the average squared projection error threshold.
+    
+    Parameters:
+    X (numpy.ndarray): The original data matrix of shape (m, n).
+    U (numpy.ndarray): The matrix of eigenvectors of shape (n, n).
+    threshold (float): The threshold for the average squared projection error.
+    
+    Returns:
+    k (int): The number of principal components to retain.
+    """
+    m, n = X.shape
+    for k in range(1, n + 1):
+        U_reduce = U[:, :k]
+        error = average_squared_projection_error(X, U_reduce)
+        if error <= threshold:
+            return k
+    return n
+
+def choose_k_fraction_variance_retained(S, variance_retained=0.99):
+    """
+    Choose the number of principal components to retain a specified fraction of the variance.
+    
+    Parameters:
+    S (numpy.ndarray): The array of singular values from SVD of the covariance matrix.
+    variance_retained (float): The fraction of variance to retain (default is 0.99).
+    
+    Returns:
+    k (int): The number of principal components to retain.
+    """
+    total_variance = np.sum(S)
+    variance_sum = 0
+    k = 0
+    
+    while variance_sum / total_variance < variance_retained:
+        variance_sum += S[k]
+        k += 1
+    
+    return k
+
+def choose_k_total_data_variation(X, U, variance_threshold):
+    """
+    Choose the number of principal components based on the fraction of total data variation retained.
+    
+    Parameters:
+    X (numpy.ndarray): The original data matrix of shape (m, n).
+    U (numpy.ndarray): The matrix of eigenvectors of shape (n, n).
+    variance_threshold (float): The fraction of total data variation to retain.
+    
+    Returns:
+    k (int): The number of principal components to retain.
+    """
+    total_variation = total_data_variation(X)
+    m, n = X.shape
+    
+    for k in range(1, n + 1):
+        U_reduce = U[:, :k]
+        X_approx = np.dot(np.dot(X, U_reduce), U_reduce.T)
+        retained_variation = np.mean(np.linalg.norm(X_approx, axis=1) ** 2)
+        if retained_variation / total_variation >= variance_threshold:
+            return k
+    
+    return n
+
+# Example usage
+if __name__ == "__main__":
+    # Create a sample dataset
+    X = np.array([[2.5, 2.4],
+                  [0.5, 0.7],
+                  [2.2, 2.9],
+                  [1.9, 2.2],
+                  [3.1, 3.0],
+                  [2.3, 2.7],
+                  [2, 1.6],
+                  [1, 1.1],
+                  [1.5, 1.6],
+                  [1.1, 0.9]])
+
+    # Compute the covariance matrix
+    Sigma = compute_covariance_matrix(X)
+
+    # Perform SVD
+    U, S, V = compute_svd(Sigma)
+
+    # Choose k using average squared projection error
+    threshold_error = 0.1
+    k_error = choose_k_average_squared_projection_error(X, U, threshold_error)
+    print(f"Number of components (average squared projection error): {k_error}")
+
+    # Choose k using fraction of variance retained
+    variance_retained = 0.99
+    k_variance = choose_k_fraction_variance_retained(S, variance_retained)
+    print(f"Number of components (fraction variance retained): {k_variance}")
+
+    # Choose k using total data variation
+    variance_threshold = 0.99
+    k_data_variation = choose_k_total_data_variation(X, U, variance_threshold)
+    print(f"Number of components (total data variation): {k_data_variation}")
+```
+
+The example usage demonstrates how to use these methods to choose the number of principal components \( k \) for a given dataset.
+
 ### Applications of PCA
 
 1. **Compression**: Reducing data size for storage or faster processing.
