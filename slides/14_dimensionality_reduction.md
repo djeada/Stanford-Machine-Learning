@@ -27,12 +27,21 @@ Principal Component Analysis (PCA) is a widely used technique in machine learnin
 
 ### PCA Problem Formulation
 
-1. **Goal**: To find a lower-dimensional representation that minimizes the projection error (distance between original and projected points).
-2. **Projection Error**: PCA aims to minimize the sum of the squares of these distances.
+1. **Goal**: The primary goal of Principal Component Analysis (PCA) is to identify a lower-dimensional representation of a dataset that retains as much variability (information) as possible. This is achieved by minimizing the projection error, which is the distance between the original data points and their projections onto the lower-dimensional subspace.
+
+2. **Projection Error**: In PCA, the projection error is defined as the sum of the squared distances between each data point and its projection onto the lower-dimensional subspace. PCA seeks to minimize this error, thereby ensuring that the chosen subspace captures the maximum variance in the data.
+
+3. **Mathematical Formulation**:
+   - Let \( X \) be an \( m \times n \) matrix representing the dataset, where \( m \) is the number of samples and \( n \) is the number of features.
+   - The goal is to find a set of orthogonal vectors (principal components) that form a basis for the lower-dimensional subspace.
+   - These principal components are the eigenvectors of the covariance matrix \( \Sigma = \frac{1}{m} X^T X \), corresponding to the largest eigenvalues.
+   - If \( k \) is the desired lower dimension (\( k < n \)), PCA seeks the top \( k \) eigenvectors of \( \Sigma \).
+
+4. **Variance Maximization**: An equivalent formulation of PCA is to maximize the variance of the projections of the data points onto the principal components. By maximizing the variance, PCA ensures that the selected components capture the most significant patterns in the data.
 
  ![Visualizing PCA Projection](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/pca.png)
 
-3. **PCA vs. Linear Regression**:
+### **PCA vs. Linear Regression**:
    
 - Linear Regression: Minimizes the vertical distances between data points and the fitted line (predictive model).
 - PCA: Minimizes the orthogonal distances to the line (data representation model), without distinguishing between dependent and independent variables.
