@@ -88,6 +88,90 @@ Where:
 
 SVD is particularly useful here because it provides a robust way to deconstruct the mixed signals into components that are easier to separate and analyze. The orthogonal matrices $U$ and $V$ represent the bases in the original and transformed spaces, respectively, while the singular values in $S$ represent the strength of each component in the data. By filtering or modifying these components, we can work towards isolating individual audio sources from the mix.
 
+This mock code illustrates the use of SVD for signal reconstruction and ICA for source separation, addressing the Cocktail Party Problem in audio processing:
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import FastICA
+
+# Function to perform Singular Value Decomposition
+def perform_svd(X):
+    U, S, V = np.linalg.svd(X, full_matrices=False)
+    return U, S, V
+
+# Function to plot individual signals
+def plot_individual_signals(signals, title):
+    plt.figure(figsize=(10, 4))
+    for i, signal in enumerate(signals):
+        plt.plot(signal, label=f'{title} {i+1}')
+    plt.title(title)
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
+# Function to plot a single signal
+def plot_single_signal(signal, title):
+    plt.figure(figsize=(10, 4))
+    plt.plot(signal)
+    plt.title(title)
+    plt.tight_layout()
+    plt.show()
+
+# Generate original signals for comparison
+def generate_original_signals():
+    np.random.seed(0)
+    time = np.linspace(0, 8, 4000)
+    s1 = np.sin(2 * time)  # Signal 1 : sinusoidal signal
+    s2 = np.sign(np.sin(3 * time))  # Signal 2 : square signal
+    return np.c_[s1, s2]
+
+# Generate mixed signals for demonstration purposes
+def simulate_mixed_signals():
+    S = generate_original_signals()
+    S += 0.2 * np.random.normal(size=S.shape)  # Add noise
+    S /= S.std(axis=0)  # Standardize data
+
+    # Mixing matrix
+    A = np.array([[1, 1], [0.5, 2]])
+    X = np.dot(S, A.T)  # Generate observations
+    return X, S  # Return both mixed signals and original sources
+
+# Generate mixed and original signals
+mixed_signals, original_sources = simulate_mixed_signals()
+
+# Perform SVD on the mixed signals
+U, S, V = perform_svd(mixed_signals)
+
+# Reconstruct the signals using the top singular values
+top_k = 2  # Number of top components to use for reconstruction
+reconstructed = np.dot(U[:, :top_k], np.dot(np.diag(S[:top_k]), V[:top_k, :]))
+
+# Apply Independent Component Analysis (ICA) to separate the sources
+ica = FastICA(n_components=2)
+sources = ica.fit_transform(reconstructed.T).T
+
+# Sum the mixed signals to represent the original combined signal
+summed_mixed_signals = mixed_signals.sum(axis=1)
+
+# Plot the summed mixed signals, reconstructed signals, and separated sources
+plot_single_signal(summed_mixed_signals, 'Summed Mixed Signals')
+plot_individual_signals(reconstructed.T, 'Reconstructed Signals')
+plot_individual_signals(sources, 'Separated Sources')
+```
+
+Original signal:
+
+![output](https://github.com/djeada/Stanford-Machine-Learning/assets/37275728/2aad3b3d-d26a-4f41-bd2e-790019c5725d)
+
+Reconstructed signals:
+
+![output (1)](https://github.com/djeada/Stanford-Machine-Learning/assets/37275728/a9ebcc4f-2fda-4ef1-b0b9-a2460164fe13)
+
+Separated sources:
+
+![output (2)](https://github.com/djeada/Stanford-Machine-Learning/assets/37275728/c236f845-270c-4f78-aeb4-5f6a080ac71e)
+
 ## Reference
 
 These notes are based on the free video lectures offered by Stanford University, led by Professor Andrew Ng. These lectures are part of the renowned Machine Learning course available on Coursera. For more information and to access the full course, visit the [Coursera course page](https://www.coursera.org/learn/machine-learning).
