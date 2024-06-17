@@ -613,6 +613,7 @@ weighted avg       0.81      0.50      0.47        10
 | Your delivery is on its way             | 0          | 1               |
 | Invitation to connect on LinkedIn       | 0          | 1               |
 
+
 Conclusions:
 
 I. **Model Performance**: Both Logistic Regression and Naive Bayes models have similar performance on this dataset. They correctly identify most spam emails but struggle with non-spam emails.
