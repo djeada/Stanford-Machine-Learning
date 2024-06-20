@@ -301,7 +301,7 @@ if __name__ == "__main__":
     print("Gradient:", gradient)
 ```
 
-In the example usage, we define a small sample dataset with features \( X \) and labels \( y \), initialize the theta vector, and compute both the cost and the gradient. The computed cost and gradient are printed out for inspection.
+In the example usage, we define a small sample dataset with features $X$ and labels $y$, initialize the theta vector, and compute both the cost and the gradient. The computed cost and gradient are printed out for inspection.
 
 ### Multiclass Classification Problems
 
@@ -399,7 +399,7 @@ if __name__ == "__main__":
     print("Actual labels:", y)
 ```
 
-1. We define a small sample dataset with features \( X \) and labels \( y \).
+1. We define a small sample dataset with features $X$ and labels $y$.
 2. The `one_vs_all` function trains the classifiers.
 3. The `predict_one_vs_all` function makes predictions on the dataset.
    
