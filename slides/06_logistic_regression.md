@@ -80,6 +80,43 @@ Hence, the decision boundary is a straight line: $x_2 = -x_1 + 3$.
 
 ![linear_decision_boundary](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/linear_decision_boundary.png)
 
+Here's the Python implementation:
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Sigmoid function
+def sigmoid(z):
+    return 1 / (1 + np.exp(-z))
+
+# Hypothesis function
+def hypothesis(theta, X):
+    return sigmoid(np.dot(X, theta))
+
+# Predict function
+def predict(theta, X):
+    return hypothesis(theta, X) >= 0.5
+
+# Define the theta vector
+theta = np.array([-3, 1, 1])
+
+# Define the range for x1 and compute the corresponding x2 for the decision boundary
+x1_vals = np.linspace(0, 5, 100)
+x2_vals = -x1_vals + 3
+
+# Plotting the decision boundary
+plt.plot(x1_vals, x2_vals, label=r'$x_2 = -x_1 + 3$')
+plt.xlim(0, 5)
+plt.ylim(0, 5)
+plt.xlabel(r'$x_1$')
+plt.ylabel(r'$x_2$')
+plt.title('Linear Decision Boundary')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
 #### Non-linear Decision Boundaries
 - **Purpose**: To fit more complex, non-linear datasets.
 - **Approach**: Introduce polynomial terms in the hypothesis.
@@ -111,6 +148,49 @@ $$
 This forms a circular decision boundary with radius 1 around the origin: $x_1^2 + x_2^2 = 1$.
 
 ![non_linear_decision_boundary](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/non_linear_decision_boundary.png)
+
+Here's the Python implementation:
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Sigmoid function
+def sigmoid(z):
+    return 1 / (1 + np.exp(-z))
+
+# Hypothesis function for non-linear decision boundary
+def hypothesis(theta, X):
+    # Compute the polynomial terms
+    poly_terms = np.dot(X, theta)
+    return sigmoid(poly_terms)
+
+# Predict function
+def predict(theta, X):
+    return hypothesis(theta, X) >= 0.5
+
+# Define the theta vector
+theta = np.array([-1, 0, 1, 1])
+
+# Generate a grid of values for x1 and x2
+x1_vals = np.linspace(-2, 2, 400)
+x2_vals = np.linspace(-2, 2, 400)
+x1, x2 = np.meshgrid(x1_vals, x2_vals)
+
+# Compute the decision boundary condition
+decision_boundary = theta[0] + theta[1] * x1 + theta[2] * x1**2 + theta[3] * x2**2
+
+# Plot the decision boundary
+plt.contour(x1, x2, decision_boundary, levels=[0], linewidths=2, colors='red')
+plt.xlim(-2, 2)
+plt.ylim(-2, 2)
+plt.xlabel(r'$x_1$')
+plt.ylabel(r'$x_2$')
+plt.title('Non-linear Decision Boundary')
+plt.grid(True)
+plt.gca().set_aspect('equal', adjustable='box')
+plt.show()
+```
 
 ### Cost Function for Logistic Regression
 
@@ -174,6 +254,55 @@ $$
 
 Note: While this gradient looks identical to that of linear regression, the formulae differ due to the different definitions of $h_{\theta}(x)$ in linear and logistic regression.
 
+Here's the Python implementation:
+
+```python
+import numpy as np
+
+# Sigmoid function
+def sigmoid(z):
+    return 1 / (1 + np.exp(-z))
+
+# Hypothesis function
+def hypothesis(theta, X):
+    return sigmoid(np.dot(X, theta))
+
+# Cost function for logistic regression
+def compute_cost(theta, X, y):
+    m = len(y)
+    h = hypothesis(theta, X)
+    cost = (-1 / m) * np.sum(y * np.log(h) + (1 - y) * np.log(1 - h))
+    return cost
+
+# Gradient of the cost function
+def compute_gradient(theta, X, y):
+    m = len(y)
+    h = hypothesis(theta, X)
+    gradient = (1 / m) * np.dot(X.T, (h - y))
+    return gradient
+
+# Example usage
+if __name__ == "__main__":
+    # Sample data (X should include the intercept term)
+    X = np.array([[1, 0.5, 1.5],
+                  [1, 1.5, 0.5],
+                  [1, 3, 3.5],
+                  [1, 2, 2.5]])
+    y = np.array([0, 0, 1, 1])
+    
+    # Initial theta
+    theta = np.array([0, 0, 0])
+    
+    # Compute cost and gradient
+    cost = compute_cost(theta, X, y)
+    gradient = compute_gradient(theta, X, y)
+    
+    print("Cost:", cost)
+    print("Gradient:", gradient)
+```
+
+In the example usage, we define a small sample dataset with features \( X \) and labels \( y \), initialize the theta vector, and compute both the cost and the gradient. The computed cost and gradient are printed out for inspection.
+
 ### Multiclass Classification Problems
 
 Logistic regression can be extended to handle multiclass classification problems through the "one-vs-all" (or "one-vs-rest") method.
@@ -195,6 +324,85 @@ The process involves splitting the training set into separate binary classificat
 
 ![one_vs_all](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/one_vs_all.png)
 
+To implement the One-vs-All (OvA) approach for multi-class classification, we need to train separate binary classifiers for each class, treating each class as the positive class and all others as the negative class. Here is the step-by-step implementation:
+
+```python
+import numpy as np
+from scipy.optimize import minimize
+
+# Sigmoid function
+def sigmoid(z):
+    return 1 / (1 + np.exp(-z))
+
+# Hypothesis function
+def hypothesis(theta, X):
+    return sigmoid(np.dot(X, theta))
+
+# Cost function for logistic regression
+def compute_cost(theta, X, y):
+    m = len(y)
+    h = hypothesis(theta, X)
+    cost = (-1 / m) * np.sum(y * np.log(h) + (1 - y) * np.log(1 - h))
+    return cost
+
+# Gradient of the cost function
+def compute_gradient(theta, X, y):
+    m = len(y)
+    h = hypothesis(theta, X)
+    gradient = (1 / m) * np.dot(X.T, (h - y))
+    return gradient
+
+# One-vs-All training function
+def one_vs_all(X, y, num_labels, lambda_=0.1):
+    m, n = X.shape
+    all_theta = np.zeros((num_labels, n + 1))
+    
+    # Add intercept term to X
+    X = np.hstack((np.ones((m, 1)), X))
+    
+    # Train each classifier
+    for c in range(num_labels):
+        initial_theta = np.zeros(n + 1)
+        options = {'maxiter': 50}
+        result = minimize(compute_cost, initial_theta, args=(X, (y == c).astype(int)), method='TNC', jac=compute_gradient, options=options)
+        all_theta[c] = result.x
+    
+    return all_theta
+
+# Prediction function for One-vs-All
+def predict_one_vs_all(all_theta, X):
+    m = X.shape[0]
+    X = np.hstack((np.ones((m, 1)), X))
+    predictions = hypothesis(all_theta.T, X)
+    return np.argmax(predictions, axis=1)
+
+# Example usage
+if __name__ == "__main__":
+    # Sample data (X should include the intercept term)
+    X = np.array([[0.5, 1.5],
+                  [1.5, 0.5],
+                  [3, 3.5],
+                  [2, 2.5],
+                  [1, 1],
+                  [3.5, 4],
+                  [2.5, 3],
+                  [1, 0.5]])
+    y = np.array([0, 0, 1, 1, 2, 2, 1, 0])  # 0: Triangle, 1: Cross, 2: Square
+    
+    # Train One-vs-All classifiers
+    num_labels = 3
+    all_theta = one_vs_all(X, y, num_labels)
+    
+    # Make predictions
+    predictions = predict_one_vs_all(all_theta, X)
+    print("Predictions:", predictions)
+    print("Actual labels:", y)
+```
+
+1. We define a small sample dataset with features \( X \) and labels \( y \).
+2. The `one_vs_all` function trains the classifiers.
+3. The `predict_one_vs_all` function makes predictions on the dataset.
+   
 #### Classification Decision
 
 - When classifying a new example, compute the probability that it belongs to each class using the respective classifiers.
