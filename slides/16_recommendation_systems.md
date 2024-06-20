@@ -63,15 +63,15 @@ Imagine a company that sells movies and allows users to rate them. Consider the 
 
 Notations:
 
-- \( n_u \): Number of users.
-- \( n_m \): Number of movies.
-- \( r(i, j) \): Indicator (1 or 0) if user \( j \) has rated movie \( i \).
-- \( y^{(i, j)} \): Rating given by user \( j \) to movie \( i \).
+- $n_u$: Number of users.
+- $n_m$: Number of movies.
+- $r(i, j)$: Indicator (1 or 0) if user $j$ has rated movie $i$.
+- $y^{(i, j)}$: Rating given by user $j$ to movie $i$.
 
 ### Feature Vectors and Parameter Vectors
 
 - **Movie Features**: Each movie can have a feature vector representing various attributes or genres.
-- **Additional Feature (\( x_0 = 1 \))**: For computational convenience, an additional feature is added to each movie's feature vector.
+- **Additional Feature ($x_0 = 1$)**: For computational convenience, an additional feature is added to each movie's feature vector.
 
 Example for "Cute Puppies of Love":
   
@@ -387,7 +387,7 @@ To implement the low-rank matrix factorization for collaborative filtering, we n
 
 #### Step 1: Define the Matrix Y
 
-Organize all user ratings into a matrix \( Y \), which represents the interactions between users and movies.
+Organize all user ratings into a matrix $Y$, which represents the interactions between users and movies.
 
 ```python
 import numpy as np
@@ -407,7 +407,7 @@ print(Y)
 
 #### Step 2: Initialize Matrices X and Θ
 
-Matrix \( X \) contains the features for each movie, and matrix \( \Theta \) contains the user preferences.
+Matrix $X$ contains the features for each movie, and matrix $\Theta$ contains the user preferences.
 
 ```python
 # Number of movies (n_m) and users (n_u)
@@ -429,7 +429,7 @@ print(Theta)
 
 #### Step 3: Compute the Predicted Ratings Matrix
 
-The predicted ratings matrix can be expressed as the product of matrices \( X \) and \( \Theta^T \).
+The predicted ratings matrix can be expressed as the product of matrices $X$ and $\Theta^T$.
 
 ```python
 # Compute the predicted ratings
@@ -439,7 +439,7 @@ print("\nPredicted Ratings Matrix XΘ^T:")
 print(predicted_ratings)
 ```
 
-This Python code demonstrates the setup of matrices \( Y \), \( X \), and \( \Theta \), and the calculation of the predicted ratings matrix using matrix multiplication. The matrix \( X \) contains the features for each movie, and \( \Theta \) contains the user preferences. The predicted ratings matrix is obtained by multiplying \( X \) with the transpose of \( \Theta \).
+This Python code demonstrates the setup of matrices $Y$, $X$, and $\Theta$, and the calculation of the predicted ratings matrix using matrix multiplication. The matrix $X$ contains the features for each movie, and $\Theta$ contains the user preferences. The predicted ratings matrix is obtained by multiplying $X$ with the transpose of $\Theta$.
 
 ### Scenario: A User with No Ratings
 
@@ -486,13 +486,13 @@ $$
 
 Imagine a user in a movie recommendation system who hasn't rated any movies. This scenario presents a challenge for typical collaborative filtering algorithms.
 
-For such a user, there are no movies for which \( r(i, j) = 1 \). As a result, the algorithm ends up minimizing only the regularization term for this user, which doesn't provide meaningful insight for recommendations.
+For such a user, there are no movies for which $r(i, j) = 1$. As a result, the algorithm ends up minimizing only the regularization term for this user, which doesn't provide meaningful insight for recommendations.
 
 ### Mean Normalization Approach
 
-1. **Compute the Mean Rating**: Calculate the average rating for each movie and store these in a vector \( \mu \).
+1. **Compute the Mean Rating**: Calculate the average rating for each movie and store these in a vector $\mu$.
 
-Example \( \mu \) vector for a system with 5 movies:
+Example $\mu$ vector for a system with 5 movies:
 
 $$
 \mu = \begin{bmatrix}
@@ -504,9 +504,9 @@ $$
 \end{bmatrix}
 $$
 
-2. **Normalize the Ratings Matrix**: Subtract the mean rating for each movie from all its ratings in the matrix \( Y \).
+2. **Normalize the Ratings Matrix**: Subtract the mean rating for each movie from all its ratings in the matrix $Y$.
 
-Normalized Ratings Matrix \( Y \):
+Normalized Ratings Matrix $Y$:
 
 $$
 Y = \begin{pmatrix}
