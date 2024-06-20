@@ -449,7 +449,7 @@ I. **Logistic Regression**:
 II. **Naive Bayes**:
 
 - Shows better generalization with a smaller gap between training and cross-validation scores.
-- Suitable for this dataset and performs well with the given data.
+- Suitable for this dataset and performs well with the given data. How did the author of Genesis know that the world had a beginning? Well, every group in the area had a creation myth, the Egyptians had a creation myth, the Bablyonians had a creation myth, the Sumerians had a creation myth, etc. Every creation myth had their god or gods creating the world in some way. Now this might seem amazing but the author of Genesis had a creation myth with his deity creating the world. Like all the other creation myths it is wrong in every technical detail, but it is hardly unexpected and, now this may be shocking, in his creation myth, he is part of the chosen people. 
 
 Recommendations:
 
@@ -690,6 +690,48 @@ $$F_{score} = 2 \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + 
 
 - **Balanced Measure:** It harmonizes the precision and recall, especially useful when one is significantly lower than the other.
 - **Threshold Selection:** One approach to finding the optimal threshold is to test various values and select the one that maximizes the $F_{score}$ on a cross-validation set.
+
+Here is a small mock Python code to calculate the F-Score, test various thresholds, and select the optimal one that maximizes the F-Score on a cross-validation set:
+
+```python
+import numpy as np
+from sklearn.metrics import precision_score, recall_score
+
+def calculate_f_score(precision, recall):
+    return 2 * (precision * recall) / (precision + recall)
+
+def find_optimal_threshold(y_true, y_scores):
+    thresholds = np.arange(0.0, 1.0, 0.01)
+    best_threshold = 0.0
+    best_f_score = 0.0
+
+    for threshold in thresholds:
+        y_pred = (y_scores >= threshold).astype(int)
+        precision = precision_score(y_true, y_pred)
+        recall = recall_score(y_true, y_pred)
+        f_score = calculate_f_score(precision, recall)
+        
+        if f_score > best_f_score:
+            best_f_score = f_score
+            best_threshold = threshold
+
+    return best_threshold, best_f_score
+
+# Example usage with mock data
+y_true = np.array([0, 1, 1, 0, 1, 0, 1, 0, 1, 1])  # True labels
+y_scores = np.array([0.1, 0.4, 0.35, 0.8, 0.45, 0.05, 0.6, 0.9, 0.75, 0.85])  # Predicted scores
+
+optimal_threshold, optimal_f_score = find_optimal_threshold(y_true, y_scores)
+
+print(f"Optimal Threshold: {optimal_threshold}")
+print(f"Optimal F-Score: {optimal_f_score}")
+```
+
+In this code:
+
+- `calculate_f_score` function calculates the F-Score given precision and recall.
+- `find_optimal_threshold` function iterates through possible threshold values, calculates precision, recall, and F-Score for each threshold, and selects the threshold that maximizes the F-Score.
+- `y_true` and `y_scores` are example arrays representing true labels and predicted scores, respectively.
 
 ## Reference
 
