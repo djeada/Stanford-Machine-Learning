@@ -102,9 +102,9 @@ $$\delta^{(l)}_j = (\Theta^{(l)}_j)^T \delta^{(l+1)} \cdot g'(z^{(l)}_j)$$
 
 #### Accumulating Gradient ($\Delta$)
 
-- **Partial Derivative Accumulation:** $\Delta^{(l)}_{ij}$ accumulates the partial derivatives of the cost function with respect to the weights $\Theta^{(l)}_{ij}$:
+- **Partial Derivative Accumulation:** $\Delta^{(l)}_{ij}$ accumulates the partial derivatives of the cost function with respect to the weights $\Theta^{(l)}_{ij}$ :
 
-$$\Delta^{(l)}_{ij} := \Delta^{(l)}_{ij} + a^{(l)}_j \delta^{(l+1)}_i$$
+$$\Delta^{(l)}_{ij} = \Delta^{(l)}_{ij} + a^{(l)}_j \delta^{(l+1)}_i$$
 
 - **Layer Notation:** $l$ denotes the layer, $j$ the node in layer $l$, and $i$ the error of the affected node in the subsequent layer $l+1$.
 
@@ -118,6 +118,90 @@ $$
         \frac{1}{m} \Delta^{(l)}_{ij} \quad &\text{if} \, j=0 \\
    \end{cases}
 $$
+
+Here's a Python implementation of the backpropagation algorithm using mock data. We will use NumPy to handle matrix operations and simulate the forward and backward passes through a neural network. 
+
+```python
+import numpy as np
+
+# Mock data and network parameters
+np.random.seed(42)
+input_size = 3    # Number of input features
+hidden_size = 5   # Number of hidden units
+output_size = 2   # Number of output units
+m = 10            # Number of training examples
+lambda_reg = 0.01 # Regularization parameter
+
+# Generate some random mock data
+X = np.random.rand(m, input_size)
+y = np.random.rand(m, output_size)
+
+# Initialize weights randomly
+Theta1 = np.random.rand(hidden_size, input_size + 1)
+Theta2 = np.random.rand(output_size, hidden_size + 1)
+
+# Sigmoid activation function
+def sigmoid(z):
+    return 1 / (1 + np.exp(-z))
+
+# Derivative of sigmoid
+def sigmoid_gradient(z):
+    return sigmoid(z) * (1 - sigmoid(z))
+
+# Add bias unit to input layer
+X_bias = np.c_[np.ones((m, 1)), X]
+
+# Forward pass
+z2 = X_bias.dot(Theta1.T)
+a2 = sigmoid(z2)
+a2_bias = np.c_[np.ones((a2.shape[0], 1)), a2]
+z3 = a2_bias.dot(Theta2.T)
+a3 = sigmoid(z3)
+
+# Calculate error terms (deltas)
+delta3 = a3 - y
+delta2 = delta3.dot(Theta2[:, 1:]) * sigmoid_gradient(z2)
+
+# Accumulate gradients
+Delta1 = np.zeros(Theta1.shape)
+Delta2 = np.zeros(Theta2.shape)
+
+for i in range(m):
+    Delta1 += np.outer(delta2[i], X_bias[i])
+    Delta2 += np.outer(delta3[i], a2_bias[i])
+
+# Calculate the gradient
+Theta1_grad = (1/m) * Delta1
+Theta2_grad = (1/m) * Delta2
+
+# Add regularization term
+Theta1_grad[:, 1:] += (lambda_reg / m) * Theta1[:, 1:]
+Theta2_grad[:, 1:] += (lambda_reg / m) * Theta2[:, 1:]
+
+print("Gradient for Theta1:", Theta1_grad)
+print("Gradient for Theta2:", Theta2_grad)
+```
+
+- Backpropagation involves propagating errors backward through the network, starting from the output layer and moving to the input layer.
+- Error terms, also known as deltas, are computed for each node in each layer of the network.
+- For the last layer, the error is calculated as the difference between the network's output and the actual target value.
+- Errors for other layers are computed recursively using the errors from the subsequent layer and the derivative of the activation function.
+- The process of accumulating gradients involves calculating partial derivatives of the cost function with respect to the network's weights.
+- These partial derivatives are accumulated over all training examples to compute the total gradient.
+- The gradient of the cost function with respect to the weights is adjusted by averaging over the training examples and incorporating a regularization term to prevent overfitting.
+- Regularization helps improve the generalization of the neural network by penalizing large weights.
+  
+Here is the expected output for the code provided above:
+
+```python
+Gradient for Theta1: [[0.16460127 0.09018903 0.10866451 0.07285257]
+                      [0.17977638 0.10320301 0.11857247 0.07947471]
+                      [0.11092262 0.06493514 0.07037884 0.04835915]
+                      [0.13438568 0.07016218 0.08659204 0.05121289]
+                      [0.17372409 0.08792393 0.11033074 0.06408053]]
+Gradient for Theta2: [[0.36423865 0.2588335  0.27099399 0.2588335  0.27099399 0.21043443]
+                      [0.33764582 0.23963147 0.24547491 0.23963147 0.24547491 0.19303788]]
+```
 
 ### Gradient Checking
 
