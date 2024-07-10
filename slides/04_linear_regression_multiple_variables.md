@@ -270,6 +270,85 @@ $$ \theta = (X^TX)^{-1}X^Ty $$
 
 The computed $\theta$ values minimize the cost function for the given training data.
 
+Here is the Python code that uses the provided data to solve for \( \theta \) using the normal equation, and then plots the solution:
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Given data
+# Features (x0, x1, x2, x3, x4)
+X = np.array([
+    [1, 2104, 5, 1, 45],
+    [1, 1416, 3, 2, 40],
+    [1, 1534, 3, 2, 30],
+    [1, 852, 2, 1, 36]
+])
+
+# Target values
+y = np.array([460, 232, 315, 178])
+
+# Normal equation: theta = (X^T * X)^-1 * X^T * y
+def normal_equation(X, y):
+    X_transpose = X.T
+    theta = np.linalg.inv(X_transpose.dot(X)).dot(X_transpose).dot(y)
+    return theta
+
+# Calculate theta using the normal equation for multivariable regression
+theta = normal_equation(X, y)
+print("Calculated theta values for multivariable regression:", theta)
+
+# Using the first feature (size) for plotting the regression line
+sizes = X[:, 1]
+predicted_prices = X.dot(theta)
+
+# Plotting the regression line for multivariable regression
+plt.scatter(sizes, y, color='red', label='Actual Prices')
+plt.plot(sizes, predicted_prices, color='blue', label='Predicted Prices', linestyle='--')
+plt.xlabel('Size (square feet)')
+plt.ylabel('Price ($1000)')
+plt.title('House Prices vs. Size (Multivariable Regression)')
+plt.legend()
+plt.show()
+
+# Simple Linear Regression with size as the only feature
+X_simple = X[:, [0, 1]]  # Only intercept term and size feature
+theta_simple = normal_equation(X_simple, y)
+
+# Predicting using the model with only size
+predicted_prices_simple = X_simple.dot(theta_simple)
+
+# Sorting the data by size for a proper line plot
+sorted_indices = X[:, 1].argsort()
+sizes_sorted = sizes[sorted_indices]
+y_sorted = y[sorted_indices]
+predicted_prices_sorted = predicted_prices_simple[sorted_indices]
+
+# Plotting the regression line with size as the only feature
+plt.scatter(sizes, y, color='red', label='Actual Prices')
+plt.plot(sizes_sorted, predicted_prices_sorted, color='blue', label='Predicted Prices', linestyle='--')
+plt.xlabel('Size (square feet)')
+plt.ylabel('Price ($1000)')
+plt.title('House Prices vs. Size (Simple Linear Regression)')
+plt.legend()
+plt.show()
+
+print("Calculated theta values for simple linear regression:", theta_simple)
+```
+
+- To implement the normal equation, the transpose of the design matrix \( X \) is first computed. This step involves swapping the rows and columns of \( X \).
+- Next, the product of the transpose of \( X \) and \( X \) is calculated, resulting in a square matrix.
+- The inverse of this square matrix is then found. This step can be computationally expensive for large matrices but is feasible for smaller datasets.
+- The result of the inversion is then multiplied by the transpose of \( X \) and the target vector \( y \) to obtain the parameter vector \( \theta \).
+- Using the calculated \( \theta \) values, predictions can be made by multiplying the design matrix \( X \) by \( \theta \).
+- To validate the model, the predicted values are compared with the actual target values. Plotting these values can help visualize the model's performance.
+- In the given example, the design matrix \( X \) includes an intercept term and features such as size, number of bedrooms, number of floors, and age of the house. The target vector \( y \) represents house prices.
+- The normal equation provides a straightforward solution for linear regression problems, especially when the number of features is relatively small. It eliminates the need for tuning hyperparameters like the learning rate and avoids the iterative nature of gradient descent.
+- However, for datasets with a large number of features, the normal equation can become computationally impractical due to the matrix inversion step.
+
+![output(5)](https://github.com/djeada/Stanford-Machine-Learning/assets/37275728/fad034dc-1e3f-4865-af0c-a7ec12be9e3b)
+
+
 ### Gradient Descent vs Normal Equation
 
 Comparing these two methods helps understand their practical applications:
