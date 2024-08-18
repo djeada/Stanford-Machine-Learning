@@ -64,7 +64,7 @@ $$
 p(x) = \prod_{j=1}^n \frac{1}{\sqrt{2\pi\sigma_j^2}} \exp\left(-\frac{(x_j - \mu_j)^2}{2\sigma_j^2}\right)
 $$
 
-Here is the Python implementation of the Gaussian distribution, data fitting, and evaluation of anomaly detection systems based on the algorithm steps.
+Below is the Python implementation of the Gaussian distribution, data fitting, and evaluation of anomaly detection systems based on the algorithm steps.
 
 ```python
 import numpy as np
@@ -152,7 +152,7 @@ IV. **Evaluation Metrics**:
 - Recall (the proportion of true positives identified out of all actual positives).
 - F1-score (a harmonic mean of precision and recall, providing a balance between them).
 
-Here’s the complete Python code for the implementation:
+Below is the complete Python code for the implementation:
 
 ```python
 import numpy as np
