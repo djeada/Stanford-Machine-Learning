@@ -6,10 +6,9 @@
 </div>
 
 # Stanford-Machine-Learning
+Welcome to my collection of notes for the Stanford Machine Learning course, led by Professor Andrew Ng. These notes are a compilation of insights, key takeaways, and important concepts I gathered while studying the course material.
 
-Welcome to the Stanford Machine Learning course repository! This course, expertly led by Professor Andrew Ng, is your comprehensive guide to mastering machine learning. Through engaging lectures, hands-on exercises, and insightful projects, you'll acquire the essential skills and knowledge to apply machine learning techniques effectively to real-world challenges.
-
-In this repository, you'll find a collection of resources that complement the course material. For a more immersive experience, including access to lecture slides and video lectures, make sure to visit the [Coursera course page](https://www.coursera.org/learn/machine-learning). Dive in and start your journey towards becoming proficient in machine learning!
+While this repository is not the official course repository, it serves as a supplement to the course for those looking to review or reinforce their understanding. For full access to the course's lectures, slides, and more, be sure to visit the [Coursera course page](https://www.coursera.org/learn/machine-learning). Feel free to explore these notes as you embark on your own machine learning journey!
 
 ![Capture](https://user-images.githubusercontent.com/37275728/186025613-538378ce-2cc9-4db7-9829-d513dc34a344.PNG)
 
