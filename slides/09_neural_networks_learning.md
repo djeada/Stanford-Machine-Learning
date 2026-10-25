@@ -1,14 +1,14 @@
-## Neural Networks: Learning and Classification
+# Neural Networks: Learning and Classification
 
-Neural networks, a core algorithm in machine learning, draw inspiration from the human brain's structure and function. They consist of layers containing interconnected nodes (neurons), each designed to perform specific computational tasks. Neural networks can tackle various classification problems, such as binary and multi-class classifications. The efficacy of these networks is enhanced through the adjustment of their parameters, guided by a cost function that quantifies the deviation between predictions and actual values.
+Learning minimizes an explicit loss over network parameters. Forward propagation calculates predictions; backpropagation applies the chain rule to calculate derivatives of that loss. An optimizer then uses those derivatives to update weights and biases. Keeping these operations separate makes their shapes, objective conventions, and implementation checks easier to follow.
 
-### Classification Problems in Neural Networks
+## Classification Problems in Neural Networks
 
 - **Training Set Representation:** Typically represented as $\{(x^1, y^1), (x^2, y^2), ..., (x^n, y^n)\}$, where $x^i$ is the $i^{th}$ input and $y^i$ is the corresponding target output.
 - $L$: Total number of layers in the network.
 - $s_l$: Number of units (excluding the bias unit) in layer $l$.
 
-#### Example Network Architecture
+### Example Network Architecture
 
 ![Example of Multi-Layer Neural Network](https://user-images.githubusercontent.com/37275728/201518449-ec13fac4-0716-4131-8e5e-f0405ce075a5.png)
 
@@ -19,14 +19,14 @@ In the illustrated network:
 - The second and third layers ($s_2$, $s_3$) each have 5 units.
 - The fourth layer ($s_4$) has 4 units.
 
-### Binary Classification
+## Binary Classification
 
 In binary classification, the neural network predicts a single output which can take one of two possible values (often represented as 0 or 1). Characteristics of binary classification in neural networks include:
 
 - **Single Output Node:** The final layer produces a real number value, interpreted as a probability or classification decision.
 - **Output Representation:** $k = 1$ (one output class) and $s_L = 1$ (one unit in the output layer).
 
-### Multi-class Classification
+## Multi-class Classification
 
 Multi-class classification extends the network's capability to differentiate between multiple classes. Here, the target output $y$ is a vector representing the probability of each class. Characteristics include:
 
@@ -34,7 +34,7 @@ Multi-class classification extends the network's capability to differentiate bet
 - **Output Vector:** The output $y$ is a $k$-dimensional vector of real numbers, where each element corresponds to a class.
 - **Layer Configuration:** The output layer has $s_L = k$ units, each corresponding to one of the $k$ classes.
 
-### Learning Process
+## Learning Process
 
 The learning process in neural networks involves:
 
@@ -42,7 +42,7 @@ The learning process in neural networks involves:
 2. **Gradient Computation:** Employing the chain rule to calculate the partial derivatives of the cost function with respect to each network parameter.
 3. **Backpropagation Algorithm:** Used for efficiently computing these partial derivatives. The algorithm propagates the error signal backwards through the network, adjusting the parameters (weights and biases) to minimize the cost function.
 
-### Neural Network Cost Function
+## Neural Network Cost Function
 
 The cost function for neural networks is an extension of the logistic regression cost function, adapted for multiple outputs. This function evaluates the performance of a neural network by measuring the difference between the predicted outputs and the actual values across all output units.
 
@@ -61,18 +61,18 @@ $$J(\Theta) = -\frac{1}{m} \sum_{i=1}^{m} \sum_{k=1}^{K}[ y_k^{(i)} \log{(h_{\Th
 
 This function incorporates a sum over the $K$ output units for each training example, and also includes a regularization term to penalize large weights and prevent overfitting.
 
-### Partial Derivative Terms
+## Partial Derivative Terms
 
 In order to optimize the cost function, we need to understand how changes in the weights $\Theta$ affect the cost. This is where the partial derivative terms come into play.
 
 - **$\Theta^{(1)}_{ji}$:** Represents the weight from the $i^{th}$ unit in layer 1 to the $j^{th}$ unit in layer 2.
 - **$\Theta^{(1)}_{10}$ , $\Theta^{(1)}_{11}$ , $\Theta^{(1)}_{21}$:** Specific weights that map from the input layer to the first and second units in the second layer, including the bias unit.
 
-### Gradient Computation
+## Gradient Computation
 
 Gradient computation in neural networks is achieved through a process known as backpropagation, which calculates the gradient of the cost function with respect to each weight in the network.
 
-#### Forward Propagation Example
+### Forward Propagation Example
 
 Consider a neural network with one training example $(x,y)$:
 
@@ -85,22 +85,22 @@ Consider a neural network with one training example $(x,y)$:
 
 Each layer's output ($a^{(l)}$) becomes the input for the next layer, with the activation function $g$ (typically a sigmoid or ReLU function) applied to the weighted sums. The final output $a^{(4)}$ is the hypothesis of the network for the given input $x$. The backpropagation algorithm then computes the gradient by propagating the error backwards from the output layer to the input layer, adjusting the weights $\Theta$ to minimize the cost function $J(\Theta)$.
 
-### Backpropagation Algorithm
+## Backpropagation Algorithm
 
 Backpropagation is a key algorithm in training neural networks, used for calculating the gradient of the cost function with respect to each parameter in the network. It involves propagating errors backward through the network, from the output layer to the input layer.
 
-#### Calculating Error Terms (Deltas)
+### Calculating Error Terms (Deltas)
 
-- **$\delta_j$ Vector:** Represents the error for each node $j$ in layer $l$. It is an $L \times 1$ vector, where $L$ is the total number of layers.
+- **$\delta^{(l)}$:** The derivative of loss with respect to preactivations in layer l. It has one entry per non-bias unit in that layer, so its size is $s_l$, rather than the number of layers.
 - **Last Layer Error ($\delta^{(L)}$):** For the last layer, the error is calculated as the difference between the network's output ($a^{(L)}$) and the actual value ($y$):
 
 $$\delta^{(L)}_j = a^{(L)}_j - y_j$$
 
 - **Error for Other Layers:** The error terms for the other layers are computed recursively using the errors from the subsequent layer:
 
-$$\delta^{(l)}_j = (\Theta^{(l)}_j)^T \delta^{(l+1)} \cdot g'(z^{(l)}_j)$$
+$$\delta^{(l)}_j = \left(\sum_{k=1}^{s_{l+1}}\Theta^{(l)}_{kj}\delta^{(l+1)}_k\right)g'(z^{(l)}_j)$$
 
-#### Accumulating Gradient ($\Delta$)
+### Accumulating Gradient ($\Delta$)
 
 - **Partial Derivative Accumulation:** $\Delta^{(l)}_{ij}$ accumulates the partial derivatives of the cost function with respect to the weights $\Theta^{(l)}_{ij}$ :
 
@@ -108,18 +108,18 @@ $$\Delta^{(l)}_{ij} = \Delta^{(l)}_{ij} + a^{(l)}_j \delta^{(l+1)}_i$$
 
 - **Layer Notation:** $l$ denotes the layer, $j$ the node in layer $l$, and $i$ the error of the affected node in the subsequent layer $l+1$.
 
-#### Calculating the Gradient
+### Calculating the Gradient
 
 The gradient of the cost function $J(\Theta)$ with respect to the weights is given by:
 
 $$
 \frac{\partial}{\partial \Theta^{(l)}_{ij}}J(\Theta) = \begin{cases}
-        \frac{1}{m} \Delta^{(l)}_{ij} + \lambda \Theta ^{(l)}_{ij} \quad &\text{if} \, j \neq 0 \\
+        \frac{1}{m} \Delta^{(l)}_{ij} + \frac{\lambda}{m} \Theta ^{(l)}_{ij} \quad &\text{if} \, j \neq 0 \\
         \frac{1}{m} \Delta^{(l)}_{ij} \quad &\text{if} \, j=0 \\
    \end{cases}
 $$
 
-Here's a Python implementation of the backpropagation algorithm using mock data. We will use NumPy to handle matrix operations and simulate the forward and backward passes through a neural network. 
+Here's a Python implementation of the backpropagation algorithm using mock data. We will use NumPy to handle matrix operations and simulate the forward and backward passes through a neural network.
 
 ```python
 import numpy as np
@@ -190,32 +190,106 @@ print("Gradient for Theta2:", Theta2_grad)
 - These partial derivatives are accumulated over all training examples to compute the total gradient.
 - The gradient of the cost function with respect to the weights is adjusted by averaging over the training examples and incorporating a regularization term to prevent overfitting.
 - Regularization helps improve the generalization of the neural network by penalizing large weights.
-  
-Here is the expected output for the code provided above:
 
-```python
-Gradient for Theta1: [[0.16460127 0.09018903 0.10866451 0.07285257]
-                      [0.17977638 0.10320301 0.11857247 0.07947471]
-                      [0.11092262 0.06493514 0.07037884 0.04835915]
-                      [0.13438568 0.07016218 0.08659204 0.05121289]
-                      [0.17372409 0.08792393 0.11033074 0.06408053]]
-Gradient for Theta2: [[0.36423865 0.2588335  0.27099399 0.2588335  0.27099399 0.21043443]
-                      [0.33764582 0.23963147 0.24547491 0.23963147 0.24547491 0.19303788]]
+The seeded gradient example prints both gradient matrices. Its soft targets exercise independent sigmoid-output derivatives; mutually exclusive class labels would instead be encoded explicitly. The following values are generated by running that example:
+
+```text
+Gradient for Theta1: [[0.0136533  0.00676217 0.00569113 0.00647519]
+ [0.025253   0.0127096  0.01243469 0.01228397]
+ [0.11428676 0.05134049 0.04121622 0.05063224]
+ [0.11572541 0.05346377 0.04723076 0.05106483]
+ [0.12357188 0.0557378  0.05115498 0.05245192]]
+Gradient for Theta2: [[0.5365768  0.47289456 0.40409263 0.32762688 0.42385821 0.3859348 ]
+ [0.38571614 0.34694839 0.29523439 0.24210267 0.30991434 0.2842118 ]]
 ```
 
-### Gradient Checking
+## Gradient Checking
 
 Due to the complexity of backpropagation, implementing it correctly is crucial. Gradient checking is a technique to validate the correctness of the computed gradients.
 
 Steps in Gradient Checking:
 
 1. **Function $J(\Theta)$:** Start with a function representing the cost.
-2. **Compute Perturbed Weights:** Calculate $J(\Theta + \epsilon)$ and $J(\Theta - \epsilon)$, where $\epsilon$ is a small value.
+2. **Perturb One Coordinate:** For parameter j, evaluate $J(\theta+\epsilon e_j)$ and $J(\theta-\epsilon e_j)$, leaving every other parameter fixed.
 3. **Slope Estimation:** The derivative is approximated by the slope of the straight line joining these two points.
 
 ![Gradient Checking Visualization](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/gradient_checking.png)
 
 Gradient checking serves as a diagnostic tool to ensure that the backpropagation implementation is correct. However, it's computationally expensive and typically used only for debugging and not during regular training.
+
+## Derive the Output and Hidden-Layer Gradients
+
+For one sigmoid output, Bernoulli loss has derivative $p-y$ with respect to its logit. For a batch averaged over m examples, define $\delta_2=(p-y)/m$. With hidden activations A, output weights $w_2$, and output bias $b_2$,
+
+$$
+\nabla_{w_2}J=A^\top\delta_2+\lambda w_2,\qquad
+\frac{\partial J}{\partial b_2}=\sum_i(\delta_2)_i.
+$$
+
+This section uses average data loss plus $\lambda/2$ times the squared weight norms. The earlier course convention has $\lambda/(2m)$, so its regularization gradient includes an extra division by m. The implementation and finite-difference objective must use one convention consistently.
+
+For sigmoid hidden activations,
+
+$$
+\Delta_1=(\delta_2w_2^\top)\odot A\odot(1-A),\qquad
+\nabla_{W_1}J=X^\top\Delta_1+\lambda W_1,\qquad
+\nabla_{b_1}J=\sum_i(\Delta_1)_{i,:}.
+$$
+
+The outer product sends each example's output derivative to each hidden unit through that unit's output weight. The elementwise factors differentiate the hidden sigmoid. Bias gradients sum across examples, and weight gradients combine those derivatives with inputs. Biases are excluded from the penalty.
+
+## A Complete Gradient Check and Learned XOR Fit
+
+The following network has two inputs, three hidden units, and one binary output. Its 13 parameters include both sets of biases. The same function returns loss and gradient so the optimizer receives a matched pair.
+
+```python
+import numpy as np
+from scipy.optimize import minimize
+from scipy.special import expit
+X = np.array([[0.0, 0.0], [0.0, 1.0], [1.0, 0.0], [1.0, 1.0]])
+y = np.array([0.0, 1.0, 1.0, 0.0])
+lam = 0.001
+
+def loss_gradient(theta):
+    W1, b1 = (theta[:6].reshape(2, 3), theta[6:9])
+    W2, b2 = (theta[9:12], theta[12])
+    hidden = expit(X @ W1 + b1)
+    z = hidden @ W2 + b2
+    loss = np.mean(np.logaddexp(0.0, z) - y * z)
+    loss += lam / 2 * (np.sum(W1 ** 2) + W2 @ W2)
+    delta2 = (expit(z) - y) / len(y)
+    delta1 = delta2[:, None] * W2 * hidden * (1 - hidden)
+    gradient = np.r_[(X.T @ delta1 + lam * W1).ravel(), delta1.sum(axis=0), hidden.T @ delta2 + lam * W2, delta2.sum()]
+    return (loss, gradient)
+rng = np.random.default_rng(2)
+initial = rng.normal(0.0, 1.0, 13)
+epsilon = 1e-05
+numerical = np.array([(loss_gradient(initial + epsilon * e)[0] - loss_gradient(initial - epsilon * e)[0]) / (2 * epsilon) for e in np.eye(len(initial))])
+analytic = loss_gradient(initial)[1]
+relative_error = np.linalg.norm(analytic - numerical) / (np.linalg.norm(analytic) + np.linalg.norm(numerical))
+assert relative_error < 1e-07
+result = minimize(loss_gradient, initial, jac=True, method='BFGS', options={'maxiter': 2000, 'gtol': 1e-08})
+W1, b1 = (result.x[:6].reshape(2, 3), result.x[6:9])
+probability = expit(expit(X @ W1 + b1) @ result.x[9:12] + result.x[12])
+np.testing.assert_array_equal(probability >= 0.5, y)
+assert result.fun < loss_gradient(initial)[0] / 3
+assert np.linalg.norm(loss_gradient(result.x)[1]) < 1e-05
+print('gradient-check relative error:', f'{relative_error:.2e}')
+print('initial/final objective:', round(loss_gradient(initial)[0], 6), round(result.fun, 6))
+print('learned XOR probabilities:', np.round(probability, 6))
+```
+
+The relative gradient discrepancy is about $1.46\times10^{-10}$ in the tested environment. Starting from the seeded initialization, the penalized objective falls from about 0.716415 to 0.155506. Learned probabilities are approximately $(0.042945,0.957055,0.957055,0.042945)$, reproducing the four XOR labels at threshold one half.
+
+These checks establish a working objective, gradient, and successful optimization run for the fixture. Neural-network training is nonconvex; another initialization can reach a different stationary point. Recording the initialization, objective convention, stopping tolerance, and resulting predictions makes the example reproducible without claiming a universal optimum.
+
+## What a Finite-Difference Check Can Miss
+
+Central differences approximate coordinate derivatives with error of order $\epsilon^2$ for a sufficiently smooth objective. Making epsilon extremely small amplifies floating-point cancellation; making it too large measures curvature over a wider interval. A value near $10^{-5}$ is useful for this float64 fixture, rather than a universal setting.
+
+Check all coordinates of a small model, including biases and penalized weights, before sampling coordinates in a large model. Compare gradients at more than one nontrivial point, since symmetry or zero initialization can accidentally hide an indexing error. A matching gradient does not validate label encoding, train/test separation, or whether the objective represents the intended task.
+
+Zero-initializing all hidden units gives them identical activations and gradients, preserving their symmetry. Randomly differing parameters allow different learned features. Very large sigmoid weights can saturate units and reduce their derivatives toward zero. These numerical mechanisms explain why initialization and scaling influence training even when backpropagation itself is correct.
 
 ## Reference
 

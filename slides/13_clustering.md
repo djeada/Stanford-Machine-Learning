@@ -1,8 +1,8 @@
-## Clustering in Unsupervised Learning
+# Clustering in Unsupervised Learning
 
-Unsupervised learning, a core component of machine learning, focuses on discerning the inherent structure of data without any labeled examples. Clustering, a pivotal task in unsupervised learning, aims to organize data into meaningful groups or clusters. A quintessential algorithm for clustering is the K-means algorithm.
+Clustering summarizes inputs by assigning observations to groups under a chosen notion of similarity. K-means represents each group by a centroid and minimizes squared Euclidean reconstruction distance. Its groups depend on feature scaling, the number of centroids, and initialization; they need a substantive interpretation after fitting.
 
-### Overview of Clustering
+## Overview of Clustering
 
 I. **Objective**: To uncover hidden patterns and structures in unlabeled data.
 
@@ -13,7 +13,7 @@ II. **Applications**:
 - Organizing computer clusters and data centers based on network structure and location.
 - Analyzing astronomical data for insights into galaxy formation.
 
-### The K-means Algorithm
+## The K-means Algorithm
 
 K-means is a widely-used algorithm for clustering, celebrated for its simplicity and efficacy. It works as follows:
 
@@ -29,7 +29,7 @@ K-means is a widely-used algorithm for clustering, celebrated for its simplicity
 
 4. **Iteration**: Repeat the assignment and update steps until convergence is reached.
 
-### K-means for Non-separated Clusters
+## K-means for Non-separated Clusters
 
 K-means isn't limited to datasets with well-defined clusters. It's also effective in situations where cluster boundaries are ambiguous:
 
@@ -39,11 +39,11 @@ K-means isn't limited to datasets with well-defined clusters. It's also effectiv
 
 - **Market Segmentation**: This approach can be likened to market segmentation, where the goal is to tailor products to suit different subpopulations, even if clear divisions among these groups are not initially apparent.
 
-### Optimization Objective
+## Optimization Objective
 
 The goal of the K-means algorithm is to minimize the total sum of squared distances between data points and their respective cluster centroids. This objective leads to the formation of clusters that are as compact and distinct as possible given the chosen value of `k`.
 
-### Tracking Variables in K-means
+## Tracking Variables in K-means
 
 During the K-means process, two sets of variables are pivotal:
 
@@ -51,7 +51,7 @@ During the K-means process, two sets of variables are pivotal:
 2. **Centroid Location ($\mu_k$)**: This represents the location of centroid $k$.
 3. **Centroid of Assigned Cluster ($\mu_{c^{(i)}}$)**: This is the centroid of the cluster to which the data point $x^i$ has been assigned.
 
-### The Optimization Objective
+## The Optimization Objective
 
 The goal of K-means is formulated as minimizing the following cost function:
 
@@ -61,7 +61,7 @@ This function calculates the average of the squared distances from each data poi
 
 ![Cost Function Visualization](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/cost_cluster.png)
 
-### Algorithm Steps and Optimization
+## Algorithm Steps and Optimization
 
 K-means consists of two steps, each minimizing the cost function in different respects:
 
@@ -70,7 +70,7 @@ K-means consists of two steps, each minimizing the cost function in different re
 
 These steps are iterated until the algorithm converges, ensuring both parts of the algorithm work together to minimize the cost function.
 
-### Random Initialization
+## Random Initialization
 
 K-means can converge to different solutions based on the initial placement of centroids.
 
@@ -98,20 +98,23 @@ def initialize_centroids(X, k):
 def assign_clusters(X, centroids):
     return np.argmin(np.linalg.norm(X[:, np.newaxis] - centroids, axis=2), axis=1)
 
-def move_centroids(X, labels, k):
-    return np.array([X[labels == i].mean(axis=0) for i in range(k)])
+def move_centroids(X, labels, k, previous):
+    return np.array([X[labels == i].mean(axis=0) if np.any(labels == i)
+                     else previous[i] for i in range(k)])
 
 def compute_cost(X, labels, centroids):
-    return np.sum((X - centroids[labels])**2)
+    return np.mean(np.sum((X - centroids[labels])**2, axis=1))
 
 def k_means(X, k, max_iters=100):
     centroids = initialize_centroids(X, k)
     for _ in range(max_iters):
         labels = assign_clusters(X, centroids)
-        new_centroids = move_centroids(X, labels, k)
-        if np.all(centroids == new_centroids):
-            break
+        new_centroids = move_centroids(X, labels, k, centroids)
+        converged = np.allclose(centroids, new_centroids, rtol=0, atol=1e-10)
         centroids = new_centroids
+        if converged:
+            break
+    labels = assign_clusters(X, centroids)
     cost = compute_cost(X, labels, centroids)
     return labels, centroids, cost
 
@@ -120,14 +123,14 @@ def run_k_means(X, k, num_runs=100):
     best_labels = None
     best_centroids = None
     lowest_cost = float('inf')
-    
+
     for _ in range(num_runs):
         labels, centroids, cost = k_means(X, k)
         if cost < lowest_cost:
             lowest_cost = cost
             best_labels = labels
             best_centroids = centroids
-            
+
     return best_labels, best_centroids, lowest_cost
 
 # Parameters
@@ -146,11 +149,11 @@ plt.ylabel('Feature 2')
 plt.show()
 ```
 
-Below is a static plot showing the optimal K-means clustering with $k=4$. Different colors represent the clusters, and the red 'X' markers indicate the centroids. This configuration has the lowest cost after running the algorithm 100 times with various random initializations.
+Below is a static plot showing the best clustering found with $k=4$. Different colors represent the clusters, and the red 'X' markers indicate the centroids. This configuration has the lowest cost after running the algorithm 100 times with various random initializations.
 
 ![Figure_1](https://github.com/djeada/Stanford-Machine-Learning/assets/37275728/b10c5238-7449-4a3c-a79f-53036f0adc09)
 
-### The Elbow Method
+## The Elbow Method
 
 Choosing the optimal number of clusters (K) is a challenge in K-means. The Elbow Method is a heuristic used to determine this:
 
@@ -178,20 +181,23 @@ def initialize_centroids(X, k):
 def assign_clusters(X, centroids):
     return np.argmin(np.linalg.norm(X[:, np.newaxis] - centroids, axis=2), axis=1)
 
-def move_centroids(X, labels, k):
-    return np.array([X[labels == i].mean(axis=0) for i in range(k)])
+def move_centroids(X, labels, k, previous):
+    return np.array([X[labels == i].mean(axis=0) if np.any(labels == i)
+                     else previous[i] for i in range(k)])
 
 def compute_cost(X, labels, centroids):
-    return np.sum((X - centroids[labels])**2)
+    return np.mean(np.sum((X - centroids[labels])**2, axis=1))
 
 def k_means(X, k, max_iters=100):
     centroids = initialize_centroids(X, k)
     for _ in range(max_iters):
         labels = assign_clusters(X, centroids)
-        new_centroids = move_centroids(X, labels, k)
-        if np.all(centroids == new_centroids):
-            break
+        new_centroids = move_centroids(X, labels, k, centroids)
+        converged = np.allclose(centroids, new_centroids, rtol=0, atol=1e-10)
         centroids = new_centroids
+        if converged:
+            break
+    labels = assign_clusters(X, centroids)
     cost = compute_cost(X, labels, centroids)
     return labels, centroids, cost
 
@@ -200,14 +206,14 @@ def run_k_means(X, k, num_runs=100):
     best_labels = None
     best_centroids = None
     lowest_cost = float('inf')
-    
+
     for _ in range(num_runs):
         labels, centroids, cost = k_means(X, k)
         if cost < lowest_cost:
             lowest_cost = cost
             best_labels = labels
             best_centroids = centroids
-            
+
     return best_labels, best_centroids, lowest_cost
 
 # Define the function to compute the cost for different values of k
@@ -236,6 +242,75 @@ plt.show()
 Below is a static plot illustrating the Elbow Method for determining the optimal number of clusters ($k$). The plot shows the cost function $J$ as a function of $k$. The "elbow" point, where the rate of decrease in cost significantly changes, is a good indicator of the optimal $k$.
 
 ![Figure_1](https://github.com/djeada/Stanford-Machine-Learning/assets/37275728/ec42478e-bbfa-492f-9ade-8a760455b3de)
+
+## Derive Both Steps from the Same Objective
+
+With centroids fixed, each assignment minimizes its own squared-distance term by choosing the nearest centroid. With assignments fixed, a nonempty cluster's objective is $\sum_{i:c_i=k}\|x_i-\mu_k\|^2$. Differentiating gives
+
+$$
+2\sum_{i:c_i=k}(\mu_k-x_i)=0,
+\qquad
+\mu_k=\frac{1}{m_k}\sum_{i:c_i=k}x_i.
+$$
+
+The mean is therefore the exact minimizer for that step. Replacing squared Euclidean distance by absolute distance would instead lead to coordinate medians. A different distance and unchanged mean update do not automatically optimize one coherent objective.
+
+Each alternating step cannot increase the objective, but the joint problem is nonconvex. Convergence to a stable assignment does not prove the best possible partition. Multiple starts improve the search, and a deterministic tie rule makes ambiguous assignments reproducible.
+
+## Worked Assignment and Centroid Update
+
+Take one-dimensional observations $0,2,8,10$ with initial centers zero and ten. Their squared distances to the two centers are $(0,100),(4,64),(64,4),(100,0)$. The first two join the first cluster and the other two the second.
+
+Updated means are $(0+2)/2=1$ and $(8+10)/2=9$. The squared-distance sum drops from eight to four. The course's average distortion is then $4/4=1$, while scikit-learn reports the sum as inertia.
+
+```python
+import numpy as np
+from sklearn.cluster import KMeans
+X = np.array([[0.0], [2.0], [8.0], [10.0]])
+initial = np.array([[0.0], [10.0]])
+
+def assign(X, centers):
+    distances = np.sum((X[:, None, :] - centers[None, :, :]) ** 2, axis=2)
+    return distances.argmin(axis=1)
+
+def update(X, labels, previous):
+    centers = previous.copy()
+    for k in range(len(centers)):
+        members = X[labels == k]
+        if len(members):
+            centers[k] = members.mean(axis=0)
+    return centers
+
+def inertia(X, centers):
+    labels = assign(X, centers)
+    return np.sum((X - centers[labels]) ** 2)
+labels = assign(X, initial)
+centers = update(X, labels, initial)
+np.testing.assert_array_equal(labels, [0, 0, 1, 1])
+np.testing.assert_allclose(centers, [[1.0], [9.0]])
+np.testing.assert_allclose([inertia(X, initial), inertia(X, centers)], [8.0, 4.0])
+library = KMeans(n_clusters=2, init=initial, n_init=1, algorithm='lloyd', tol=1e-12).fit(X)
+np.testing.assert_allclose(np.sort(library.cluster_centers_[:, 0]), [1.0, 9.0])
+np.testing.assert_allclose(library.inertia_, inertia(X, centers))
+empty = np.array([[0.0], [10.0], [100.0]])
+assert np.isfinite(update(X, assign(X, empty), empty)).all()
+print('assignments:', labels, 'updated centers:', centers.ravel())
+print('inertia/course distortion:', library.inertia_, library.inertia_ / len(X))
+```
+
+The comparison uses identical initial centers and one initialization, isolating the algorithm from randomness. Sorting the centroids permits comparison without relying on arbitrary cluster IDs. In general, swapping all cluster labels preserves the same partition and objective.
+
+An empty cluster has no mean. This example deliberately retains its previous center, making the behavior explicit and finite. Another implementation can relocate it, so empty-cluster cases need not match this policy. Final labels are recomputed from final centers, including when an iteration limit is reached.
+
+## Interpret Distortion and Choose K for the Task
+
+The globally minimal squared distortion cannot increase when K increases, since an extra center can reproduce or improve an existing solution. Separate local optimization runs can violate an apparent monotone curve because they find different local solutions. More restarts or comparable initialization helps distinguish a search problem from a change in the objective.
+
+An elbow is a visual tradeoff, not an identified true number of populations. For product sizes, compare manufacturing constraints and coverage; for compression, compare reconstruction error and storage. A cluster pattern can be stable under the objective and still be unsuitable for the intended decision.
+
+Squaring distances emphasizes outliers. Features measured on large numerical scales dominate raw Euclidean distance. Standardization changes the geometry and should reflect the question, while fitting any learned transform only on permitted training data. Spherical compact groups are a preference of the squared-distance objective; curved, unequal-density, or strongly elongated groups may need a different model.
+
+For a two-dimensional point with feature changes $(1,100)$, raw squared distance is $10{,}001$. If the training feature scales are $(1,100)$, the standardized changes are $(1,1)$ with squared distance two. The same records can therefore produce a different partition without any error in either implementation.
 
 ## Reference
 

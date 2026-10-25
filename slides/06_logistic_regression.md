@@ -1,8 +1,8 @@
-## Logistic Regression
+# Logistic Regression
 
-Logistic regression is a statistical method used for classification in machine learning. Unlike linear regression, which predicts continuous values, logistic regression predicts discrete outcomes, like classifying an email as spam or not spam.
+Logistic regression is a statistical method used for classification in machine learning. Unlike linear regression, which predicts continuous values, logistic regression models a conditional class probability. A separate decision rule turns that probability into a label, such as spam or non-spam.
 
-### Classification 
+## Classification
 Yields discrete values (e.g., 0 or 1, representing classes).
 
 Examples:
@@ -11,12 +11,12 @@ Examples:
 - Online Transaction: Fraudulent (1) or Not Fraudulent (0).
 - Tumor Diagnosis: Malignant (1) or Benign (0).
 
-### Logistic Regression vs Linear Regression
+## Logistic Regression vs Linear Regression
 Applying linear regression to classification tasks, like cancer diagnosis, may not yield effective results, especially when the data doesn't fit well into a linear model.
 
 ![cancer_classification](https://user-images.githubusercontent.com/37275728/201496614-36ec47d4-437e-4d25-82bf-27289489a5a7.png)
 
-### Hypothesis Representation
+## Hypothesis Representation
 
 - Classifier output should be between 0 and 1 (probability).
 - Hypothesis $h_{\theta}(x) = g(\theta^Tx)$.
@@ -34,27 +34,27 @@ $$
 
 - The output of $h_{\theta}(x)$ is interpreted as the probability of the positive class given the input $x$.
   $$ h_{\theta}(x) = P(y=1|x\ ;\ \theta) $$
-- **Example**: If $h_{\theta}(x) = 0.7$ for a tumor, it implies a 70% chance of the tumor being malignant.
+- **Example**: A fitted value of 0.7 is the model's estimated positive-class probability. Whether predictions near 0.7 correspond to about 70% positives is a calibration question assessed with suitable held-out data.
 
-### Sigmoid Function
+## Sigmoid Function
 Visualizes how $h_{\theta}(x)$ translates a linear combination of inputs into a probability:
-  
+
 ![sigmoid](https://user-images.githubusercontent.com/37275728/201496643-38a45685-61a5-4af4-bf24-2acaa22ef1ff.png)
 
-### Decision Boundary in Logistic Regression
+## Decision Boundary in Logistic Regression
 
 The decision boundary in logistic regression is critical for classification tasks. It separates the different classes based on the probability calculated using the sigmoid function.
 
-#### Linear Decision Boundary
+### Linear Decision Boundary
 
-- **Principle**: Predict $y = 1$ if the probability is greater than 0.5, else predict $y = 0$.
+- **Principle**: Here the rule predicts $y=1$ for probability at least 0.5 and $y=0$ otherwise; a tie at 0.5 is assigned consistently to the positive class.
 - **Hypothesis**: $h_{\theta}(x) = g(\theta^T x)$, where $g$ is the sigmoid function.
 - **Predicting $y = 1$**: Occurs when $\theta^T x \geq 0$.
-- **Predicting $y = 0$**: Occurs when $\theta^T x \leq 0$.
+- **Predicting $y = 0$**: Under that rule, occurs when $\theta^Tx<0$.
 
-#### Example of a Linear Decision Boundary
+### Example of a Linear Decision Boundary
 
-Hypothesis: 
+Hypothesis:
 
 $$
 h_{\theta}(x) = g(\theta_0 + \theta_1x_1 + \theta_2x_2)
@@ -117,12 +117,12 @@ plt.grid(True)
 plt.show()
 ```
 
-#### Non-linear Decision Boundaries
+### Non-linear Decision Boundaries
 - **Purpose**: To fit more complex, non-linear datasets.
 - **Approach**: Introduce polynomial terms in the hypothesis.
 
-#### Example of a Non-linear Decision Boundary
-Hypothesis: 
+### Example of a Non-linear Decision Boundary
+Hypothesis:
 
 $$
 h_{\theta}(x) = g(\theta_0 + \theta_1x_1 + \theta_2x_1^2 + \theta_3x_2^2)
@@ -192,18 +192,18 @@ plt.gca().set_aspect('equal', adjustable='box')
 plt.show()
 ```
 
-### Cost Function for Logistic Regression
+## Cost Function for Logistic Regression
 
 Logistic regression uses a different cost function compared to linear regression, tailored to the classification setting.
 
-#### Training Set Representation
+### Training Set Representation
 Consider a training set of $m$ examples:
 
 $$ \{(x^{(1)}, y^{(1)}), ..., (x^{(m)}, y^{(m)})\} $$
 
 where
 
-$$  
+$$
 x = \begin{bmatrix}
     x_0 \\
     x_1 \\
@@ -214,13 +214,13 @@ $$
 
 with $x_0 = 1$ and $y$ being either 0 or 1.
 
-#### Linear Regression Cost Function
+### Linear Regression Cost Function
 In linear regression, the cost function $J(\theta)$ is defined as:
 
 $$ J(\theta) = \frac{1}{2m} \sum_{i=1}^{m}(h_{\theta}(x^{(i)}) - y^{(i)})^2 $$
 
-#### Defining Cost for Logistic Regression
-For logistic regression, we define a different "cost" function:
+### Defining Cost for Logistic Regression
+If we apply squared error to the sigmoid prediction, the per-example loss would be:
 
 $$ cost(h_{\theta}(x^{(i)}), y^{(i)}) = \frac{1}{2} (h_{\theta}(x^{(i)}) - y^{(i)})^2 $$
 
@@ -228,9 +228,9 @@ Redefining $J(\theta)$:
 
 $$ J(\theta) = \frac{1}{m} \sum_{i=1}^{m}cost(h_{\theta}(x^{(i)}), y^{(i)}) $$
 
-This cost function for logistic regression is not convex, leading to potential issues with local optima.
+As a function of the coefficients, squared error composed with a sigmoid is generally nonconvex. The Bernoulli negative log-likelihood below instead gives a convex objective for a fixed linear feature map.
 
-#### Logistic Regression Cost Function
+### Logistic Regression Cost Function
 The logistic regression cost function is defined as:
 
 $$
@@ -245,7 +245,7 @@ Then, the overall cost function $J(\theta)$ becomes:
 $$J(\theta) = \frac{1}{m} \sum_{i=1}^{m}[-y^{(i)}\log(h_{\theta}(x^{(i)})) - (1-y^{(i)})\log(1 - h_{\theta}(x^{(i)}))]
 $$
 
-#### Gradient of the Cost Function
+### Gradient of the Cost Function
 The gradient of $J(\theta)$ for logistic regression is:
 
 $$
@@ -271,7 +271,8 @@ def hypothesis(theta, X):
 def compute_cost(theta, X, y):
     m = len(y)
     h = hypothesis(theta, X)
-    cost = (-1 / m) * np.sum(y * np.log(h) + (1 - y) * np.log(1 - h))
+    z = X @ theta
+    cost = np.mean(np.logaddexp(0.0, z) - y * z)
     return cost
 
 # Gradient of the cost function
@@ -289,33 +290,33 @@ if __name__ == "__main__":
                   [1, 3, 3.5],
                   [1, 2, 2.5]])
     y = np.array([0, 0, 1, 1])
-    
+
     # Initial theta
     theta = np.array([0, 0, 0])
-    
+
     # Compute cost and gradient
     cost = compute_cost(theta, X, y)
     gradient = compute_gradient(theta, X, y)
-    
+
     print("Cost:", cost)
     print("Gradient:", gradient)
 ```
 
 In the example usage, we define a small sample dataset with features $X$ and labels $y$, initialize the theta vector, and compute both the cost and the gradient. The computed cost and gradient are printed out for inspection.
 
-### Multiclass Classification Problems
+## Multiclass Classification Problems
 
 Logistic regression can be extended to handle multiclass classification problems through the "one-vs-all" (or "one-vs-rest") method.
 
-#### One-vs-All Approach
+### One-vs-All Approach
 The one-vs-all strategy involves training multiple binary classifiers, each focused on distinguishing one class from all other classes.
 
-#### Visualization of Multiclass Classification
+### Visualization of Multiclass Classification
 Consider a dataset with three classes: triangles, crosses, and squares.
 
 ![multiclass_classification](https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/resources/multiclass_classification.png)
 
-#### Implementing One-vs-All
+### Implementing One-vs-All
 The process involves splitting the training set into separate binary classification problems:
 
 1. **Triangle vs Others**: Train a classifier $h_{\theta}^{(1)}(x)$ to distinguish triangles (1) from crosses and squares (0).
@@ -342,7 +343,8 @@ def hypothesis(theta, X):
 def compute_cost(theta, X, y):
     m = len(y)
     h = hypothesis(theta, X)
-    cost = (-1 / m) * np.sum(y * np.log(h) + (1 - y) * np.log(1 - h))
+    z = X @ theta
+    cost = np.mean(np.logaddexp(0.0, z) - y * z)
     return cost
 
 # Gradient of the cost function
@@ -356,17 +358,26 @@ def compute_gradient(theta, X, y):
 def one_vs_all(X, y, num_labels, lambda_=0.1):
     m, n = X.shape
     all_theta = np.zeros((num_labels, n + 1))
-    
+
     # Add intercept term to X
     X = np.hstack((np.ones((m, 1)), X))
-    
+
     # Train each classifier
     for c in range(num_labels):
         initial_theta = np.zeros(n + 1)
-        options = {'maxiter': 50}
-        result = minimize(compute_cost, initial_theta, args=(X, (y == c).astype(int)), method='TNC', jac=compute_gradient, options=options)
+        options = {'maxiter': 500}
+        target = (y == c).astype(int)
+        def objective(theta):
+            return compute_cost(theta, X, target) + lambda_ * np.sum(theta[1:]**2)/(2*m)
+        def gradient(theta):
+            penalty = theta.copy()
+            penalty[0] = 0.0
+            return compute_gradient(theta, X, target) + lambda_*penalty/m
+        result = minimize(objective, initial_theta, method='L-BFGS-B', jac=gradient, options=options)
+        if not result.success:
+            raise RuntimeError(result.message)
         all_theta[c] = result.x
-    
+
     return all_theta
 
 # Prediction function for One-vs-All
@@ -388,11 +399,11 @@ if __name__ == "__main__":
                   [2.5, 3],
                   [1, 0.5]])
     y = np.array([0, 0, 1, 1, 2, 2, 1, 0])  # 0: Triangle, 1: Cross, 2: Square
-    
+
     # Train One-vs-All classifiers
     num_labels = 3
     all_theta = one_vs_all(X, y, num_labels)
-    
+
     # Make predictions
     predictions = predict_one_vs_all(all_theta, X)
     print("Predictions:", predictions)
@@ -402,11 +413,86 @@ if __name__ == "__main__":
 1. We define a small sample dataset with features $X$ and labels $y$.
 2. The `one_vs_all` function trains the classifiers.
 3. The `predict_one_vs_all` function makes predictions on the dataset.
-   
-#### Classification Decision
+
+### Classification Decision
 
 - When classifying a new example, compute the probability that it belongs to each class using the respective classifiers.
-- The class with the highest probability is chosen as the prediction.
+- The largest one-vs-rest score determines the predicted class. Separate sigmoid probabilities need not sum to one; multinomial softmax is a different joint probability model.
+
+## Derive the Loss from a Bernoulli Model
+
+For binary target y and model probability $p=\sigma(z)$, the likelihood is $p^y(1-p)^{1-y}$. Taking a negative logarithm gives $-y\log p-(1-y)\log(1-p)$. Substituting $p=e^z/(1+e^z)$ simplifies it to
+
+$$
+\ell(z,y)=\log(1+e^z)-yz.
+$$
+
+The derivative with respect to z is $\sigma(z)-y$. The chain rule with $z=x^\top\theta$ produces $(p-y)x$. This cancellation is specific to sigmoid activation combined with Bernoulli cross-entropy; multiplying by another sigmoid derivative would give the wrong gradient for this loss.
+
+The Hessian of average loss is $X^\top D X/m$, with diagonal $D_{ii}=p_i(1-p_i)\geq0$. It is positive semidefinite, explaining convexity. A finite unregularized optimum is a separate question: completely separable data can keep reducing their loss as coefficient magnitudes grow without bound.
+
+## Worked Calculation and an Independent Fit
+
+Use inputs $-2,-1,1,2$ with labels $0,1,0,1$. They cannot be separated by a one-dimensional threshold. At zero intercept and slope, every probability is one half, average loss is $\log2$, and the intercept derivative is zero. The slope derivative is
+
+$$
+\frac14\{(-2)(0.5)+(-1)(-0.5)+(1)(0.5)+(2)(-0.5)\}
+=-\frac14.
+$$
+
+The fitted intercept is approximately zero by symmetry, the slope approximately 0.419618, and minimized average loss about 0.641953. These are probability estimates for a small constructed dataset, rather than perfect label predictions.
+
+```python
+import numpy as np
+from scipy.optimize import minimize
+from scipy.special import expit
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import log_loss
+x = np.array([-2.0, -1.0, 1.0, 2.0])
+y = np.array([0.0, 1.0, 0.0, 1.0])
+X = np.column_stack([np.ones(4), x])
+
+def objective(theta):
+    z = X @ theta
+    return np.mean(np.logaddexp(0.0, z) - y * z)
+
+def gradient(theta):
+    return X.T @ (expit(X @ theta) - y) / len(y)
+theta0 = np.zeros(2)
+np.testing.assert_allclose(objective(theta0), np.log(2.0))
+np.testing.assert_allclose(gradient(theta0), [0.0, -0.25])
+epsilon = 1e-05
+numerical = np.array([(objective(theta0 + epsilon * e) - objective(theta0 - epsilon * e)) / (2 * epsilon) for e in np.eye(2)])
+np.testing.assert_allclose(gradient(theta0), numerical, atol=1e-09)
+result = minimize(objective, theta0, jac=gradient, method='BFGS', options={'gtol': 1e-10})
+library = LogisticRegression(C=100000000.0, solver='lbfgs', tol=1e-12, max_iter=2000).fit(x[:, None], y)
+probability = expit(X @ result.x)
+np.testing.assert_allclose(probability, library.predict_proba(x[:, None])[:, 1], atol=1e-06)
+np.testing.assert_allclose(objective(result.x), log_loss(y, probability))
+assert np.linalg.norm(gradient(result.x)) < 1e-07
+extreme_z = np.array([-1000.0, 1000.0])
+assert np.isfinite(np.logaddexp(0.0, extreme_z)).all()
+print('initial gradient:', gradient(theta0))
+print('fitted coefficients:', np.round(result.x, 8), 'loss:', round(result.fun, 8))
+```
+
+The finite differences check the analytic gradient. A separate optimizer fits that implemented loss. Scikit-learn uses a very large C, making its L2 penalty negligible for this finite, nonseparable example; probabilities are compared within a tolerance. The metric implementation supplies an additional check of the loss value.
+
+For extreme logits, computing a sigmoid followed by logarithms can produce rounded probabilities of zero or one. NumPy's logaddexp evaluates $\log(1+e^z)$ without directly overflowing $e^z$. A confidently correct logit near a thousand can then have finite near-zero loss, while a confidently wrong logit has large finite loss.
+
+## A Threshold Encodes a Decision
+
+With threshold t, the positive-class rule becomes $z\geq\log(t/(1-t))$. At $t=0.5$ the cutoff is zero; at $t=0.8$ it is $\log4\approx1.3863$. Changing the threshold changes the decision without refitting the probability model.
+
+If a false positive costs $c_{\mathrm{FP}}$ and a false negative costs $c_{\mathrm{FN}}$, calibrated probabilities minimize conditional expected cost by predicting positive when
+
+$$
+c_{\mathrm{FP}}(1-p)\leq c_{\mathrm{FN}}p,
+\qquad
+p\geq\frac{c_{\mathrm{FP}}}{c_{\mathrm{FP}}+c_{\mathrm{FN}}}.
+$$
+
+The calculation requires the relevant costs and probabilities for the deployment population. A validation-selected threshold must be fixed before final test assessment. Good ranking, accurate probabilities, and a useful binary decision are related but distinct questions.
 
 ## Reference
 

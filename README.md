@@ -1,8 +1,8 @@
 <div align="center">
 <a href="https://github.com/djeada/Stanford-Machine-Learning/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/djeada/Stanford-Machine-Learning"></a>
 <a href="https://github.com/djeada/Stanford-Machine-Learning/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/djeada/Stanford-Machine-Learning"></a>
-<a href="https://github.com/djeada/Stanford-Machine-Learning/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/djeada/Stanford-Machine-Learning"></a>
-<a href=""><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a>
+<a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/djeada/Stanford-Machine-Learning"></a>
+<a href="https://github.com/djeada/Stanford-Machine-Learning/pulls"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a>
 </div>
 
 # Stanford-Machine-Learning
@@ -37,6 +37,19 @@ For an enhanced learning experience, I highly recommend visiting this [complemen
 | Week 17| Large Scale Machine Learning.           | <a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/17_large_scale_machine_learning.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a>
 | Week 18| Application Example - Photo OCR.        | <a href="https://github.com/djeada/Stanford-Machine-Learning/blob/main/slides/18_photo_ocr.md"><img src="https://img.icons8.com/color/344/markdown.png" height="50" /> </a>
 
+## Run the Worked Note Examples
+
+The notes include 17 standalone examples with explicit inputs, worked calculations, and executable assertions. They compare NumPy implementations with direct solutions or scikit-learn estimators, check gradients numerically, and verify metrics and array shapes.
+
+Use Python 3.12 with the tested example dependencies:
+
+```bash
+python -m pip install -r examples/requirements.txt
+python examples/verify_notes.py
+```
+
+The runner checks that each standalone example matches its inline copy in the corresponding note, then executes all 17. Inputs are small fixtures or datasets bundled with scikit-learn, so the checks require no data downloads. The example dependency file records the NumPy, SciPy, and scikit-learn versions used for these results. The original notebook environment remains documented in the root requirements file.
+
 ## Programming Exercises
 
 Explore my solutions to hands-on programming exercises to solidify your understanding of the concepts taught in the course.
@@ -64,4 +77,4 @@ We encourage contributions that enhance the repository's value. To contribute:
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE) - see the LICENSE file for details.
+This project is licensed under the [MIT License](https://github.com/djeada/Stanford-Machine-Learning/blob/main/LICENSE) - see the LICENSE file for details.
